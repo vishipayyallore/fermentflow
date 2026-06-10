@@ -79,7 +79,7 @@ FermentFlow extends the four baseline branches into nine intentional stages:
 01-LegacyMonolith          ← baseline 01-monolith_legacy
 02-ModularMonolith         ← split from baseline 02
 03-CQRS-VerticalSlices                    ← CQRS + vertical slice / feature folders
-04-EventSourcing           ← baseline 03-monolith_with_cqrs_and_event_sourcing
+04-CQRS-EventSourcing           ← baseline 03-monolith_with_cqrs_and_event_sourcing
 05-Microservices           ← baseline 04-microservices
 06-OutboxPattern           ← NEW
 07-CircuitBreaker          ← NEW
@@ -94,9 +94,9 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 | Branch | Focus | Key addition |
 |--------|-------|--------------|
 | 01 | Layered monolith, smells | Baseline |
-| 02 | Physical bounded contexts, modular monolith | Folder isolation, explicit boundaries |
+| 02 | Physical bounded contexts, modular monolith | Folder isolation, **architecture tests** |
 | 03 | CQRS + Vertical Slice Architecture | MediatR, `Features/` per use case |
-| 04 | Event sourcing | EventStoreDB, domain events, projections |
+| 04 | CQRS + Event sourcing | EventStoreDB; **CQRS and vertical slices retained** |
 | 05 | Microservices | Separate deployables per context |
 | 06 | Outbox pattern | Reliable messaging, no lost events |
 | 07 | Circuit breaker | Polly v8, sync call resilience |
@@ -109,6 +109,7 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 |------------|----|----|----|----|----|----|----|----|-----|
 | Monolith | ✓ | ✓ | ✓ | ✓ | | | | | |
 | Bounded contexts | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Architecture tests | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Vertical slices | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | CQRS | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Event sourcing | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -393,14 +394,20 @@ Phase 4 — Extend stages 06–09
 
 ---
 
-## Suggested ADRs for New Branches
+## Architecture Decision Records
 
-| ADR | Branch | Decision |
-|-----|--------|----------|
-| ADR-004 | 06 | Adopt transactional outbox for integration events |
-| ADR-005 | 07 | Add Polly resilience for sync cross-service calls |
-| ADR-006 | 08 | Adopt OpenTelemetry + Prometheus for observability |
-| ADR-007 | 09 | Adopt .NET Aspire for local orchestration and deployment |
+All major branch decisions are documented under [`docs/adr/`](../adr/README.md):
+
+| ADR | Branch |
+|-----|--------|
+| ADR-001 | 02-ModularMonolith |
+| ADR-002 | 03-CQRS-VerticalSlices |
+| ADR-003 | 04-CQRS-EventSourcing |
+| ADR-004 | 05-Microservices |
+| ADR-005 | 06-OutboxPattern |
+| ADR-006 | 07-CircuitBreaker |
+| ADR-007 | 08-Observability |
+| ADR-008 | 09-Aspire |
 
 ---
 
@@ -410,7 +417,7 @@ FermentFlow is Swamy's personal architecture laboratory for brewery logistics:
 
 1. **Nine stages** — from legacy monolith to .NET Aspire
 2. **Inventory** — clearer ubiquitous language than Warehouses
-3. **Building blocks** — replaces duplicated shared-library anti-patterns
+3. **Architecture tests + ADRs** — from branch 02; decisions in `docs/adr/`
 4. **Outbox** — reliable integration events
 5. **Polly + OpenTelemetry** — resilience and observability
 6. **Aspire at stage 09** — service discovery, orchestration, and local developer experience

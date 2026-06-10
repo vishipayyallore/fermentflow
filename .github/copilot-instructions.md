@@ -49,7 +49,7 @@ The business domain is **brewery logistics management**: Production → Inventor
 **Learning roadmap** (primary axis):
 
 ```text
-01-LegacyMonolith → 02-ModularMonolith → 03-CQRS-VerticalSlices → 04-EventSourcing
+01-LegacyMonolith → 02-ModularMonolith → 03-CQRS-VerticalSlices → 04-CQRS-EventSourcing
 → 05-Microservices → 06-OutboxPattern → 07-CircuitBreaker
 → 08-Observability → 09-Aspire
 ```
@@ -111,7 +111,7 @@ See `docs/01-overview/06-running-locally.md` for stage-specific instructions.
 
 When asking Copilot for help:
 
-- Name the bounded context and evolution stage (e.g., "Sales aggregate on stage 04-EventSourcing")
+- Name the bounded context and evolution stage (e.g., "Sales aggregate on stage 04-CQRS-EventSourcing")
 - Specify whether the change is a command, query, domain event, or infrastructure concern
 - Ask for DDD rationale when introducing new types or cross-context communication
 - Request integration test coverage for behavioural changes

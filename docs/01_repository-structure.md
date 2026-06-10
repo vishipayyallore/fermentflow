@@ -16,7 +16,7 @@ fermentflow/
 │
 ├── src/                   # Application source code
 │
-├── tests/                 # Cross-service and architecture tests
+├── tests/                 # Architecture tests from branch 02; cross-service from branch 06
 │
 ├── tools/
 │   └── psscripts/
@@ -40,7 +40,7 @@ fermentflow/
         ↓
 03-CQRS-VerticalSlices
         ↓
-04-EventSourcing
+04-CQRS-EventSourcing
         ↓
 05-Microservices
         ↓
@@ -66,7 +66,7 @@ Per-branch folder layouts and characteristics: [08-branch-roadmap.md](01-overvie
 | 01-LegacyMonolith | Layered Architecture |
 | 02-ModularMonolith | DDD + Bounded Contexts |
 | 03-CQRS-VerticalSlices | CQRS + Vertical Slice Architecture |
-| 04-EventSourcing | Domain Events + EventStoreDB |
+| 04-CQRS-EventSourcing | CQRS retained + domain events + EventStoreDB |
 | 05-Microservices | Service Decomposition |
 | 06-OutboxPattern | Reliable Messaging |
 | 07-CircuitBreaker | Resilience with Polly |
@@ -80,6 +80,10 @@ Per-branch folder layouts and characteristics: [08-branch-roadmap.md](01-overvie
 ```text
 docs/
 ├── 01_repository-structure.md    # This file — layout, roadmap, naming
+├── adr/                          # Architecture Decision Records (branch 02 onward)
+│   ├── README.md
+│   ├── ADR-001-introduce-modular-monolith.md
+│   └── …
 ├── agent-skills.md
 ├── agent-subagents.md
 ├── agent-governance-recovery.md
@@ -104,7 +108,7 @@ docs/
 01-LegacyMonolith
 02-ModularMonolith
 03-CQRS-VerticalSlices
-04-EventSourcing
+04-CQRS-EventSourcing
 05-Microservices
 06-OutboxPattern
 07-CircuitBreaker
@@ -128,16 +132,47 @@ FermentFlow.Production.Infrastructure
 
 ### Building Blocks
 
+Early branches (02–03) may start with:
+
 ```text
 FermentFlow.BuildingBlocks.Domain
 FermentFlow.BuildingBlocks.Application
-FermentFlow.BuildingBlocks.Infrastructure
-FermentFlow.BuildingBlocks.EventSourcing
-FermentFlow.BuildingBlocks.Messaging
-FermentFlow.BuildingBlocks.Outbox
-FermentFlow.BuildingBlocks.Resilience
-FermentFlow.BuildingBlocks.Observability
+FermentFlow.BuildingBlocks.Infrastructure   # temporary; avoid growing into a dumping ground
 ```
+
+Target evolution (branch 04 onward) splits concerns explicitly:
+
+```text
+BuildingBlocks/
+├── Domain
+├── Application
+├── Persistence          # EF Core, repositories — replaces generic Infrastructure
+├── EventSourcing        # branch 04+
+├── Messaging            # MassTransit abstractions
+├── Outbox               # branch 06+
+├── Resilience           # branch 07+
+├── Observability        # branch 08+
+└── Testing              # shared test fixtures and fakes
+```
+
+Project naming: `FermentFlow.BuildingBlocks.<Concern>` (e.g. `FermentFlow.BuildingBlocks.Outbox`).
+
+---
+
+## Architecture Tests (from Branch 02)
+
+```text
+tests/
+└── FermentFlow.Architecture.Tests    # NetArchTest.Rules or ArchUnitNET
+```
+
+Introduced on **`02-ModularMonolith`** and extended each branch. Example rules:
+
+- `Sales` must not reference `Inventory.Infrastructure` or `Production.Infrastructure`
+- Domain must not reference Application or Infrastructure
+- Application must not reference another context's Infrastructure
+
+See [ADR-001](adr/ADR-001-introduce-modular-monolith.md).
 
 ---
 
@@ -149,7 +184,7 @@ Legacy-named branches from the imported baseline map to early roadmap stages:
 |---------------|---------------|
 | `01-monolith_legacy` | 01-LegacyMonolith |
 | `02-monolith_with_cqrs` | 02-ModularMonolith (partial) → 03-CQRS-VerticalSlices (target) |
-| `03-monolith_with_cqrs_and_event_sourcing` | 04-EventSourcing |
+| `03-monolith_with_cqrs_and_event_sourcing` | 04-CQRS-EventSourcing |
 | `04-microservices` | 05-Microservices |
 
 ---

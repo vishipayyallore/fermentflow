@@ -3,11 +3,11 @@
 ![.NET](https://img.shields.io/badge/.NET-10-512BD4)
 ![DDD](https://img.shields.io/badge/DDD-Domain--Driven--Design-blue)
 ![CQRS](https://img.shields.io/badge/CQRS-MediatR-green)
-![Vertical Slice](https://img.shields.io/badge/Architecture-Vertical%20Slice-orange)
-![Event Sourcing](https://img.shields.io/badge/Event%20Sourcing-EventStoreDB-red)
-![Microservices](https://img.shields.io/badge/Microservices-RabbitMQ-yellow)
-![Outbox](https://img.shields.io/badge/Pattern-Outbox-brightgreen)
-![Polly](https://img.shields.io/badge/Polly-Resilience-blueviolet)
+![Vertical Slice](https://img.shields.io/badge/Architecture-Vertical%20Slices-orange)
+![Event Sourcing](https://img.shields.io/badge/EventStoreDB-Event%20Sourcing-red)
+![MassTransit](https://img.shields.io/badge/MassTransit-Messaging-purple)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791)
+![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Broker-FF6600)
 ![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Observability-informational)
 ![Aspire](https://img.shields.io/badge/.NET-Aspire-6E4AFF)
 
@@ -71,7 +71,7 @@ The repository intentionally evolves through multiple architectural stages.
         ↓
 03-CQRS-VerticalSlices
         ↓
-04-EventSourcing
+04-CQRS-EventSourcing
         ↓
 05-Microservices
         ↓
@@ -95,6 +95,7 @@ Optional future stages:
 11-GitHubActions
 12-AzureContainerApps
 13-EventDrivenSagas
+14-MultiTenancy
 ```
 
 ---
@@ -227,6 +228,7 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 | [Business domain](docs/01-overview/02-business-domain.md) | Domain flows and rules |
 | [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Baseline import comparison |
 | [Branch roadmap](docs/01-overview/08-branch-roadmap.md) | Per-branch layout and learning goals |
+| [Architecture decisions](docs/adr/README.md) | ADR index (branch 02 onward) |
 | [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |
 | [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md) | Full 9-stage roadmap |

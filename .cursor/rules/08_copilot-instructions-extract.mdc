@@ -23,7 +23,7 @@ globs: *
 ### Learning roadmap
 
 ```text
-01-LegacyMonolith → … → 03-CQRS-VerticalSlices → … → 09-Aspire
+01-LegacyMonolith → … → 03-CQRS-VerticalSlices → 04-CQRS-EventSourcing → … → 09-Aspire
 ```
 
 ---

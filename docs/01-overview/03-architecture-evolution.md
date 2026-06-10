@@ -127,6 +127,7 @@
 ## Related Documents
 
 - [Architecture Evolution Workbook](../diagrams/architecture-evolution-workbook.md) — step-by-step learning guide
-- [ADR-001: Introduce CQRS](../adr/ADR-001-introduce-cqrs.md)
-- [ADR-002: Introduce Event Sourcing](../adr/ADR-002-introduce-event-sourcing.md)
-- [ADR-003: Extract Microservices](../adr/ADR-003-extract-microservices.md)
+- [ADR-001: Introduce Modular Monolith](../adr/ADR-001-introduce-modular-monolith.md)
+- [ADR-002: Introduce CQRS with Vertical Slices](../adr/ADR-002-introduce-cqrs.md)
+- [ADR-003: Introduce Event Sourcing (Retain CQRS)](../adr/ADR-003-introduce-event-sourcing.md)
+- [ADR-004: Introduce Microservices](../adr/ADR-004-introduce-microservices.md)

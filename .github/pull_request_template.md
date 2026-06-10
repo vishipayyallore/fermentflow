@@ -19,7 +19,7 @@ A clear and concise description of what this PR does.
 - [ ] `01-LegacyMonolith`
 - [ ] `02-ModularMonolith`
 - [ ] `03-CQRS-VerticalSlices`
-- [ ] `04-EventSourcing`
+- [ ] `04-CQRS-EventSourcing`
 - [ ] `05-Microservices`
 - [ ] `06-OutboxPattern`
 - [ ] `07-CircuitBreaker`

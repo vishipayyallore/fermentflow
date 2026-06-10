@@ -35,14 +35,14 @@ Early baseline stages may use a flatter layout (monolith solution, legacy contex
 | `01-LegacyMonolith` | Layered monolith, architectural smells |
 | `02-ModularMonolith` | Physical bounded contexts, modular monolith |
 | `03-CQRS-VerticalSlices` | CQRS, MediatR, vertical slice / feature folders |
-| `04-EventSourcing` | EventStoreDB, domain events, projections |
+| `04-CQRS-EventSourcing` | CQRS retained + EventStoreDB, domain events, projections |
 | `05-Microservices` | Separate deployables per context |
 | `06-OutboxPattern` | Reliable integration events |
 | `07-CircuitBreaker` | Polly resilience |
 | `08-Observability` | OpenTelemetry, Prometheus, Grafana |
 | `09-Aspire` | Service discovery, orchestration, local developer experience |
 
-Full detail: [Branch roadmap](08-branch-roadmap.md) · [Repository structure](../01_repository-structure.md)
+Full detail: [Branch roadmap](08-branch-roadmap.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
 
 ## Baseline Stages (Imported Starting Point)
 
@@ -52,7 +52,7 @@ The earliest working code may arrive on legacy-named branches before the full ni
 |---------------|---------------|---------|
 | `01-monolith_legacy` | 01-LegacyMonolith | Single solution, layered architecture, shared MongoDB |
 | `02-monolith_with_cqrs` | 02-ModularMonolith → 03-CQRS-VerticalSlices (target) |
-| `03-monolith_with_cqrs_and_event_sourcing` | 04-EventSourcing | Event sourcing, RabbitMQ, ACL |
+| `03-monolith_with_cqrs_and_event_sourcing` | 04-CQRS-EventSourcing | Event sourcing, RabbitMQ, ACL |
 | `04-microservices` | 05-Microservices | Sales and Warehouses as separate services |
 
 ## Target Technology Stack

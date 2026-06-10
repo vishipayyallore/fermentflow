@@ -20,9 +20,9 @@ Each context owns its aggregates, persistence, and public integration contracts.
 | Stage | Pattern | Notes |
 |-------|---------|-------|
 | 01-LegacyMonolith | Layered monolith | Single deployable, shared DB |
-| 02-ModularMonolith | Bounded contexts | Physical module folders |
+| 02-ModularMonolith | Bounded contexts | Physical modules + **architecture tests** |
 | 03-CQRS-VerticalSlices | CQRS + vertical slices | MediatR, `Features/` per use case |
-| 04-EventSourcing | Event sourcing | EventStoreDB, projections |
+| 04-CQRS-EventSourcing | CQRS retained + event sourcing | EventStoreDB, projections |
 | 05-Microservices | Service decomposition | Separate deployables, Gateway |
 | 06-OutboxPattern | Transactional outbox | Reliable integration events |
 | 07-CircuitBreaker | Polly resilience | Retry, timeout, circuit breaker |

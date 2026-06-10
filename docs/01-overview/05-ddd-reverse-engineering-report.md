@@ -192,9 +192,10 @@ Integration: RabbitMQ integration events + Sales ACL.
 
 | Step | Key Change | ADR |
 |------|------------|-----|
-| 01 → 02 | Bounded contexts + CQRS + Mediator | [ADR-001](../adr/ADR-001-introduce-cqrs.md) |
-| 02 → 03 | Event sourcing + RabbitMQ + ACL | [ADR-002](../adr/ADR-002-introduce-event-sourcing.md) |
-| 03 → 04 | Extract microservices | [ADR-003](../adr/ADR-003-extract-microservices.md) |
+| 01 → 02 | Modular monolith + bounded contexts + architecture tests | [ADR-001](../adr/ADR-001-introduce-modular-monolith.md) |
+| 02 → 03 | CQRS + vertical slices | [ADR-002](../adr/ADR-002-introduce-cqrs.md) |
+| 03 → 04 | Event sourcing (CQRS retained) | [ADR-003](../adr/ADR-003-introduce-event-sourcing.md) |
+| 04 → 05 | Extract microservices | [ADR-004](../adr/ADR-004-introduce-microservices.md) |
 
 Full comparison: [Architecture Evolution](03-architecture-evolution.md).
 

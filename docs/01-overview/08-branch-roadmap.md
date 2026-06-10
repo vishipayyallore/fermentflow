@@ -2,7 +2,8 @@
 
 Per-branch source layout and learning focus for the nine-stage FermentFlow evolution.
 
-**Canonical index:** [Repository structure](../01_repository-structure.md) — roadmap, naming, and documentation layout.
+**Canonical index:** [Repository structure](../01_repository-structure.md) — roadmap, naming, and documentation layout.  
+**Decisions:** [Architecture Decision Records](../adr/README.md) — one ADR per major branch from 02 onward.
 
 ---
 
@@ -52,6 +53,9 @@ src/
 ├── BuildingBlocks/
 │
 └── FermentFlow.sln
+
+tests/
+└── FermentFlow.Architecture.Tests
 ```
 
 Characteristics:
@@ -60,6 +64,15 @@ Characteristics:
 - Modular monolith
 - Shared deployment
 - Explicit domain boundaries
+- **Architecture tests** (NetArchTest.Rules or ArchUnitNET) — see [ADR-001](../adr/ADR-001-introduce-modular-monolith.md)
+
+Example rules:
+
+```text
+Sales must not reference Inventory.Infrastructure
+Domain must not reference Application or Infrastructure
+Application must not reference another context's Infrastructure
+```
 
 ---
 
@@ -103,6 +116,9 @@ src/
 │   └── Infrastructure/
 │
 └── FermentFlow.sln
+
+tests/
+└── FermentFlow.Architecture.Tests
 ```
 
 Characteristics:
@@ -113,9 +129,13 @@ Characteristics:
 - Feature-based organization
 - Independent use-case slices
 
+Decision: [ADR-002](../adr/ADR-002-introduce-cqrs.md)
+
 ---
 
-## Branch 04 — Event Sourcing
+## Branch 04 — CQRS + Event Sourcing
+
+Branch **04** retains CQRS and vertical slices from branch 03 and **adds** event sourcing — see [ADR-003](../adr/ADR-003-introduce-event-sourcing.md).
 
 ```text
 src/
@@ -123,23 +143,27 @@ src/
 ├── BuildingBlocks/
 │   ├── Domain/
 │   ├── Application/
+│   ├── Persistence/
 │   ├── EventSourcing/
-│   └── Infrastructure/
+│   └── Messaging/
 │
-├── Sales/
+├── Sales/          # Features/, Domain/, Infrastructure/ retained
 ├── Inventory/
 ├── Production/
 │
 └── FermentFlow.sln
+
+tests/
+└── FermentFlow.Architecture.Tests
 ```
 
 Characteristics:
 
+- **CQRS retained** (commands, queries, MediatR, vertical slices)
 - EventStoreDB
-- Domain Events
-- Aggregate Rehydration
-- Projections
-- Event-Driven Domain Model
+- Domain events and aggregate rehydration
+- Projections for read models
+- Event-driven domain model
 
 ---
 
@@ -167,14 +191,19 @@ src/
 ├── BuildingBlocks/
 │
 └── Gateway/
+
+tests/
+└── FermentFlow.Architecture.Tests
 ```
 
 Characteristics:
 
 - Independent services
-- RabbitMQ integration events
-- Separate databases
+- RabbitMQ + MassTransit integration events
+- Separate databases per service
 - Separate deployments
+
+Decision: [ADR-004](../adr/ADR-004-introduce-microservices.md)
 
 ---
 
@@ -189,12 +218,14 @@ src/
 │
 ├── Services/
 │
-└── Tests/
+tests/
+├── FermentFlow.Architecture.Tests
+└── FermentFlow.Integration.Tests
 ```
 
 Characteristics:
 
-- Transactional Outbox
+- Transactional outbox (before circuit breaker — see [ADR-005](../adr/ADR-005-introduce-outbox.md))
 - Reliable publishing
 - Background processors
 - At-least-once delivery
@@ -211,17 +242,16 @@ src/
 │
 ├── Services/
 │
-└── Tests/
+tests/
+├── FermentFlow.Architecture.Tests
+└── FermentFlow.Integration.Tests
 ```
 
 Characteristics:
 
 - Polly v8
-- Retry
-- Timeout
-- Circuit Breaker
-- Fallback
-- Resilience Pipelines
+- Retry, timeout, circuit breaker, fallback
+- Resilience pipelines for sync calls — [ADR-006](../adr/ADR-006-introduce-circuit-breaker.md)
 
 ---
 
@@ -239,16 +269,15 @@ src/
 │   ├── Prometheus/
 │   └── Grafana/
 │
-└── Tests/
+tests/
+├── FermentFlow.Architecture.Tests
+└── FermentFlow.Integration.Tests
 ```
 
 Characteristics:
 
-- OpenTelemetry
-- Distributed Tracing
-- Metrics
-- Dashboards
-- Structured Logging
+- OpenTelemetry, Prometheus, Grafana — [ADR-007](../adr/ADR-007-introduce-observability.md)
+- Distributed tracing, metrics, structured logging
 
 ---
 
@@ -267,14 +296,25 @@ src/
 │
 ├── BuildingBlocks/
 │
-└── Tests/
+tests/
+├── FermentFlow.Architecture.Tests
+└── FermentFlow.Integration.Tests
 ```
 
 Characteristics:
 
-- .NET Aspire
-- Service Discovery
-- Resource Orchestration
-- Aspire Dashboard
-- Distributed Application Host
-- Local Cloud-Native Development
+- .NET Aspire — [ADR-008](../adr/ADR-008-introduce-aspire.md)
+- Service discovery, resource orchestration, Aspire dashboard
+- Local cloud-native development
+
+---
+
+## Optional Future Stages
+
+```text
+10-Kubernetes
+11-GitHubActions
+12-AzureContainerApps
+13-EventDrivenSagas      # Production → Inventory → Sales saga
+14-MultiTenancy
+```
