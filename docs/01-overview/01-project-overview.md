@@ -1,8 +1,8 @@
 # Project Overview
 
-## What Is BrewUp?
+## What Is FermentFlow?
 
-**BrewUp** is a sample application for the Packt book *Domain-driven Refactoring*. It models a fictional brewery logistics company that manages beer sales, warehouse inventory, and production-driven availability.
+**FermentFlow** is a sample application for the Packt book *Domain-driven Refactoring*. It models a fictional brewery logistics company that manages beer sales, warehouse inventory, and production-driven availability.
 
 The repository's primary value is not the application itself — it is the **refactoring journey** encoded in four git branches.
 
@@ -13,7 +13,7 @@ Domain-driven-Refactoring/
 ├── docs/                  # This documentation
 ├── docker/                # Infrastructure (MongoDB, EventStore, RabbitMQ)
 ├── src/                   # Application source code
-│   ├── BrewUp.sln         # Monolith solution (branches 01–03)
+│   ├── FermentFlow.sln         # Monolith solution (branches 01–03)
 │   ├── Sales/             # Sales bounded context (branches 02–04)
 │   └── Warehouses/        # Warehouses bounded context (branches 02–04)
 ├── tools/                 # Utility scripts
@@ -58,8 +58,8 @@ Domain-driven-Refactoring/
 git checkout 01-monolith_legacy
 cd docker && docker compose up -d
 cd ../src
-dotnet restore BrewUp.sln
-dotnet run --project BrewUp.Rest
+dotnet restore FermentFlow.sln
+dotnet run --project FermentFlow.Rest
 ```
 
 API: `http://localhost:5098`  
@@ -70,18 +70,18 @@ Swagger: `http://localhost:5098/documentation`
 ```bash
 git checkout 04-microservices
 cd docker && docker compose up -d
-cd ../src/Sales && dotnet run --project BrewUp.Sales.Rest
-cd ../Warehouses && dotnet run --project BrewUp.Warehouses.Rest
+cd ../src/Sales && dotnet run --project FermentFlow.Sales.Rest
+cd ../Warehouses && dotnet run --project FermentFlow.Warehouses.Rest
 ```
 
 ## Solutions by Branch
 
 | Branch | Solution(s) |
 |--------|-------------|
-| 01 | `src/BrewUp.sln` (6 projects) |
-| 02 | `src/BrewUp.sln` (~15 projects) |
-| 03 | `src/BrewUp.sln` (~18 projects) |
-| 04 | `src/Sales/BrewUp.Sales.sln`, `src/Warehouses/BrewUp.Warehouses.sln` |
+| 01 | `src/FermentFlow.sln` (6 projects) |
+| 02 | `src/FermentFlow.sln` (~15 projects) |
+| 03 | `src/FermentFlow.sln` (~18 projects) |
+| 04 | `src/Sales/FermentFlow.Sales.sln`, `src/Warehouses/FermentFlow.Warehouses.sln` |
 
 ## API Endpoints (Evolution)
 
@@ -89,5 +89,5 @@ cd ../Warehouses && dotnet run --project BrewUp.Warehouses.Rest
 |----------|-----------|-----------|--------------|
 | `POST /v1/sales/` | Create order | — (moved) | Create order (command bus) |
 | `GET /v1/sales/` | List orders | List orders | List orders |
-| `POST /v1/brewup/` | — | Create order (mediator) | — (removed) |
+| `POST /v1/FermentFlow/` | — | Create order (mediator) | — (removed) |
 | `POST /v1/warehouses/availabilities` | Set availability | Set availability | Set availability |

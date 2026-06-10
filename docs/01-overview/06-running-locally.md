@@ -26,7 +26,7 @@ MongoDB listens on **port 17017**.
 
 ```bash
 cd src
-dotnet run --project BrewUp.Rest
+dotnet run --project FermentFlow.Rest
 ```
 
 ### 3. Verify
@@ -49,7 +49,7 @@ curl -X POST http://localhost:5098/v1/sales/ \
     "orderDate": "2026-06-10T21:30:00Z",
     "rows": [{
       "beerId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
-      "beerName": "BrewUp IPA",
+      "beerName": "FermentFlow IPA",
       "quantity": { "value": 10, "unitOfMeasure": "Lt" },
       "price": { "value": 5, "currency": "EUR" }
     }]
@@ -63,7 +63,7 @@ curl -X POST http://localhost:5098/v1/warehouses/availabilities \
   -H "Content-Type: application/json" \
   -d '{
     "beerId": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
-    "beerName": "BrewUp IPA",
+    "beerName": "FermentFlow IPA",
     "quantity": { "value": 100, "unitOfMeasure": "Lt" }
   }'
 ```
@@ -72,7 +72,7 @@ curl -X POST http://localhost:5098/v1/warehouses/availabilities \
 
 ```bash
 cd src
-dotnet test BrewUp.Rest.Tests
+dotnet test FermentFlow.Rest.Tests
 ```
 
 Tests expect MongoDB at `mongodb://host.docker.internal:17017`.
@@ -84,10 +84,10 @@ Tests expect MongoDB at `mongodb://host.docker.internal:17017`.
 ```bash
 git checkout 02-monolith_with_cqrs
 cd docker && docker compose up -d
-cd ../src && dotnet run --project BrewUp.Rest
+cd ../src && dotnet run --project FermentFlow.Rest
 ```
 
-Create order via **`POST /v1/brewup/`** (not `/v1/sales/`).
+Create order via **`POST /v1/FermentFlow/`** (not `/v1/sales/`).
 
 ---
 
@@ -96,7 +96,7 @@ Create order via **`POST /v1/brewup/`** (not `/v1/sales/`).
 ```bash
 git checkout 03-monolith_with_cqrs_and_event_sourcing
 cd docker && docker compose up -d
-cd ../src && dotnet run --project BrewUp.Rest
+cd ../src && dotnet run --project FermentFlow.Rest
 ```
 
 Requires **all** Docker services: 3 EventStores, RabbitMQ, 4 MongoDB instances.  
@@ -119,14 +119,14 @@ cd docker && docker compose up -d
 **Terminal 1 — Sales:**
 ```bash
 cd src/Sales
-dotnet run --project BrewUp.Sales.Rest
+dotnet run --project FermentFlow.Sales.Rest
 ```
 → http://localhost:5155/documentation
 
 **Terminal 2 — Warehouses:**
 ```bash
 cd src/Warehouses
-dotnet run --project BrewUp.Warehouses.Rest
+dotnet run --project FermentFlow.Warehouses.Rest
 ```
 → http://localhost:5112/documentation
 

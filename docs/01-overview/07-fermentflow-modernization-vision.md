@@ -1,12 +1,12 @@
 # FermentFlow — Modernization Vision
 
-A proposed evolution of the BrewUp reference application into **FermentFlow**: a distinct, production-grade DDD learning platform that preserves the brewery logistics domain while extending the architectural journey.
+A proposed evolution of the FermentFlow reference application into **FermentFlow**: a distinct, production-grade DDD learning platform that preserves the brewery logistics domain while extending the architectural journey.
 
 ---
 
 ## Why FermentFlow?
 
-| Criterion | BrewUp (original) | FermentFlow (proposed) |
+| Criterion | FermentFlow (original) | FermentFlow (proposed) |
 |-----------|-------------------|------------------------|
 | Domain fit | Brewery logistics | Same — brewery logistics |
 | Name distinctiveness | Packt book sample | Standalone product identity |
@@ -49,19 +49,19 @@ Sales Orders
     ↓  (customer purchases in-stock beer)
 ```
 
-This is the same process BrewUp models today — FermentFlow makes it explicit in the name.
+This is the same process FermentFlow models today — FermentFlow makes it explicit in the name.
 
 ---
 
-## Mapping BrewUp → FermentFlow
+## Mapping FermentFlow → FermentFlow
 
-| BrewUp (current) | FermentFlow (proposed) | Notes |
+| FermentFlow (current) | FermentFlow (proposed) | Notes |
 |------------------|------------------------|-------|
-| `BrewUp` | `FermentFlow` | Rename solution, namespaces, Docker services |
+| `FermentFlow` | `FermentFlow` | Rename solution, namespaces, Docker services |
 | `Warehouses` | `Inventory` | Better ubiquitous language; "warehouse" becomes implementation detail |
 | `Availability` | `InventoryItem` or keep `Availability` | Aggregate name can stay; context is `Inventory` |
 | `Production` (contracts only) | `FermentFlow.Production` | Promote to full bounded context |
-| `BrewUp.Shared` | `FermentFlow.BuildingBlocks.*` | Replace duplicated shared libs with building blocks |
+| `FermentFlow.Shared` | `FermentFlow.BuildingBlocks.*` | Replace duplicated shared libs with building blocks |
 | Muflone | MediatR + MassTransit | Modern .NET ecosystem; easier for learners |
 | MongoDB (writes, branch 01) | PostgreSQL | Relational outbox, EF Core familiarity |
 | MongoDB (read models) | PostgreSQL or MongoDB | Either works; Postgres simplifies local dev |
@@ -76,11 +76,11 @@ This is the same process BrewUp models today — FermentFlow makes it explicit i
 The original Packt repo has 4 branches. FermentFlow extends to 9:
 
 ```text
-01-LegacyMonolith          ← maps to BrewUp 01-monolith_legacy
-02-ModularMonolith         ← maps to BrewUp 02-monolith_with_cqrs
-03-CQRS                    ← split from BrewUp 02 (explicit CQRS step)
-04-EventSourcing           ← maps to BrewUp 03-monolith_with_cqrs_and_event_sourcing
-05-Microservices           ← maps to BrewUp 04-microservices
+01-LegacyMonolith          ← maps to FermentFlow 01-monolith_legacy
+02-ModularMonolith         ← maps to FermentFlow 02-monolith_with_cqrs
+03-CQRS                    ← split from FermentFlow 02 (explicit CQRS step)
+04-EventSourcing           ← maps to FermentFlow 03-monolith_with_cqrs_and_event_sourcing
+05-Microservices           ← maps to FermentFlow 04-microservices
 06-OutboxPattern           ← NEW
 07-CircuitBreaker          ← NEW
 08-Observability           ← NEW
@@ -89,7 +89,7 @@ The original Packt repo has 4 branches. FermentFlow extends to 9:
 
 ### Why split CQRS and Event Sourcing?
 
-BrewUp branch 02 already has CQRS but branch 03 adds event sourcing — they are combined in one jump. Separating them makes each concept easier to teach:
+FermentFlow branch 02 already has CQRS but branch 03 adds event sourcing — they are combined in one jump. Separating them makes each concept easier to teach:
 
 | Branch | Focus | Key addition |
 |--------|-------|--------------|
@@ -216,7 +216,7 @@ Infrastructure → EF Core, EventStore, MassTransit, outbox, Polly
 
 ## Circuit Breaker Placement
 
-BrewUp branch 04 uses **only async messaging** between services. FermentFlow adds **synchronous paths with resilience** where low-latency reads are needed.
+FermentFlow branch 04 uses **only async messaging** between services. FermentFlow adds **synchronous paths with resilience** where low-latency reads are needed.
 
 ### When to use sync + Polly vs async messaging
 
@@ -261,9 +261,9 @@ Option 1 is recommended for learning; option 2 is common in production.
 
 ## Outbox Pattern
 
-The single biggest improvement over the original BrewUp architecture.
+The single biggest improvement over the original FermentFlow architecture.
 
-### Current BrewUp flow (branch 03–04)
+### Current FermentFlow flow (branch 03–04)
 
 ```text
 Aggregate → RaiseEvent → EventStore + RabbitMQ publish
@@ -325,7 +325,7 @@ CREATE TABLE outbox_messages (
 
 ## Technology Stack
 
-| Area | BrewUp (original) | FermentFlow (proposed) | Rationale |
+| Area | FermentFlow (original) | FermentFlow (proposed) | Rationale |
 |------|-------------------|------------------------|-----------|
 | Runtime | .NET 7/8 | **.NET 10** | Latest LTS trajectory |
 | API | Minimal APIs | ASP.NET Core Minimal APIs | Keep simplicity |
@@ -344,40 +344,40 @@ CREATE TABLE outbox_messages (
 
 ### MediatR vs Muflone
 
-| Aspect | Muflone (BrewUp) | MediatR (FermentFlow) |
+| Aspect | Muflone (FermentFlow) | MediatR (FermentFlow) |
 |--------|------------------|----------------------|
 | Learning curve | Steeper, less docs | Gentle, massive community |
 | Event sourcing | Built-in | Pair with EventStore client + custom aggregate base |
 | Messaging | Built-in RabbitMQ | MassTransit (better outbox, sagas) |
 | Book alignment | Packt original | Modern .NET ecosystem |
 
-Keeping event sourcing concepts from BrewUp but implementing with MediatR + MassTransit is the right trade-off for a learning platform.
+Keeping event sourcing concepts from FermentFlow but implementing with MediatR + MassTransit is the right trade-off for a learning platform.
 
 ---
 
 ## Relationship to Current Repository
 
-This repo (**Domain-driven-Refactoring**) remains the **BrewUp baseline**. FermentFlow is the proposed **successor project**.
+This repo (**Domain-driven-Refactoring**) remains the **FermentFlow baseline**. FermentFlow is the proposed **successor project**.
 
 ### Migration strategy
 
 ```text
 Phase 1 — Document (done)
-  └── BrewUp docs in /docs (current repo)
+  └── FermentFlow docs in /docs (current repo)
 
 Phase 2 — Scaffold FermentFlow
   └── New repo: fermentflow
-  └── Branch 01: port BrewUp 01-monolith_legacy → FermentFlow 01-LegacyMonolith
+  └── Branch 01: port FermentFlow 01-monolith_legacy → FermentFlow 01-LegacyMonolith
   └── Rename Warehouses → Inventory in docs and code
 
 Phase 3 — Extend branches 02–05
-  └── Port and modernize BrewUp branches with new stack
+  └── Port and modernize FermentFlow branches with new stack
 
 Phase 4 — Add branches 06–09
   └── Outbox, Polly, OpenTelemetry, Aspire
 ```
 
-### What to keep from BrewUp verbatim
+### What to keep from FermentFlow verbatim
 
 - Domain rules (availability check before order, production-driven stock)
 - Aggregate boundaries (SalesOrder, Availability/InventoryItem)
@@ -408,14 +408,14 @@ Phase 4 — Add branches 06–09
 
 ## Summary
 
-FermentFlow is a well-aligned modernization of BrewUp:
+FermentFlow is a well-aligned modernization of FermentFlow:
 
 1. **Name** — strong, domain-fitting, distinct
 2. **Inventory** — better ubiquitous language than Warehouses
 3. **9 branches** — significantly more learning value than 4
-4. **Building blocks** — eliminates duplicated `BrewUp.Shared` anti-pattern from branch 04
+4. **Building blocks** — eliminates duplicated `FermentFlow.Shared` anti-pattern from branch 04
 5. **Outbox** — the highest-impact production improvement
 6. **Polly + OpenTelemetry** — completes the cloud-native story
 7. **Stack** — MediatR, MassTransit, PostgreSQL are modern .NET defaults
 
-The current BrewUp repo is the foundation. FermentFlow is where the architecture earns production credibility.
+The current FermentFlow repo is the foundation. FermentFlow is where the architecture earns production credibility.

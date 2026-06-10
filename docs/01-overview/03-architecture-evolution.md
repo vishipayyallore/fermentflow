@@ -60,7 +60,7 @@ This document compares all four branches side by side. Use it as a quick referen
 
 | Capability | Branch 01 | Branch 02 | Branch 03 | Branch 04 |
 |------------|-----------|-----------|-----------|-----------|
-| Create order | `POST /v1/sales/` | `POST /v1/brewup/` (mediator) | `POST /v1/sales/` (command) | `POST /v1/sales/` (Sales service) |
+| Create order | `POST /v1/sales/` | `POST /v1/FermentFlow/` (mediator) | `POST /v1/sales/` (command) | `POST /v1/sales/` (Sales service) |
 | List orders | `GET /v1/sales/` | `GET /v1/sales/` | `GET /v1/sales/` | `GET /v1/sales/` (Sales service) |
 | Set availability | `POST /v1/warehouses/availabilities` | `POST /v1/wareHouses/availabilities` | `POST /v1/warehouses/availabilities` | `POST /v1/warehouses/availabilities` (Warehouses service) |
 
@@ -68,22 +68,22 @@ This document compares all four branches side by side. Use it as a quick referen
 
 ### 01 → 02
 
-- `BrewUp.DomainModel` (replaced by per-context Domain projects)
-- `BrewUp.ReadModel` as standalone project (moved into contexts)
+- `FermentFlow.DomainModel` (replaced by per-context Domain projects)
+- `FermentFlow.ReadModel` as standalone project (moved into contexts)
 - Direct cross-context repository coupling in domain services
 
 ### 02 → 03
 
-- `BrewUp.Mediator` (replaced by event-driven integration)
-- `BrewUp.Mediator.Tests`
+- `FermentFlow.Mediator` (replaced by event-driven integration)
+- `FermentFlow.Mediator.Tests`
 - Anemic domain services (`SalesDomainService`, `WarehousesDomainService`)
 - DTO-first persistence (replaced by event sourcing)
 
 ### 03 → 04
 
-- Root `BrewUp.sln` and `BrewUp.Rest` host
-- Root `BrewUp.Infrastructure` and `BrewUp.Shared`
-- `BrewUp.Rest.Tests` integration tests
+- Root `FermentFlow.sln` and `FermentFlow.Rest` host
+- Root `FermentFlow.Infrastructure` and `FermentFlow.Shared`
+- `FermentFlow.Rest.Tests` integration tests
 - Architecture test projects
 
 ## What Was Added at Each Step
@@ -91,7 +91,7 @@ This document compares all four branches side by side. Use it as a quick referen
 ### 01 → 02
 
 - Sales and Warehouses bounded context projects
-- `BrewUp.Mediator` for cross-context orchestration
+- `FermentFlow.Mediator` for cross-context orchestration
 - Facade layer per context
 - Modular `Program.cs` with `IModule` pattern
 - Architecture tests
@@ -102,14 +102,14 @@ This document compares all four branches side by side. Use it as a quick referen
 - EventStoreDB persistence
 - RabbitMQ consumers and publishers
 - Command handlers and event handlers
-- `BrewUp.Sales.Acl` anti-corruption layer
+- `FermentFlow.Sales.Acl` anti-corruption layer
 - Saga support (`BeerAvailabilityCommunicated`)
 - Domain unit tests
 
 ### 03 → 04
 
-- `BrewUp.Sales.Rest` and `BrewUp.Warehouses.Rest` hosts
-- Per-service `BrewUp.Shared` copies
+- `FermentFlow.Sales.Rest` and `FermentFlow.Warehouses.Rest` hosts
+- Per-service `FermentFlow.Shared` copies
 - Per-service infrastructure configuration
 - `CreateAvailabilityDueToProductionOrder` command pipeline
 

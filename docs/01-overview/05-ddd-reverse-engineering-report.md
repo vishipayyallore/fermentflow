@@ -24,8 +24,8 @@ See [Business Domain](02-business-domain.md).
 
 | Context | Branch 01 | Branch 02+ | Branch 04 |
 |---------|-----------|------------|-----------|
-| **Sales** | Logical (in `DomainModel`) | `src/Sales/` | `BrewUp.Sales.Rest` service |
-| **Warehouses** | Logical (in `DomainModel`) | `src/Warehouses/` | `BrewUp.Warehouses.Rest` service |
+| **Sales** | Logical (in `DomainModel`) | `src/Sales/` | `FermentFlow.Sales.Rest` service |
+| **Warehouses** | Logical (in `DomainModel`) | `src/Warehouses/` | `FermentFlow.Warehouses.Rest` service |
 | **Production** | Contracts only | Contracts only | Contracts only |
 
 ---
@@ -36,7 +36,7 @@ See [Business Domain](02-business-domain.md).
 
 | Attribute | Branch 01 | Branch 03+ |
 |-----------|-----------|------------|
-| **Location** | `BrewUp.DomainModel.Entities.Sales.SalesOrder` | `BrewUp.Sales.Domain.Entities.SalesOrder` |
+| **Location** | `FermentFlow.DomainModel.Entities.Sales.SalesOrder` | `FermentFlow.Sales.Domain.Entities.SalesOrder` |
 | **Root** | Yes (`AggregateRoot`) | Yes (Muflone `AggregateRoot`) |
 | **Behavior** | Factory method only | `CreateSalesOrder` → `RaiseEvent(SalesOrderCreated)` |
 | **Invariants** | Filters rows by availability (in service) | Checked in command handler |
@@ -46,7 +46,7 @@ See [Business Domain](02-business-domain.md).
 
 | Attribute | Branch 01 | Branch 03+ |
 |-----------|-----------|------------|
-| **Location** | `BrewUp.DomainModel.Entities.Warehouses.Availability` | `BrewUp.Warehouses.Domain.Entities.Availability` |
+| **Location** | `FermentFlow.DomainModel.Entities.Warehouses.Availability` | `FermentFlow.Warehouses.Domain.Entities.Availability` |
 | **Root** | Yes | Yes (Muflone `AggregateRoot`) |
 | **Behavior** | Factory method only | `CreateAvailability` / `UpdateAvailability` → events |
 | **Events** | None | `AvailabilityUpdatedDueToProductionOrder`, `AvailabilityUpdatedForNotification` |
@@ -70,7 +70,7 @@ Sales maintains its own `Availability` entity for read-side synchronization from
 
 ## 6. Value Objects
 
-All implemented as `record` types in `BrewUp.Shared.CustomTypes`:
+All implemented as `record` types in `FermentFlow.Shared.CustomTypes`:
 
 | Value Object | Used By |
 |--------------|---------|
@@ -118,9 +118,9 @@ Replaced by command handlers in branch 03+.
 
 | Service | Layer | Branch |
 |---------|-------|--------|
-| `BrewUp.Rest.Services.SalesOrderService` | API (static handlers) | 01 |
-| `BrewUp.Rest.Services.WarehousesService` | API (static handlers) | 01 |
-| `BrewUp.Mediator.BrewUpMediator` | Orchestration | 02 |
+| `FermentFlow.Rest.Services.SalesOrderService` | API (static handlers) | 01 |
+| `FermentFlow.Rest.Services.WarehousesService` | API (static handlers) | 01 |
+| `FermentFlow.Mediator.FermentFlowMediator` | Orchestration | 02 |
 | `ISalesFacade` / `IWarehousesFacade` | Facade | 02–04 |
 | `SalesQueryService` / `AvailabilityQueryService` | Read model | All |
 
@@ -181,8 +181,8 @@ Branch 04 splits into two services:
 
 | Service | Owns | Host | Solution |
 |---------|------|------|----------|
-| **Sales** | Orders, sales-side availability | `BrewUp.Sales.Rest` | `BrewUp.Sales.sln` |
-| **Warehouses** | Inventory, production-driven stock | `BrewUp.Warehouses.Rest` | `BrewUp.Warehouses.sln` |
+| **Sales** | Orders, sales-side availability | `FermentFlow.Sales.Rest` | `FermentFlow.Sales.sln` |
+| **Warehouses** | Inventory, production-driven stock | `FermentFlow.Warehouses.Rest` | `FermentFlow.Warehouses.sln` |
 
 Integration: RabbitMQ integration events + Sales ACL.
 
@@ -204,9 +204,9 @@ Full comparison: [Architecture Evolution](03-architecture-evolution.md).
 
 | Concern | Branch 01 Path | Branch 04 Path |
 |---------|----------------|----------------|
-| Sales aggregate | `BrewUp.DomainModel/Entities/Sales/SalesOrder.cs` | `Sales/BrewUp.Sales.Domain/Entities/SalesOrder.cs` |
-| Warehouse aggregate | `BrewUp.DomainModel/Entities/Warehouses/Availability.cs` | `Warehouses/BrewUp.Warehouses.Domain/Entities/Availability.cs` |
-| API host | `BrewUp.Rest/Program.cs` | `Sales/BrewUp.Sales.Rest/Program.cs` + `Warehouses/BrewUp.Warehouses.Rest/Program.cs` |
-| MongoDB | `BrewUp.Infrastructure/MongoDb/` | Per-service `Infrastructures/MongoDb/` |
+| Sales aggregate | `FermentFlow.DomainModel/Entities/Sales/SalesOrder.cs` | `Sales/FermentFlow.Sales.Domain/Entities/SalesOrder.cs` |
+| Warehouse aggregate | `FermentFlow.DomainModel/Entities/Warehouses/Availability.cs` | `Warehouses/FermentFlow.Warehouses.Domain/Entities/Availability.cs` |
+| API host | `FermentFlow.Rest/Program.cs` | `Sales/FermentFlow.Sales.Rest/Program.cs` + `Warehouses/FermentFlow.Warehouses.Rest/Program.cs` |
+| MongoDB | `FermentFlow.Infrastructure/MongoDb/` | Per-service `Infrastructures/MongoDb/` |
 | RabbitMQ | — | Per-service `Infrastructures/RabbitMq/` |
 | EventStore | — | Per-service `InfrastructureHelper.cs` |

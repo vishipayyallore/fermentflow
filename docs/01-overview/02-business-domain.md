@@ -22,7 +22,7 @@ The system supports these major capabilities:
 | **Warehouse** | Core | Inventory and availability | `Warehouses` |
 | **Production** | Supporting | Beer manufacturing triggers | External (contracts only) |
 | **Read Model** | Generic | Query-optimized projections | Per-context `ReadModel` |
-| **Shared Kernel** | Shared | Common types and contracts | `BrewUp.Shared` |
+| **Shared Kernel** | Shared | Common types and contracts | `FermentFlow.Shared` |
 
 ## Context Map (Branch 01 — Legacy)
 
@@ -88,7 +88,7 @@ Production is not a full bounded context in this codebase, but contracts exist f
 
 | Contract | Location | Purpose |
 |----------|----------|---------|
-| `ProductionOrderJson` | `BrewUp.Shared.Contracts` | Production order payload |
-| `ProductionOrderRowJson` | `BrewUp.Shared.Contracts` | Production line item |
-| `SetAvailabilityJson` | `BrewUp.Shared.Contracts` | Warehouse availability update |
-| `BeerAvailabilityJson` | `BrewUp.Shared.Contracts` | Availability query result |
+| `ProductionOrderJson` | `FermentFlow.Shared.Contracts` | Production order payload |
+| `ProductionOrderRowJson` | `FermentFlow.Shared.Contracts` | Production line item |
+| `SetAvailabilityJson` | `FermentFlow.Shared.Contracts` | Warehouse availability update |
+| `BeerAvailabilityJson` | `FermentFlow.Shared.Contracts` | Availability query result |
