@@ -1,0 +1,31 @@
+# Ignore generated or temp files
+
+**/node_modules/**
+**/.venv/**
+**/.vscode/**
+source-material/**
+
+# Reference-only document (explicitly marked DO NOT EDIT)
+docs/masterplan.md
+
+# Ignore Git directory and all subdirectories
+
+.git/**
+
+# Ignore image files (not markdown)
+
+**/*.png
+**/*.PNG
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.svg
+
+# Ignore non-markdown source files
+
+**/*.py
+**/*.ps1
+**/*.yml
+**/*.yaml
+**/*.toml
+**/*.json

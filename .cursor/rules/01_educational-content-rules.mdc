@@ -1,0 +1,63 @@
+description: Rules for creating educational content and notes
+globs: *.md, *.ipynb
+---
+# Educational Content Rules
+
+**Context**: Academic note-taking and practice for Artificial Neural Networks.
+**Priority**: HIGH
+
+## Core principles
+
+### Academic integrity (zero-copy)
+- **Original synthesis**: Do not copy-paste directly from textbooks, lecture slides, or course handouts. Read, understand, and write in your own words.
+- **Citation**: If referencing a specific architecture, theorem, or formal definition, cite the source.
+- **Review strictness**: Reviewers should reject content that looks like direct copying or close paraphrase.
+- **Examples must be original**: Do not reuse institutional examples verbatim; create fresh scenarios in your own words.
+
+### Clarity and structure
+- **Concept first**: Explain the network concept in Markdown before writing code.
+- **Math notation**: Use LaTeX for mathematical expressions (activations, gradients, loss functions).
+- **Visuals**: Use plots when they help explain training curves, weight distributions, activation maps, or architecture diagrams. When a network flow, layer relationship, training loop, or architecture is easier to understand visually, include a Mermaid diagram and an ASCII fallback wherever applicable.
+
+### Plain English or worked example (every concept)
+- **Minimum**: For each concept, provide at least one of **(A)** a plain-English explanation or **(B)** a worked example.
+- **Beginner-friendly default**: Write for revision after a gap. Use simple wording first, then add technical precision.
+- **Layman explanation**: Explain the idea in everyday language before moving to formulas, jargon, or implementation detail.
+- **Business use cases**: Whenever practical, attach at least one realistic business use case so the concept is grounded in a real application.
+- **Equations**: Do not leave display math unexplained. Add a plain-English line before or after the equation, and use a numeric walkthrough when the topic is quantitative (forward pass, backprop steps, gradient updates).
+- **Teaching Markdown**: Apply this standard in reading notes, examples, quizzes when they teach, and notebook Markdown cells that introduce a new concept or formula.
+
+### Code in education
+- **Comments**: Explain the algorithmic reason for the operation, not just the syntax.
+- **Variable names**: Use descriptive names (`learning_rate` over `lr`, `hidden_units` over `h`).
+- **Reproducibility**: Ensure all seeds are set. Prefer `np.random.default_rng(42)` or the repo's seed convention.
+
+## Voice and tone
+- **Personal learning journey**: Write reading notes as Swamy's first-person learning journey.
+- **Reflection-oriented**: Prefer "I'm learning…", "I plan to…", and "I want to be able to…" over generic instructor phrasing.
+- **Avoid course framing**: Do not title notes as "Course …" or write like a lecturer.
+
+## Four-layer learning architecture
+
+Content is organized by **week** under `src/`. For each week, maintain four companion subfolders:
+
+1. **Notes**: `src/weekN/01-notes/` — Theory, first-person learning journey
+2. **Quizzes**: `src/weekN/02-quizzes/` — Self-assessment (original synthesis only)
+3. **Notebooks**: `src/weekN/03-notebooks/` — From-scratch implementations
+4. **Discussions**: `src/weekN/04-discussions/` — Worked examples and discussion scenarios
+
+**Do not copy** author or course samples into `02-quizzes/` or `04-discussions/`. Those remain reference-only.
+
+**Learning flow**: Read notes → do quizzes → implement in notebooks → discuss examples.
+
+### Quiz answer format (active quizzes)
+
+- Put answer keys in collapsible `<details>` blocks after each question (see active Week 1 quizzes).
+- Include per-option rationales with clear correct/incorrect marking (`**A — Title ✅**` / `❌` or equivalent).
+- Add a **Business use case** line where it reinforces the concept.
+- Use a score header at the top when self-checking a completed quiz (`**Score: N / M**`).
+
+## Markdown standards
+- Use H2 (`##`) for main topics and H3 (`###`) for subtopics.
+- Use blockquotes (`>`) for definitions or key takeaways when helpful.
+- Use tables for summarizing layer types, activation functions, optimizers, or hyperparameters.

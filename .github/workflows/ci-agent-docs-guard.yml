@@ -1,0 +1,163 @@
+name: Agent Docs Guard (.cursor/.github/CLAUDE)
+
+on:
+  push:
+    branches: [main, master, 'swamy/**']
+    paths:
+      - '.cursor/**'
+      - '.github/**'
+      - 'CLAUDE.md'
+      - '.github/workflows/ci-agent-docs-guard.yml'
+  pull_request:
+    branches: [main, master, 'swamy/**']
+    paths:
+      - '.cursor/**'
+      - '.github/**'
+      - 'CLAUDE.md'
+      - '.github/workflows/ci-agent-docs-guard.yml'
+  workflow_dispatch:
+
+jobs:
+  structure-and-parity:
+    name: Validate required files and mirrors
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate required files and folders
+        run: |
+          test -f CLAUDE.md
+          test -f .cursor/skills.md
+          test -f .github/copilot-instructions.md
+          test -f .github/skills/README.md
+          test -f .cursor/skills/README.md
+          test -d .cursor/rules
+          test -d .github/skills
+          test -d .cursor/skills
+          test -n "$(find .cursor/rules -name '*.mdc' -print -quit)"
+          test -f .cursor/rules/00_swamy_personal_learning_only.mdc
+          test -f .cursor/rules/01_educational-content-rules.mdc
+          test -f .cursor/rules/02_repository-structure.mdc
+          test -f .cursor/rules/03_quality-assurance.mdc
+          test -f .cursor/rules/04_markdown-standards.mdc
+          test -f .cursor/rules/05_primary-directives.mdc
+          test -f .cursor/rules/06_source_material_rules.mdc
+          test -f .cursor/rules/07_file-naming-conventions.mdc
+          test -f .cursor/rules/08_copilot-instructions-extract.mdc
+          test -d .cursor/agents
+          test -d .github/agents
+          test -n "$(find .cursor/agents -maxdepth 1 -type f -name '*.md' -print -quit)"
+
+      - name: Validate CLAUDE/.cursor skills references
+        run: |
+          grep -Fq ".cursor/rules/00_swamy_personal_learning_only.mdc" CLAUDE.md
+          grep -Fq ".cursor/rules/02_repository-structure.mdc" CLAUDE.md
+          grep -Fq ".cursor/skills.md" CLAUDE.md
+          grep -Fq ".github/skills/" CLAUDE.md
+          grep -Fq ".github/workflows/ci-skills-parity.yml" CLAUDE.md
+          grep -Fq ".github/workflows/ci-agent-docs-guard.yml" CLAUDE.md
+          grep -Fq ".cursor/agents/" CLAUDE.md
+          grep -Fq ".github/agents/" CLAUDE.md
+          grep -Fq "docs/agent-subagents.md" CLAUDE.md
+          grep -Fq ".github/skills/" .cursor/skills.md
+          grep -Fq ".cursor/skills/" .cursor/skills.md
+          grep -Fq "ci-skills-parity.yml" .cursor/skills.md
+
+      - name: Validate .github/skills <-> .cursor/skills parity
+        run: |
+          exit_code=0
+          for f in $(find .github/skills -name 'SKILL.md' 2>/dev/null); do
+            rel="${f#.github/skills/}"
+            cursor_file=".cursor/skills/$rel"
+            if [ ! -f "$cursor_file" ]; then
+              echo "MISSING in .cursor/skills: $rel"
+              exit_code=1
+            elif ! diff -q "$f" "$cursor_file" > /dev/null 2>&1; then
+              echo "MISMATCH: $rel"
+              diff --unified "$f" "$cursor_file" || true
+              exit_code=1
+            fi
+          done
+
+          for f in $(find .cursor/skills -name 'SKILL.md' 2>/dev/null); do
+            rel="${f#.cursor/skills/}"
+            github_file=".github/skills/$rel"
+            if [ ! -f "$github_file" ]; then
+              echo "EXTRA in .cursor/skills (not in .github): $rel"
+              exit_code=1
+            fi
+          done
+
+          for f in $(find .github/skills -name 'README.md' 2>/dev/null); do
+            rel="${f#.github/skills/}"
+            cursor_file=".cursor/skills/$rel"
+            if [ -f "$cursor_file" ] && ! diff -q "$f" "$cursor_file" > /dev/null 2>&1; then
+              echo "README MISMATCH: $rel"
+              diff --unified "$f" "$cursor_file" || true
+              exit_code=1
+            fi
+          done
+
+          if [ "$exit_code" -eq 0 ]; then
+            echo "All required files and skills mirrors are in sync."
+          fi
+
+          exit $exit_code
+
+      - name: Validate .github/agents <-> .cursor/agents parity
+        run: |
+          exit_code=0
+          for f in $(find .github/agents -type f -name '*.md' 2>/dev/null); do
+            rel="${f#.github/agents/}"
+            rel="${rel#/}"
+            cursor_file=".cursor/agents/$rel"
+            if [ ! -f "$cursor_file" ]; then
+              echo "MISSING in .cursor/agents: $rel"
+              exit_code=1
+            elif ! diff -q "$f" "$cursor_file" > /dev/null 2>&1; then
+              echo "AGENTS MISMATCH: $rel"
+              diff --unified "$f" "$cursor_file" || true
+              exit_code=1
+            fi
+          done
+
+          for f in $(find .cursor/agents -type f -name '*.md' 2>/dev/null); do
+            rel="${f#.cursor/agents/}"
+            rel="${rel#/}"
+            github_file=".github/agents/$rel"
+            if [ ! -f "$github_file" ]; then
+              echo "EXTRA in .cursor/agents (not in .github): $rel"
+              exit_code=1
+            fi
+          done
+
+          if [ "$exit_code" -eq 0 ]; then
+            echo "Agent markdown mirrors (.github/agents <-> .cursor/agents) are in sync."
+          fi
+
+          exit $exit_code
+
+  markdown-guard:
+    name: Lint agent documentation paths
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lint markdown in .cursor/.github/CLAUDE
+        run: |
+          npx --yes markdownlint-cli2 \
+            "CLAUDE.md" \
+            ".cursor/skills.md" \
+            ".cursor/skills/**/*.md" \
+            ".github/skills/**/*.md" \
+            ".cursor/agents/**/*.md" \
+            ".github/agents/**/*.md"

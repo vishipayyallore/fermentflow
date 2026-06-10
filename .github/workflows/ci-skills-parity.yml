@@ -1,0 +1,41 @@
+name: Skills Parity (.github ↔ .cursor)
+
+on:
+  push:
+    branches: [main, master, 'swamy/**']
+    paths:
+      - '.github/skills/**'
+      - '.cursor/skills/**'
+      - '.github/workflows/ci-skills-parity.yml'
+  pull_request:
+    branches: [main, master, 'swamy/**']
+    paths:
+      - '.github/skills/**'
+      - '.cursor/skills/**'
+      - '.github/workflows/ci-skills-parity.yml'
+  workflow_dispatch:
+
+jobs:
+  skills-parity:
+    name: Verify .github/skills ↔ .cursor/skills mirror
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check parity
+        run: |
+          exit_code=0
+          for f in $(find .github/skills -name 'SKILL.md' 2>/dev/null); do
+            rel="${f#.github/skills/}"; c=".cursor/skills/$rel"
+            if [ ! -f "$c" ]; then echo "MISSING: $rel"; exit_code=1
+            elif ! diff -q "$f" "$c" >/dev/null 2>&1; then echo "MISMATCH: $rel"; diff -u "$f" "$c" || true; exit_code=1; fi
+          done
+          for f in $(find .cursor/skills -name 'SKILL.md' 2>/dev/null); do
+            rel="${f#.cursor/skills/}"; g=".github/skills/$rel"
+            if [ ! -f "$g" ]; then echo "EXTRA: $rel"; exit_code=1; fi
+          done
+          for f in $(find .github/skills -name 'README.md' 2>/dev/null); do
+            rel="${f#.github/skills/}"; c=".cursor/skills/$rel"
+            if [ -f "$c" ] && ! diff -q "$f" "$c" >/dev/null 2>&1; then echo "README MISMATCH: $rel"; diff -u "$f" "$c" || true; exit_code=1; fi
+          done
+          [ "$exit_code" -eq 0 ] && echo "All skills files are in sync."
+          exit $exit_code
