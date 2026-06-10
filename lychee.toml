@@ -1,0 +1,47 @@
+# https://raw.githubusercontent.com/lycheeverse/lychee/master/lychee.example.toml
+# Lychee link checker configuration
+verbose = "info"
+no_progress = true
+max_retries = 2
+retry_wait_time = 2
+accept = ["200", "206", "429"]
+
+# Timeouts
+timeout = 20
+
+# `source-material/` and `.archive/` are staging/reference areas, not live navigable content.
+exclude_path = [
+  "source-material/**",
+  ".archive/**",
+  ".venv/**",
+  ".cursor/**",
+  ".github/**"
+]
+
+# Exclude patterns (examples)
+exclude = [
+  # Example flaky sites or local hosts
+  "https://localhost",
+  "http://localhost",
+  "https://127.0.0.1",
+  "http://127.0.0.1",
+  # GitHub issue links may rate-limit during CI
+  "^https://github\\.com/.*/issues/.*",
+  # Repo is private / may 404 without auth
+  "^https://github\\.com/msc-dsai-swamypkv-practice(/.*)?$",
+  # Decorative badges and vendor docs can be flaky for automated bots
+  "^https://img\\.shields\\.io/.*",
+  "^https://cursor\\.com/docs/.*",
+  # Sites that often return 403 to bots
+  "^https://(www\\.)?udemy\\.com/.*",
+  "^https://leetcode\\.com/.*",
+  # Known removed videos (to be replaced with alternatives)
+  "^https://www\\.youtube\\.com/watch\\?v=pTB0EiLXL1Q$",
+  "^https://www\\.youtube\\.com/watch\\?v=1ppgUMfUUJw$",
+  "^https://www\\.youtube\\.com/watch\\?v=xR1qU-3h_ns$"
+  , "^https://(www\\.)?linkedin\\.com/.*"
+  , "^file:///input/source-material/.*"
+  # Vite default favicon path isn't a valid absolute URI in file scans
+  , "^/vite\\.svg$"
+  , "^https://(www\\.)?mlcourse\\.ai(/.*)?$"
+]

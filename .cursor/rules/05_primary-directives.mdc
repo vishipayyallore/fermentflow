@@ -1,0 +1,45 @@
+---
+description: Primary directives for FermentFlow
+globs: *
+---
+
+# Primary Directives
+
+## Project Focus
+
+This is **Swamy PKV's personal architecture laboratory** that:
+
+- Models brewery logistics across Sales, Inventory, and Production bounded contexts
+- Evolves architecture through nine intentional stages (legacy monolith → .NET Aspire)
+- Uses .NET 10, ASP.NET Core, PostgreSQL, EventStoreDB, RabbitMQ, MassTransit, Polly, OpenTelemetry
+- Prioritizes clear domain modelling and explicit architectural patterns over shortcuts
+
+### Engineering Philosophy
+
+- **Domain first**: Ubiquitous language drives code structure
+- **Explicit patterns**: CQRS, event sourcing, outbox, and Aspire should be visible, not hidden
+- **Stage fidelity**: Respect the architectural stage of the active branch
+- **Personal learning**: Write docs and comments as Swamy's experimentation notes where appropriate
+- **Document evolution**: Update `docs/01-overview/` when structure or patterns change
+
+## Current State
+
+- ✅ Personal DDD and modernization laboratory (Swamy only)
+- ✅ Target stack: .NET 10, MediatR, MassTransit, PostgreSQL, Aspire (later stages)
+- ✅ Nine-stage learning roadmap in `README.md`
+- ❌ NOT production software
+- ❌ NOT public courseware or a framework for others
+
+## Documentation Accuracy
+
+- Domain terms must match `docs/01-overview/04-ubiquitous-language.md`
+- Stage-specific behaviour documented in `docs/01-overview/07-fermentflow-modernization-vision.md`
+- Do not reference Packt, BrewUp, or source book names in public docs unless Swamy explicitly asks
+- Code comments should explain the *why* of a pattern, not just syntax
+
+## Code Maintenance
+
+- Solutions must build: `dotnet build`
+- Tests must pass: `dotnet test`
+- Keep REST endpoints thin; domain rules belong in aggregates and domain services
+- Infrastructure concerns stay in infrastructure projects

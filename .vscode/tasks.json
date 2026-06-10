@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Health Check",
+			"type": "shell",
+			"command": ".\\tools\\psscripts\\Run-MarkdownLintAndLychee.ps1"
+		}
+	]
+}

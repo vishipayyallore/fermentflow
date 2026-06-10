@@ -1,0 +1,23 @@
+# markdownlint-cli2 configuration
+# Use the repo-level .markdownlint.json for rules. This file sets default includes/excludes.
+
+# Globs to include by default (can still pass explicit paths on the CLI)
+# Using forward slashes works on Windows too.
+
+ignores:
+  - "**/node_modules/**"
+  - "**/.venv/**"
+  - "**/.vscode/**"
+  - ".git/**"
+  - "**/*.png"
+  - "**/*.PNG"
+  - "**/*.jpg"
+  - "**/*.jpeg"
+  - "**/*.gif"
+  - "**/*.svg"
+  - "**/*.py"
+  - "**/*.ps1"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.toml"
+  - "**/*.json"
