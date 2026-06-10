@@ -9,7 +9,7 @@
 
 ## Code Examples
 
-- Always specify language in code fences: ` ```python `
+- Always specify language in code fences: ` ```csharp `, ` ```powershell `, etc.
 - Include comments explaining complex logic
 - Show complete, runnable examples when possible
 

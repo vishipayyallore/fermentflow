@@ -1,44 +1,44 @@
 ---
-description: Primary directives for Artificial Neural Networks
+description: Primary directives for FermentFlow
 globs: *
 ---
+
 # Primary Directives
 
 ## Project Focus
 
-This is an **Academic Learning Workspace** for Artificial Neural Networks that:
+This is a **Domain-Driven Design reference application** that:
 
-- Implements neural network fundamentals from scratch in Python (perceptrons, MLPs, backpropagation, common architectures)
-- Provides clear, structured notes in Markdown/LaTeX
-- Uses Jupyter Notebooks for interactive learning
-- Prioritizes mathematical understanding and from-scratch implementation
+- Models brewery logistics across Sales, Warehouses, and Production contexts
+- Evolves architecture through git branches (monolith → CQRS → event sourcing → microservices)
+- Uses .NET, ASP.NET Core minimal APIs, MongoDB, EventStoreDB, and RabbitMQ
+- Prioritizes clear domain modelling and explicit architectural patterns over shortcuts
 
-### Educational Philosophy
+### Engineering Philosophy
 
-- **Educational first**: Prioritize clarity, correctness, and explainability over performance.
-- **Beginner friendly**: Default to beginner-friendly explanations before advanced phrasing.
-- **Business grounded**: When teaching a concept, try to connect it to a realistic business use case so the practical value is obvious.
-- **Layman explanation**: Use everyday language before formulas, neural-network jargon, or implementation detail.
-- **Equations**: Pair every display-math block with a plain-English line and a numeric walkthrough when helpful.
-- **Diagrams**: Use Mermaid diagrams with ASCII fallbacks wherever a visual explanation is applicable.
-- **From scratch mindset**: Implement networks and training loops from first principles; avoid heavy framework abstractions for core learning.
-- **Document intent**: Update docs when structure, behavior, or learning flow changes.
+- **Domain first**: Ubiquitous language drives code structure
+- **Explicit patterns**: CQRS, event sourcing, and outbox should be visible, not hidden
+- **Branch fidelity**: Respect the architectural stage of the active branch
+- **Test behaviour**: Domain and integration tests guard invariants
+- **Document evolution**: Update `docs/01-overview/` when structure or patterns change
 
 ## Current State
 
-- ✅ Active Learning: Ongoing course (M.Sc. DSAI)
-- ✅ Tech Stack: Python, Jupyter, NumPy, Pandas, Matplotlib, Seaborn; PyTorch / TensorFlow for reference comparison where appropriate
-- ❌ NOT a Web Application: No Flask, Django, or React.
-- ❌ NOT a Production System: Code is for educational and practice purposes.
+- ✅ Reference app for *Domain-driven Refactoring* (Packt)
+- ✅ Tech stack: .NET 8, ASP.NET Core, MongoDB, EventStoreDB, RabbitMQ, xUnit
+- ✅ Docker Compose for local infrastructure
+- ❌ NOT a production system — teaching and portfolio sample
+- ❌ NOT a greenfield SPA — REST APIs with Swagger documentation
 
 ## Documentation Accuracy
 
-- Notes must accurately reflect network theory and training mathematics.
-- Formulas (forward pass, gradients, loss functions) must be correctly formatted in LaTeX.
-- Code comments should explain the *why* of the training step, not just the *how* of the Python code.
+- Domain terms must match `docs/01-overview/04-ubiquitous-language.md`
+- Branch-specific behaviour documented in `docs/01-overview/03-architecture-evolution.md`
+- Code comments should explain the *why* of a pattern (e.g., why an ACL exists), not just syntax
 
 ## Code Maintenance
 
-- Notebooks should be reproducible (Restart Kernel & Run All should work).
-- Separate reusable logic (layer classes, training loops, activation functions) into `src/` modules where appropriate.
-- Use strict typing in Python scripts (`src/`) but relax it in Notebooks for exploration.
+- Solutions must build: `dotnet build`
+- Tests must pass: `dotnet test`
+- Keep REST endpoints thin; domain rules belong in aggregates and domain services
+- Infrastructure concerns (persistence, messaging) stay in infrastructure projects

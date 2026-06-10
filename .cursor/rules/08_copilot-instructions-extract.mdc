@@ -1,176 +1,86 @@
 ---
-description: Key guidelines extracted from copilot-instructions.md for AI assistants
+description: Condensed Copilot guardrails for FermentFlow
 globs: *
 ---
+
 # Copilot Instructions Extract
 
-**Source**: `.github/copilot-instructions.md` from this repository
+**Source**: `.github/copilot-instructions.md` from this repository  
 **Purpose**: Key guidelines for AI assistants working on this repository
 
 ---
 
-## 🎯 Repository Context
+## Repository Context
 
-**Artificial Neural Networks** is an academic workspace dedicated to understanding and implementing neural network fundamentals from first principles. It contains structured notes, examples, and from-scratch implementations for the M.Sc. DSAI program.
+**FermentFlow** is a .NET reference application for Domain-Driven Design in a brewery logistics domain. It demonstrates architectural evolution across git branches.
 
-### Intended use
+### Repository Layout
 
-- Swamy PKV's personal M.Sc. Data Science & AI learning
-- Private revision, practice, and from-scratch implementation notes for Swamy only
+- `docs/01-overview/` — Architecture, domain, evolution, running locally
+- `docker/` — MongoDB, EventStoreDB, RabbitMQ
+- `src/` — Application source (branch-dependent)
+- `tools/psscripts/` — Maintenance scripts
 
-### Four-Layer Learning Architecture
+### Branch Evolution
 
-Content is organized by **week** under `src/`. For each week, maintain four companion subfolders:
-
-1. **Notes**: `src/weekN/01-notes/` — Theory, first-person learning journey
-2. **Quizzes**: `src/weekN/02-quizzes/` — Self-assessment (original synthesis only)
-3. **Notebooks**: `src/weekN/03-notebooks/` — From-scratch implementations
-4. **Discussions**: `src/weekN/04-discussions/` — Worked examples and discussion scenarios
-
-**Week folder naming:** lowercase `weekN` (e.g. `week1`, `week2`).
-
-**Topic-block file naming:** layer-aware prefixes `01`–`99` (never `00-` / `00_`); term map at `src/course-roadmap-and-module-overview.md`; cross-layer map in `01-introduction-to-neural-networks.md`. Full rules: `.cursor/rules/07_file-naming-conventions.mdc`.
-
-**Learning Flow**: Read notes → Do quizzes → Implement in notebooks → Discuss examples
+1. `01-monolith_legacy` — Layered monolith
+2. `02-monolith_with_cqrs` — Bounded contexts + CQRS
+3. `03-monolith_with_cqrs_and_event_sourcing` — Event sourcing + messaging
+4. `04-microservices` — Separate Sales and Warehouses services
 
 ---
 
-## 🔧 Development Guidelines
+## Development Guidelines
 
-### Source Material Staging
+### DDD Rules
 
-**🚫 Critical Restrictions:**
+- Respect bounded context boundaries
+- Use ubiquitous language from `docs/01-overview/04-ubiquitous-language.md`
+- Commands mutate; queries read; domain events record facts
+- Cross-context integration via events or ACL
 
-- **Read-Only Policy**:
-  - **NEVER modify** any file inside `source-material/`
-  - **NEVER overwrite** any file inside `source-material/`
-  - **NEVER edit** content even if it contains errors
-  - Files are **permanent reference materials**
+### Code Style (.NET)
 
-- **No Deletion Policy**:
-  - **NEVER delete** anything from `source-material/`
-  - Content remains even after migration
-  - Serves as **permanent historical reference**
+- Standard C# conventions; meaningful domain names
+- Thin REST endpoints; FluentValidation for input
+- Serilog for structured logging
+- xUnit for tests
 
-- **Export Location Policy (.pdf/.pptx)**:
-  - **NEVER export to `docs/exports/`** when the source file is under `source-material/`
-  - Create converted artifacts in the **same `source-material` location tree** as the input file
-  - Keep source and converted files colocated for auditability
+### Documentation
 
-**🔄 Migration Workflow:**
-
-1. Read from `source-material/` to understand concepts
-2. Synthesize - Rewrite in your own words (NO copy-paste)
-3. Publish to educational folders (`src/weekN/01-notes/`, `src/weekN/02-quizzes/`, `src/weekN/03-notebooks/`, `src/weekN/04-discussions/`, `docs/`, `src/`)
-4. Cite when using specific architectures/results
-
-**✅ Zero-Copy Policy:**
-
-- **Good Synthesis**: Demonstrates understanding, uses different vocabulary, explains concepts
-- **Bad Synthesis (Rejected)**: Word-for-word copying, minor rephrasing, close paraphrasing without understanding
-
-### Zero-Copy Policy
-
-- All notes and code must be original syntheses of learning materials.
-- No direct copying from textbooks without citation.
-
-### Project Focus
-
-- **Mathematical Accuracy**: Ensure forward-pass, loss, and gradient derivations are correct.
-- **Code Quality**: Use clear, well-commented Python code.
-- **Visualization**: Use Matplotlib and Seaborn for training curves, weight histograms, and architecture sketches. Use Mermaid diagrams with ASCII fallbacks wherever a visual explanation is applicable.
-
-### Code Style (Python)
-
-- Follow PEP 8 style guide.
-- Use meaningful variable names (e.g., `hidden_units` instead of `h`, `learning_rate` instead of `lr`).
-- Use type hints where appropriate.
-- **Comments**: Comment liberally to explain the *why* of the training step, not just the *how*.
-- **No hardcoded paths**: Use `pathlib` or relative paths.
-
-### Code Comments Philosophy
-
-- Explain the **algorithmic reason** for the operation (e.g., "We clip gradients here to prevent exploding gradients").
-- Explain the **mathematical mapping** (e.g., "`W` holds the weight matrix for layer L").
-- Not just syntax explanation (avoid: "This creates a list").
-
-### Documentation Standards
-
-- **Review reports**: All review reports go in `docs/reviews/`.
-- **Reference materials**: General reference docs go in `docs/reference/`.
-- **Notes**: Synthesized study notes go in `src/weekN/01-notes/`.
-
-### Notebook Guidelines
-
-- Structure notebooks with clear headers.
-- Include markdown cells explaining the architecture and math before the code.
-- Use LaTeX for mathematical formulas.
-- Ensure all cells run sequentially.
-- **Logical Flow**: Import -> Load Data -> Define Architecture -> Train -> Evaluate -> Visualize.
-- **No Hidden State**: Avoid variables defined in deleted cells.
-- **Reproducibility**: Always set random seeds (`np.random.seed(42)`, `torch.manual_seed(42)`) for reproducible results.
-- **Visualization Standards**: All plots must have titles, axis labels, and legends.
-
-### Visualization Guidelines
-
-- Use Matplotlib and Seaborn for clear plots.
-- Use Mermaid diagrams with ASCII fallbacks for network flows, layer relationships, training loops, and architecture sketches wherever applicable.
-- Always label axes with meaningful names (e.g., "Training Loss" not just "y").
-- Include legends when comparing optimizers, learning rates, or architectures.
-- Use appropriate plot types (loss curves, accuracy curves, confusion matrices, activation maps).
+- Overview docs in `docs/01-overview/`
+- Mermaid diagrams with ASCII fallbacks for architecture
+- Update docs when branch behaviour changes
 
 ---
 
-## 🚀 Environment & Commands
+## Environment & Commands
 
-**Environment**: Windows, PowerShell, Python 3.x, Jupyter Notebooks
-**Note**: All commands and scripts should use PowerShell syntax. File paths use Windows format.
-
-**Python Environment:**
+**Environment**: Windows, PowerShell, .NET 8 SDK, Docker Desktop
 
 ```powershell
-# Optional: Suppress cross-drive hardlink warnings (if expected)
-$Env:UV_LINK_MODE = "copy"
-
-# Create virtual environment and install dependencies
-uv sync
-```
-
-**Jupyter:**
-
-```powershell
-jupyter notebook
+cd docker
+docker compose up -d
+cd ..\src
+dotnet restore FermentFlow.sln
+dotnet build FermentFlow.sln --configuration Release
+dotnet test FermentFlow.sln --configuration Release --no-build
 ```
 
 ---
 
-## 🧠 Prompt Engineering Tips
+## Quality Checklist
 
-When asking AI assistants for help:
+### Before Submitting Code
 
-- Specify the architecture or training step clearly (e.g., "Explain backpropagation for a 2-layer MLP").
-- Request Python implementation from scratch (e.g., "Implement a perceptron without scikit-learn or PyTorch").
-- Ask for mathematical explanations using LaTeX.
-- Request visualizations when appropriate (e.g., "Create a plot showing the training and validation loss").
-- Specify reproducibility requirements (e.g., "Use random seed 42 for reproducibility").
+- [ ] `dotnet build` succeeds
+- [ ] `dotnet test` passes
+- [ ] Bounded context boundaries respected
+- [ ] Domain terms match ubiquitous language doc
+- [ ] No secrets committed
 
-## ✅ Quality Checklist
+### Documentation
 
-### Before Submitting Code/Notebooks
-
-- [ ] **Kernel Restart & Run All** passes without errors.
-- [ ] All random processes use fixed seeds for reproducibility.
-- [ ] Visualizations have titles, labels, and legends.
-- [ ] Mermaid diagrams include ASCII fallbacks wherever a visual explanation is applicable.
-- [ ] Code comments explain the *why* (training reasoning), not just the *how*.
-- [ ] Mathematical formulas are correctly formatted in LaTeX.
-- [ ] Variable names are descriptive and meaningful.
-- [ ] No hardcoded paths (use `pathlib` or relative paths).
-- [ ] Network logic implemented from scratch where the learning intent is clear (frameworks acceptable for comparison runs).
-
-### Content Review
-
-- [ ] Content is original synthesis (zero-copy policy).
-- [ ] Architectures and training algorithms are explained before code implementation.
-- [ ] Citations included for landmark papers and theorems.
-- [ ] All assumptions (initialization, normalization, etc.) are verified before training.
+- [ ] Overview docs updated if behaviour changed
+- [ ] File references valid
+- [ ] Markdown lint passes

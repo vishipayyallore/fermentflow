@@ -1,0 +1,42 @@
+---
+description: DDD and architecture guidelines for FermentFlow
+globs: *
+---
+
+# Architecture Guidelines
+
+## Bounded contexts
+
+FermentFlow models brewery logistics across contexts:
+
+- **Sales** — customer orders, order lifecycle
+- **Warehouses** — inventory availability (modernization vision renames to **Inventory**)
+- **Production** — beer batch completion (contracts in early branches; full context in modernization vision)
+
+Each context owns its aggregates, persistence, and public integration contracts. Cross-context communication uses integration events or ACL — never shared database tables across contexts.
+
+## Patterns by branch
+
+| Pattern | Branches | Notes |
+|---------|----------|-------|
+| Layered monolith | 01 | Shared MongoDB; anemic risk |
+| CQRS | 02+ | Separate read/write models |
+| Event sourcing | 03–04 | EventStoreDB, Muflone |
+| Messaging | 03–04 | RabbitMQ between contexts |
+| Microservices | 04 | Separate deployable REST APIs |
+
+## Design rules
+
+- **Aggregates** enforce invariants; expose behaviour, not public setters on state.
+- **Commands** mutate state; **queries** return DTOs without side effects.
+- **Domain events** capture facts that already happened — past tense names (`OrderPlaced`, not `PlaceOrder`).
+- **Integration events** cross context boundaries; map domain events at the boundary.
+- **Anti-corruption layer (ACL)** translates external models into domain language.
+
+## Documentation
+
+- Ubiquitous language: `docs/01-overview/04-ubiquitous-language.md`
+- Architecture evolution: `docs/01-overview/03-architecture-evolution.md`
+- Modernization vision: `docs/01-overview/07-fermentflow-modernization-vision.md`
+
+Use Mermaid diagrams with ASCII fallbacks for sequence and context maps.

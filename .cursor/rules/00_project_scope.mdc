@@ -1,0 +1,25 @@
+---
+description: FermentFlow project scope and audience
+globs: *
+alwaysApply: true
+---
+
+# FermentFlow project scope
+
+This repository (`fermentflow`) is a **.NET reference application** for Domain-Driven Design and event-driven architecture in a brewery logistics domain.
+
+1. **Reference application** — demonstrates DDD, CQRS, Event Sourcing, and microservices through branch-based evolution.
+2. **Teaching sample** — aligned with the Packt book *Domain-driven Refactoring*; not a production deployment target.
+3. **Open documentation** — architecture docs in `docs/01-overview/` are intended for readers and contributors.
+
+## Do
+
+- Keep `README.md` and `docs/01-overview/` accurate for the active branch structure.
+- Preserve ubiquitous language from `docs/01-overview/04-ubiquitous-language.md`.
+- Document architectural decisions when adding bounded contexts or cross-context integration.
+
+## Do not
+
+- Treat this as a generic CRUD tutorial — respect bounded context boundaries.
+- Add framework magic without explaining the DDD pattern it implements.
+- Break branch isolation — changes on one evolution branch should not silently assume another branch's structure.
