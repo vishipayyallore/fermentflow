@@ -6,11 +6,10 @@ Step-by-step guide for each branch.
 
 ## Prerequisites
 
-- **.NET 10 SDK** (target — for roadmap branches as they are implemented)
-- **.NET 8 SDK** (required only for **imported baseline branches** until ported)
+- **.NET 10 SDK** (all branches — imported baseline is ported to .NET 10 on `01-LegacyMonolith`)
 - Docker Desktop (running)
 
-> FermentFlow is positioned as a **.NET 10 architecture laboratory**. Baseline branches (`01-monolith_legacy` … `04-microservices`) may still target .NET 7/8 until each stage is ported forward. See [Project overview](01-project-overview.md).
+> FermentFlow targets a **single SDK** (.NET 10) across every stage to reduce friction for CI, demos, and portfolio review.
 
 ---
 

@@ -22,30 +22,38 @@ Individual integration events (ADR-005) are not enough to coordinate multi-step 
 
 ## Decision
 
-Introduce **event-driven sagas** (choreography and/or orchestration) as stage **10-EventDrivenSagas**, **before** Kubernetes (stage 11).
+Introduce **event-driven sagas** as stage **10-EventDrivenSagas**, **before** Kubernetes (stage 11).
 
-Example event chain:
+| Aspect | Choice |
+|--------|--------|
+| **Saga style** | **Orchestration** (explicit process manager / state machine) |
+| **Technology** | **MassTransit state machine** on existing RabbitMQ |
+| **Stage** | `10-EventDrivenSagas` |
+| **Fit** | MassTransit + RabbitMQ + Aspire (branch 09) |
+
+Example orchestrated flow:
 
 ```text
 ProductionCompleted
-    ↓
+        ↓
 InventoryUpdated
-    ↓
-StockAvailable
-    ↓
-PendingSalesOrdersReleased
+        ↓
+InventoryAvailable
+        ↓
+ReleasePendingSalesOrders
 ```
 
-Use MassTransit saga/state machine support (or explicit process managers) with idempotent handlers and correlation identifiers. Extend architecture tests to keep saga orchestration out of domain aggregates.
+Use correlation identifiers, idempotent handlers, and persisted saga state. Extend architecture tests to keep saga orchestration out of domain aggregates.
 
 ## Alternatives Considered
 
 | Alternative | Outcome |
 |-------------|---------|
-| Skip sagas; rely on integration events only | **Rejected** for this stage — the domain workflow is an excellent saga teaching case. |
-| Two-phase commit across services | **Rejected** — impractical at microservice scale; conflicts with event-driven lessons. |
-| Jump to Kubernetes (stage 11) before sagas | **Rejected** — saga design is a richer DDD/distributed-systems exercise than deployment tooling alone. |
-| Event-driven sagas at stage 10 | **Proposed** — implement after ADR-008 (Aspire) is complete. |
+| Choreography-only sagas (no orchestrator) | **Rejected for stage 10** — harder to trace; orchestration is the clearer teaching path with MassTransit. |
+| Skip sagas; rely on integration events only | **Rejected** — the Production → Inventory → Sales flow is the richest distributed-systems exercise in this domain. |
+| Two-phase commit across services | **Rejected** — impractical at microservice scale. |
+| Jump to Kubernetes before sagas | **Rejected** — saga design is more valuable than deployment tooling alone. |
+| MassTransit orchestration at stage 10 | **Proposed** — implement after ADR-008 (Aspire) is complete. |
 
 ## Consequences
 

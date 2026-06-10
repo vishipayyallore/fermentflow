@@ -94,6 +94,56 @@ Run on every PR that touches `src/` or `tests/`. CI should fail on boundary viol
 
 ---
 
+## Domain unit tests
+
+Introduced on **`03-CQRS-VerticalSlices`** — one test project per bounded context:
+
+```text
+tests/
+├── FermentFlow.Sales.UnitTests
+├── FermentFlow.Inventory.UnitTests
+└── FermentFlow.Production.UnitTests
+```
+
+Focus on **aggregate invariants** and domain services — no EF, MassTransit, or HTTP.
+
+Example (Given/When/Then):
+
+```text
+Given stock of 10
+When order requests 5
+Then order is accepted
+
+Given stock of 10
+When order requests 15
+Then order is rejected
+```
+
+These tests pay off immediately on branch 04 when aggregates become event-sourced — replay and projection logic stay guarded.
+
+---
+
+## Integration tests (Testcontainers)
+
+Introduced on **`03-CQRS-VerticalSlices`** in `tests/FermentFlow.IntegrationTests`:
+
+| Branch | Containers |
+|--------|------------|
+| 03 | PostgreSQL |
+| 04+ | PostgreSQL, RabbitMQ, EventStoreDB |
+
+**Tooling:** [Testcontainers for .NET](https://dotnet.testcontainers.org/) + xUnit.
+
+By branch 04, real infrastructure is required — Testcontainers becomes a natural learning objective rather than a late add-on.
+
+### When to run
+
+```powershell
+dotnet test tests/
+```
+
+---
+
 ## Building blocks governance
 
 Avoid a monolithic `BuildingBlocks.Infrastructure` project — it becomes a dumping ground.
@@ -132,6 +182,8 @@ A branch is **complete** when:
 - [ ] Matching ADR is **Accepted** and reflects actual code
 - [ ] `dotnet build` and `dotnet test` pass
 - [ ] Architecture tests pass (branch 02+)
+- [ ] Domain unit tests pass (branch 03+)
+- [ ] Integration tests with Testcontainers pass (branch 03+)
 - [ ] Domain terms match [ubiquitous language](04-ubiquitous-language.md)
 - [ ] [Running locally](06-running-locally.md) instructions work for that branch (or baseline import path is documented)
 - [ ] No Packt/BrewUp framing added to public docs
@@ -146,6 +198,8 @@ When implementing a new branch, confirm prior capabilities still hold:
 |------------|------------|-------------------------|
 | Bounded contexts | 02 | ✓ |
 | Architecture tests | 02 | ✓ |
+| Domain unit tests | 03 | ✓ |
+| Testcontainers | 03 | ✓ |
 | Vertical slices | 03 | ✓ |
 | CQRS (MediatR) | 03 | ✓ |
 | Event sourcing | 04 | ✓ |

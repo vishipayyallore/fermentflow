@@ -34,7 +34,7 @@ Early baseline stages may use a flatter layout (monolith solution, legacy contex
 |-------|-------|
 | `01-LegacyMonolith` | Layered monolith, architectural smells |
 | `02-ModularMonolith` | Physical bounded contexts, modular monolith |
-| `03-CQRS-VerticalSlices` | CQRS, MediatR, vertical slice / feature folders |
+| `03-CQRS-VerticalSlices` | CQRS, MediatR, vertical slices, domain unit tests, Testcontainers |
 | `04-CQRS-EventSourcing` | CQRS retained + EventStoreDB, domain events, projections |
 | `05-Microservices` | Separate deployables per context |
 | `06-OutboxPattern` | Reliable integration events |
@@ -71,13 +71,15 @@ The earliest working code may arrive on legacy-named branches before the full ni
 | Testing | xUnit + Testcontainers |
 | Containers | Docker |
 
-Baseline branches may use older runtimes (e.g., .NET 7/8), MongoDB, or Muflone until ported forward.
+Baseline branches may use older **patterns** (MongoDB, Muflone) until ported forward — runtime is **.NET 10** on import.
 
 ## Getting Started
 
+Baseline import git names (`01-monolith_legacy`, etc.) map to roadmap stages — code on each branch is **.NET 10** after port.
+
 ### Prerequisites
 
-- .NET 10 SDK (target); .NET 8 SDK for baseline branches until ported
+- .NET 10 SDK
 - Docker Desktop
 
 ### Run Baseline Stage 01 (when branch exists)

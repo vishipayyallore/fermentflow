@@ -95,7 +95,7 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 |--------|-------|--------------|
 | 01 | Layered monolith, smells | Baseline |
 | 02 | Physical bounded contexts, modular monolith | Folder isolation, **architecture tests** |
-| 03 | CQRS + Vertical Slice Architecture | MediatR, `Features/` per use case |
+| 03 | CQRS + Vertical Slice Architecture | MediatR, `Features/`, **domain unit tests**, **Testcontainers** |
 | 04 | CQRS + Event sourcing | EventStoreDB; **CQRS and vertical slices retained** |
 | 05 | Microservices | Separate deployables per context |
 | 06 | Outbox pattern | Reliable messaging, no lost events |
@@ -110,6 +110,8 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 | Monolith | ✓ | ✓ | ✓ | ✓ | | | | | |
 | Bounded contexts | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Architecture tests | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Domain unit tests | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Testcontainers (integration) | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Vertical slices | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | CQRS | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Event sourcing | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -159,6 +161,33 @@ The aggregate can remain `Availability` or become `StockLevel` / `InventoryItem`
 ```
 
 Sales may also call Inventory synchronously (with circuit breaker) for real-time stock checks during order placement.
+
+---
+
+## Saga strategy (stage 10 — reserved)
+
+The domain flow `Production → Inventory → Sales` is a natural **long-running workflow**. Stage **`10-EventDrivenSagas`** is reserved before Kubernetes.
+
+| Aspect | Choice |
+|--------|--------|
+| **Saga style** | Orchestration |
+| **Technology** | MassTransit state machine |
+| **Stage** | `10-EventDrivenSagas` |
+| **Stack fit** | MassTransit + RabbitMQ + .NET Aspire (branch 09) |
+
+Example orchestrated saga:
+
+```text
+ProductionCompleted
+        ↓
+InventoryUpdated
+        ↓
+InventoryAvailable
+        ↓
+ReleasePendingSalesOrders
+```
+
+Decision record: [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) *(Proposed)*. Detail: [Architecture governance](09-architecture-governance.md).
 
 ---
 

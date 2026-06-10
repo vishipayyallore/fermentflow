@@ -19,6 +19,31 @@ Sales/Features/GetSalesOrders/
 
 Each slice colocates command/query handler, validator, and endpoint for one use case. Shared abstractions move to `BuildingBlocks/Domain` and `BuildingBlocks/Application` initially.
 
+Introduce **domain unit tests** per context and **Testcontainers** for integration tests:
+
+```text
+tests/
+├── FermentFlow.Architecture.Tests
+├── FermentFlow.Sales.UnitTests
+├── FermentFlow.Inventory.UnitTests
+├── FermentFlow.Production.UnitTests
+└── FermentFlow.IntegrationTests    # Testcontainers — PostgreSQL from branch 03
+```
+
+Example domain tests (Given/When/Then):
+
+```text
+Given stock of 10
+When order requests 5
+Then order is accepted
+
+Given stock of 10
+When order requests 15
+Then order is rejected
+```
+
+These tests become essential when event sourcing arrives on branch 04.
+
 ## Alternatives Considered
 
 | Alternative | Outcome |

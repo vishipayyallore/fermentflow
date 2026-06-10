@@ -7,7 +7,7 @@ description: Smoke verification for FermentFlow (Docker infrastructure, dotnet b
 
 ## Prerequisites
 
-- .NET 8 SDK
+- .NET 10 SDK
 - Docker Desktop
 
 ## Smoke steps
@@ -45,6 +45,7 @@ description: Smoke verification for FermentFlow (Docker infrastructure, dotnet b
 
 ## Branch notes
 
+- Branch 03+: domain unit tests and Testcontainers integration tests under `tests/`
 - Branch 04: run Sales and Warehouses REST projects separately — see `docs/01-overview/06-running-locally.md`
 - If solution paths differ on the active branch, document the mismatch as a finding
 

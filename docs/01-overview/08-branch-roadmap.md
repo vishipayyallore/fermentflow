@@ -118,7 +118,11 @@ src/
 └── FermentFlow.sln
 
 tests/
-└── FermentFlow.Architecture.Tests
+├── FermentFlow.Architecture.Tests
+├── FermentFlow.Sales.UnitTests
+├── FermentFlow.Inventory.UnitTests
+├── FermentFlow.Production.UnitTests
+└── FermentFlow.IntegrationTests    # Testcontainers — PostgreSQL
 ```
 
 Characteristics:
@@ -128,6 +132,16 @@ Characteristics:
 - Vertical Slice Architecture
 - Feature-based organization
 - Independent use-case slices
+- **Domain unit tests** per context (aggregate invariants, Given/When/Then)
+- **Testcontainers** for integration tests against real PostgreSQL
+
+Example domain test:
+
+```text
+Given stock of 10
+When order requests 15
+Then order is rejected
+```
 
 Decision: [ADR-002](../adr/ADR-002-introduce-cqrs.md)
 
@@ -164,6 +178,7 @@ Characteristics:
 - Domain events and aggregate rehydration
 - Projections for read models
 - Event-driven domain model
+- Testcontainers extended: **PostgreSQL + RabbitMQ + EventStoreDB**
 
 ---
 

@@ -16,7 +16,7 @@ fermentflow/
 │
 ├── src/                   # Application source code
 │
-├── tests/                 # Architecture tests from branch 02; cross-service from branch 06
+├── tests/                 # Architecture tests (02+); domain + Testcontainers (03+)
 │
 ├── tools/
 │   └── psscripts/
@@ -71,8 +71,8 @@ Governance (ADRs, architecture tests, Definition of Done): [09-architecture-gove
 | Branch | Main Learning Goal |
 | ------ | ------------------ |
 | 01-LegacyMonolith | Layered Architecture |
-| 02-ModularMonolith | DDD + Bounded Contexts |
-| 03-CQRS-VerticalSlices | CQRS + Vertical Slice Architecture |
+| 02-ModularMonolith | DDD + bounded contexts + **architecture tests** |
+| 03-CQRS-VerticalSlices | CQRS + vertical slices + **domain unit tests** + **Testcontainers** |
 | 04-CQRS-EventSourcing | CQRS retained + domain events + EventStoreDB |
 | 05-Microservices | Service Decomposition |
 | 06-OutboxPattern | Reliable Messaging |

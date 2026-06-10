@@ -12,22 +12,34 @@ The workspace must teach **incremental refactoring** — not a single "final" ar
 
 ## Decision
 
-Establish **FermentFlow** as a personal architecture laboratory that explores, in staged git branches:
+Establish **FermentFlow** as Swamy's personal **architecture modernization laboratory**. All later ADRs (001–009) descend from this root decision.
 
-- Domain-Driven Design (bounded contexts, ubiquitous language)
-- CQRS + Vertical Slice Architecture
-- Event Sourcing (retaining CQRS)
-- Microservices
-- Transactional Outbox
-- Circuit Breaker (Polly)
-- Observability (OpenTelemetry)
-- .NET Aspire
+### Why FermentFlow
 
-**Domain:** brewery logistics — `Production → Inventory → Sales`.
+- Name reflects the domain flow: **Production → Inventory → Sales**
+- Staged git branches make architectural evolution visible and reproducible
+- ADRs and architecture tests enforce decisions — not just prose
 
-**Runtime target:** .NET 10 (baseline import branches may remain on .NET 7/8 until ported).
+### Why brewery logistics
 
-**Governance:** architecture tests from branch 02; ADRs from branch 01 foundation (this record) through branch 08; future ADR-009 for event-driven sagas.
+- Natural bounded contexts (Sales, Inventory, Production)
+- Long-running workflow suitable for sagas (stage 10)
+- Stock validation rules teach invariants before event sourcing
+
+### Why nine stages
+
+Each branch introduces **one major leap** while retaining prior capabilities (CQRS does not disappear when event sourcing arrives). See [repository structure](../01_repository-structure.md#architecture-evolution-roadmap).
+
+### Why .NET 10
+
+- Single SDK target for all branches — imported baseline code is **ported to .NET 10 on import**, not maintained on .NET 7/8 long term
+- Aligns with Aspire, modern MediatR/MassTransit, and portfolio presentation
+
+### Why a modernization laboratory (not a snapshot)
+
+Patterns taught: DDD, CQRS + vertical slices, event sourcing, microservices, outbox, Polly, OpenTelemetry, Aspire, and (proposed) event-driven sagas.
+
+**Governance from day one:** [ADR-000](ADR-000-establish-fermentflow.md) (this record) → branch ADRs 001–008 → proposed ADR-009; architecture tests from branch 02; domain unit tests + Testcontainers from branch 03.
 
 Do **not** frame the repository as third-party courseware or an official book sample in public documentation.
 
@@ -35,14 +47,15 @@ Do **not** frame the repository as third-party courseware or an official book sa
 
 | Alternative | Outcome |
 |-------------|---------|
-| Single-repo snapshot of "best practices" only | **Rejected** — hides the learning journey; FermentFlow's value is evolution across branches. |
-| Greenfield toy domain (e.g. generic Todo app) | **Rejected** — too shallow for DDD, sagas, and outbox lessons. |
-| Document-only repo without runnable code | **Rejected** — architecture decisions must be provable with buildable branches. |
-| Staged laboratory with ADRs + architecture tests | **Accepted** — this repository. |
+| Single-repo snapshot of "best practices" only | **Rejected** — hides the learning journey. |
+| Greenfield toy domain (e.g. generic Todo app) | **Rejected** — too shallow for DDD, sagas, and outbox. |
+| Document-only repo without runnable code | **Rejected** — decisions must be provable on buildable branches. |
+| Dual .NET 8 / .NET 10 SDK requirement indefinitely | **Rejected** — port baseline to .NET 10 on `01-LegacyMonolith`. |
+| Staged laboratory with ADRs + tests | **Accepted** — this repository. |
 
 ## Consequences
 
 - **Positive:** All future architectural decisions are evaluated against the [staged learning roadmap](../01_repository-structure.md#architecture-evolution-roadmap).
 - **Positive:** Documentation, ADRs, and branch names stay aligned — ADRs reinforce the roadmap rather than duplicating it.
-- **Negative:** High documentation and branch-maintenance overhead before code exists on every stage.
-- **Follow-up:** Implement `01-LegacyMonolith` by importing baseline code, then port forward branch by branch.
+- **Negative:** High documentation and branch-maintenance overhead before every stage has code.
+- **Follow-up:** Implement `01-LegacyMonolith` — import baseline, port to .NET 10, then evolve branch by branch.
