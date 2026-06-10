@@ -19,6 +19,14 @@ Sales/Features/GetSalesOrders/
 
 Each slice colocates command/query handler, validator, and endpoint for one use case. Shared abstractions move to `BuildingBlocks/Domain` and `BuildingBlocks/Application` initially.
 
+## Alternatives Considered
+
+| Alternative | Outcome |
+|-------------|---------|
+| CQRS with horizontal layers only (`Commands/`, `Queries/` folders) | **Rejected** — use-case changes touch many folders; common in older .NET samples. |
+| Vertical slices without CQRS | **Rejected** — misses explicit read/write separation teaching goal. |
+| CQRS + vertical slices together (MediatR, `Features/`) | **Accepted** — one branch, one coherent modern .NET story. |
+
 ## Consequences
 
 - **Positive:** One folder per use case; aligns with modern .NET and MediatR practice; CQRS read/write paths stay explicit.

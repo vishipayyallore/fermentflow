@@ -18,6 +18,14 @@ Adopt the **transactional outbox**:
 
 Add `BuildingBlocks/Outbox/` and extend architecture tests to forbid direct broker publish from domain handlers.
 
+## Alternatives Considered
+
+| Alternative | Outcome |
+|-------------|---------|
+| **Direct RabbitMQ publish** after `SaveChanges` | **Rejected** — crash between commit and publish loses events; no atomic guarantee. |
+| **Circuit breaker** on publish calls (ADR-006) | **Rejected as substitute** — retries failed calls but does not fix the lost-event window; outbox must come first. |
+| **Transactional outbox** in the same DB transaction | **Accepted** — reliable integration events; teaches correct ordering before Polly. |
+
 ## Consequences
 
 - **Positive:** Reliable integration events; teaches the right ordering (outbox before circuit breaker).

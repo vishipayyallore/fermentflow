@@ -55,7 +55,14 @@ fermentflow/
 
 Each branch introduces a single major architectural concept while preserving the same brewery logistics domain.
 
-Per-branch folder layouts and characteristics: [08-branch-roadmap.md](01-overview/08-branch-roadmap.md).
+Per-branch folder layouts and characteristics: [08-branch-roadmap.md](01-overview/08-branch-roadmap.md).  
+Governance (ADRs, architecture tests, Definition of Done): [09-architecture-governance.md](01-overview/09-architecture-governance.md).
+
+### Optional future stages (after 09-Aspire)
+
+```text
+10-EventDrivenSagas → 11-Kubernetes → 12-GitHubActions → 13-AzureContainerApps → 14-MultiTenancy
+```
 
 ---
 
@@ -80,10 +87,11 @@ Per-branch folder layouts and characteristics: [08-branch-roadmap.md](01-overvie
 ```text
 docs/
 ├── 01_repository-structure.md    # This file — layout, roadmap, naming
-├── adr/                          # Architecture Decision Records (branch 02 onward)
+├── adr/                          # Architecture Decision Records
 │   ├── README.md
+│   ├── ADR-000-establish-fermentflow.md
 │   ├── ADR-001-introduce-modular-monolith.md
-│   └── …
+│   └── … (through ADR-009)
 ├── agent-skills.md
 ├── agent-subagents.md
 ├── agent-governance-recovery.md
@@ -95,7 +103,8 @@ docs/
     ├── 05-ddd-reverse-engineering-report.md
     ├── 06-running-locally.md
     ├── 07-fermentflow-modernization-vision.md
-    └── 08-branch-roadmap.md
+    ├── 08-branch-roadmap.md
+    └── 09-architecture-governance.md
 ```
 
 ---
@@ -137,8 +146,9 @@ Early branches (02–03) may start with:
 ```text
 FermentFlow.BuildingBlocks.Domain
 FermentFlow.BuildingBlocks.Application
-FermentFlow.BuildingBlocks.Infrastructure   # temporary; avoid growing into a dumping ground
 ```
+
+Avoid `BuildingBlocks.Infrastructure` as a long-term home — it becomes a dumping ground. Use thin context-level Infrastructure projects only where needed until branch 04 splits building blocks.
 
 Target evolution (branch 04 onward) splits concerns explicitly:
 
@@ -172,7 +182,7 @@ Introduced on **`02-ModularMonolith`** and extended each branch. Example rules:
 - Domain must not reference Application or Infrastructure
 - Application must not reference another context's Infrastructure
 
-See [ADR-001](adr/ADR-001-introduce-modular-monolith.md).
+See [ADR-001](../adr/ADR-001-introduce-modular-monolith.md). Root context: [ADR-000](../adr/ADR-000-establish-fermentflow.md).
 
 ---
 

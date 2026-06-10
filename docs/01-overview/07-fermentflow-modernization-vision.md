@@ -169,13 +169,15 @@ src/
 ├── FermentFlow.sln
 │
 ├── BuildingBlocks/
-│   ├── FermentFlow.BuildingBlocks.Domain/        # Entity, AggregateRoot, ValueObject, IDomainEvent
-│   ├── FermentFlow.BuildingBlocks.Application/   # ICommand, IQuery, pipeline behaviors
-│   ├── FermentFlow.BuildingBlocks.Infrastructure/ # EF Core, EventStore client
-│   ├── FermentFlow.BuildingBlocks.Messaging/     # MassTransit abstractions, integration events
-│   ├── FermentFlow.BuildingBlocks.Outbox/        # Outbox table, background publisher
-│   ├── FermentFlow.BuildingBlocks.Resilience/    # Polly v8 policies, HttpClient factory
-│   └── FermentFlow.BuildingBlocks.Observability/   # OpenTelemetry, Serilog enrichers
+│   ├── FermentFlow.BuildingBlocks.Domain/         # Entity, AggregateRoot, ValueObject, IDomainEvent
+│   ├── FermentFlow.BuildingBlocks.Application/    # ICommand, IQuery, pipeline behaviors
+│   ├── FermentFlow.BuildingBlocks.Persistence/    # EF Core, repositories (not generic Infrastructure)
+│   ├── FermentFlow.BuildingBlocks.EventSourcing/  # EventStore client, aggregate rehydration
+│   ├── FermentFlow.BuildingBlocks.Messaging/      # MassTransit abstractions, integration events
+│   ├── FermentFlow.BuildingBlocks.Outbox/         # Outbox table, background publisher (branch 06+)
+│   ├── FermentFlow.BuildingBlocks.Resilience/     # Polly v8 policies (branch 07+)
+│   ├── FermentFlow.BuildingBlocks.Observability/  # OpenTelemetry, Serilog enrichers (branch 08+)
+│   └── FermentFlow.BuildingBlocks.Testing/        # Shared test fixtures and fakes
 │
 ├── Services/
 │   ├── Sales/
@@ -187,7 +189,7 @@ src/
 │   │   ├── FermentFlow.Inventory.Api/
 │   │   ├── FermentFlow.Inventory.Application/
 │   │   ├── FermentFlow.Inventory.Domain/
-│   │   └── FermentFlow.Infrastructure/
+│   │   └── FermentFlow.Inventory.Infrastructure/
 │   └── Production/
 │       ├── FermentFlow.Production.Api/
 │       ├── FermentFlow.Production.Application/
@@ -208,11 +210,13 @@ src/
 ### Per-service internal layout (clean architecture)
 
 ```text
-Api          → HTTP endpoints, request validation
-Application  → MediatR handlers, DTOs, integration event handlers
-Domain       → Aggregates, value objects, domain events, invariants
-Infrastructure → EF Core, EventStore, MassTransit, outbox, Polly
+Api            → HTTP endpoints, request validation
+Application    → MediatR handlers, DTOs, integration event handlers
+Domain         → Aggregates, value objects, domain events, invariants
+Infrastructure → EF Core, EventStore, MassTransit adapters (per context — not BuildingBlocks.Infrastructure)
 ```
+
+> **Governance:** avoid `FermentFlow.BuildingBlocks.Infrastructure`; split into `Persistence`, `Messaging`, `EventSourcing`, etc. See [Architecture governance](09-architecture-governance.md).
 
 ---
 
@@ -387,7 +391,7 @@ Phase 4 — Extend stages 06–09
 ### What to change
 
 - Context naming: Warehouses → Inventory
-- Production promoted from contracts to full service
+- Production promoted to **full bounded context** from branch 02 target (baseline import: contracts only — see [Business Domain](02-business-domain.md))
 - Muflone → MediatR + MassTransit
 - MongoDB writes → PostgreSQL + outbox
 - Add resilience, observability, and Aspire orchestration
@@ -400,6 +404,7 @@ All major branch decisions are documented under [`docs/adr/`](../adr/README.md):
 
 | ADR | Branch |
 |-----|--------|
+| ADR-000 | *(Establish FermentFlow — foundation)* |
 | ADR-001 | 02-ModularMonolith |
 | ADR-002 | 03-CQRS-VerticalSlices |
 | ADR-003 | 04-CQRS-EventSourcing |
@@ -408,6 +413,9 @@ All major branch decisions are documented under [`docs/adr/`](../adr/README.md):
 | ADR-006 | 07-CircuitBreaker |
 | ADR-007 | 08-Observability |
 | ADR-008 | 09-Aspire |
+| ADR-009 | 10-EventDrivenSagas *(Proposed)* |
+
+Process, architecture tests, and Definition of Done: [Architecture governance](09-architecture-governance.md).
 
 ---
 
@@ -417,7 +425,7 @@ FermentFlow is Swamy's personal architecture laboratory for brewery logistics:
 
 1. **Nine stages** — from legacy monolith to .NET Aspire
 2. **Inventory** — clearer ubiquitous language than Warehouses
-3. **Architecture tests + ADRs** — from branch 02; decisions in `docs/adr/`
+3. **Architecture tests + ADRs** — from branch 02; see `docs/adr/` and [Architecture governance](09-architecture-governance.md)
 4. **Outbox** — reliable integration events
 5. **Polly + OpenTelemetry** — resilience and observability
 6. **Aspire at stage 09** — service discovery, orchestration, and local developer experience

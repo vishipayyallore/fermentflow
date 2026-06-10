@@ -14,6 +14,14 @@ Extract **Sales**, **Inventory**, and **Production** into independently deployab
 
 CQRS, vertical slices, and event sourcing patterns carry forward inside each service.
 
+## Alternatives Considered
+
+| Alternative | Outcome |
+|-------------|---------|
+| Stay modular monolith forever | **Rejected** — deployment and failure-isolation lessons require separate services. |
+| Microservices without gateway or per-service databases | **Rejected** — hides real operational trade-offs. |
+| Three services + gateway + MassTransit + DB per context | **Accepted** — stage 05. |
+
 ## Consequences
 
 - **Positive:** Independent deploy and scale; clearer ownership; production-like topology.

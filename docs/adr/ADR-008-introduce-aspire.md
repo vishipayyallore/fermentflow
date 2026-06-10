@@ -18,8 +18,16 @@ Adopt **.NET Aspire** as the distributed application host:
 
 Aspire is a first-class architectural capability — not an afterthought — for service discovery, orchestration, and the Aspire dashboard.
 
+## Alternatives Considered
+
+| Alternative | Outcome |
+|-------------|---------|
+| Docker Compose only (indefinitely) | **Rejected** — manual wiring does not scale for local multi-service DX. |
+| Kubernetes as the next stage immediately | **Rejected** — sagas (ADR-009) are a richer domain lesson before deployment tooling. |
+| .NET Aspire as dedicated stage 09 | **Accepted** — AppHost + ServiceDefaults + dashboard. |
+
 ## Consequences
 
 - **Positive:** Unified local cloud-native DX; built-in observability hooks; cleaner onboarding for later stages (Kubernetes, Azure Container Apps).
 - **Negative:** Aspire version coupling; team must learn AppHost and resource model.
-- **Follow-up:** Optional future stage `13-EventDrivenSagas` for Production → Inventory → Sales orchestration.
+- **Follow-up:** ADR-009 (Proposed) — event-driven sagas at stage `10-EventDrivenSagas`.

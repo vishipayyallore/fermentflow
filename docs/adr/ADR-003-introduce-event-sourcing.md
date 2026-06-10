@@ -19,6 +19,14 @@ Rename stage **04** to **`04-CQRS-EventSourcing`** to make clear that CQRS and v
 
 Commands and queries from branch 03 remain; write models become event-sourced aggregates.
 
+## Alternatives Considered
+
+| Alternative | Outcome |
+|-------------|---------|
+| Replace CQRS with event sourcing on branch 04 | **Rejected** — many teams conflate the two; FermentFlow keeps **CQRS + vertical slices + event sourcing**. |
+| Event sourcing without renaming branch to `04-CQRS-EventSourcing` | **Rejected** — name hides that CQRS continues. |
+| Add EventStoreDB while retaining CQRS and slices | **Accepted** — branch 04 explicit naming and behaviour. |
+
 ## Consequences
 
 - **Positive:** Full audit trail; natural domain events for integration; explicit CQRS + ES story.

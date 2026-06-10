@@ -84,7 +84,7 @@ src/
 ├── BuildingBlocks/
 │   ├── FermentFlow.BuildingBlocks.Domain
 │   ├── FermentFlow.BuildingBlocks.Application
-│   └── FermentFlow.BuildingBlocks.Infrastructure
+│   └── (minimal shared helpers — avoid a monolithic Infrastructure project)
 │
 ├── Sales/
 │   ├── Features/
@@ -312,9 +312,17 @@ Characteristics:
 ## Optional Future Stages
 
 ```text
-10-Kubernetes
-11-GitHubActions
-12-AzureContainerApps
-13-EventDrivenSagas      # Production → Inventory → Sales saga
+10-EventDrivenSagas      # Production → Inventory → Sales orchestration
+11-Kubernetes
+12-GitHubActions
+13-AzureContainerApps
 14-MultiTenancy
 ```
+
+Example saga flow (stage 10):
+
+```text
+ProductionCompleted → InventoryUpdated → StockAvailable → PendingSalesOrdersReleased
+```
+
+Decision record: [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) *(Proposed)*.

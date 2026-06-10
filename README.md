@@ -91,10 +91,10 @@ Full per-branch layouts: [Branch roadmap](docs/01-overview/08-branch-roadmap.md)
 Optional future stages:
 
 ```text
-10-Kubernetes
-11-GitHubActions
-12-AzureContainerApps
-13-EventDrivenSagas
+10-EventDrivenSagas
+11-Kubernetes
+12-GitHubActions
+13-AzureContainerApps
 14-MultiTenancy
 ```
 
@@ -228,6 +228,7 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 | [Business domain](docs/01-overview/02-business-domain.md) | Domain flows and rules |
 | [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Baseline import comparison |
 | [Branch roadmap](docs/01-overview/08-branch-roadmap.md) | Per-branch layout and learning goals |
+| [Architecture governance](docs/01-overview/09-architecture-governance.md) | ADRs, architecture tests, Definition of Done |
 | [Architecture decisions](docs/adr/README.md) | ADR index (branch 02 onward) |
 | [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |

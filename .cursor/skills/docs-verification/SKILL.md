@@ -21,14 +21,14 @@ description: Verify FermentFlow markdown structure, architecture doc consistency
 | Doc | Validates |
 |-----|-----------|
 | `01_repository-structure.md` | Layout, roadmap, naming (SSOT) |
-| `adr/README.md` | ADR index; branch 04 = CQRS-EventSourcing |
+| `adr/README.md` | ADR index; ADR-000 foundation; Alternatives Considered in each ADR |
 | `08-branch-roadmap.md` | Per-branch trees; architecture tests from branch 02 |
 | `01-project-overview.md` | Stack, baseline mapping, endpoints |
 | `02-business-domain.md` | Domain flows |
 | `03-architecture-evolution.md` | Baseline import comparison only |
 | `04-ubiquitous-language.md` | Term consistency |
 | `06-running-locally.md` | Run instructions |
-| `07-fermentflow-modernization-vision.md` | Modernization narrative |
+| `09-architecture-governance.md` | ADR process, architecture tests, Definition of Done |
 
 ## Output
 
