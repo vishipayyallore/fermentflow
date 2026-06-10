@@ -182,7 +182,7 @@ Introduced on **`02-ModularMonolith`** and extended each branch. Example rules:
 - Domain must not reference Application or Infrastructure
 - Application must not reference another context's Infrastructure
 
-See [ADR-001](../adr/ADR-001-introduce-modular-monolith.md). Root context: [ADR-000](../adr/ADR-000-establish-fermentflow.md).
+See [ADR-001](adr/ADR-001-introduce-modular-monolith.md). Root context: [ADR-000](adr/ADR-000-establish-fermentflow.md).
 
 ---
 

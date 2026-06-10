@@ -1,5 +1,13 @@
-# Agent skills (`.cursor/skills`)
+# Agent skills (`.github/skills`)
 
-Mirror of `.github/skills/` — **byte-identical**. Edit both trees in the same commit.
+Canonical **SKILL.md** playbooks for FermentFlow. Mirror: `.cursor/skills/` (must stay byte-identical).
 
-See `.github/skills/README.md` and `docs/agent-skills.md`.
+| Skill | Path |
+|-------|------|
+| fermentflow-foundations | `fermentflow-foundations/SKILL.md` |
+| ci-checks | `ci-checks/SKILL.md` |
+| docs-verification | `docs-verification/SKILL.md` |
+| workspace-review | `workspace-review/SKILL.md` |
+| e2e-testing | `e2e-testing/SKILL.md` |
+
+See `docs/agent-skills.md` for the full pattern. CI: `ci-skills-parity.yml`.

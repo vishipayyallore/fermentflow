@@ -47,7 +47,7 @@ Bundled on-demand procedures live under `.github/skills/` (mirrored at `.cursor/
 
 ## Governance integrity
 
-Assistant behaviour is defined under `.github/copilot-instructions.md`, `.cursor/rules/`, mirrored skills and agents, and **`CLAUDE.md`**. Change both mirror trees in the same commit; rely on `ci-skills-parity` / `ci-agent-docs-guard` to catch drift. Recovery: **`docs/agent-governance-recovery.md`**.
+Assistant behaviour is defined under `.github/copilot-instructions.md`, `.cursor/rules/` (including `.cursor/rules/00_project_scope.mdc` and `.cursor/rules/02_repository-structure.mdc`), mirrored skills and agents, and **`CLAUDE.md`**. Index: **`.cursor/skills.md`**. Change both mirror trees in the same commit; rely on **`ci-skills-parity.yml`** / **`ci-agent-docs-guard.yml`** to catch drift. Recovery: **`docs/agent-governance-recovery.md`**.
 
 ## Environment
 
@@ -65,7 +65,7 @@ See `docs/01-overview/06-running-locally.md` for stage-specific run instructions
 
 ## CI checks (run locally)
 
-Aligned with `.github/workflows/ci-dotnet.yml` and `.github/workflows/ci-documentation.yml`. Full detail: `.github/skills/ci-checks/SKILL.md`.
+Aligned with `.github/workflows/ci-dotnet.yml`, `.github/workflows/ci-documentation.yml`, `.github/workflows/ci-skills-parity.yml`, and `.github/workflows/ci-agent-docs-guard.yml`. Full detail: `.github/skills/ci-checks/SKILL.md`.
 
 ```powershell
 dotnet build src/FermentFlow.sln --configuration Release
@@ -89,4 +89,5 @@ Optional link check: `.\tools\psscripts\Run-MarkdownLintAndLychee.ps1`
 | `.cursor/rules/00_project_scope.mdc` | Swamy-only scope (always apply) |
 | `.github/skills/fermentflow-foundations/SKILL.md` | DDD workspace SOP |
 | `.github/workflows/ci-dotnet.yml` | .NET build and test |
+| `.github/workflows/ci-skills-parity.yml` | Skills mirror parity |
 | `.github/workflows/ci-agent-docs-guard.yml` | Agent docs guard |
