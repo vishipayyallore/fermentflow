@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/swamypkv/fermentflow#readme
+    url: https://github.com/vishipayyallore/fermentflow#readme
     about: Project overview and architecture docs
   - name: Architecture overview
-    url: https://github.com/swamypkv/fermentflow/blob/main/docs/01-overview/03-architecture-evolution.md
+    url: https://github.com/vishipayyallore/fermentflow/blob/main/docs/01-overview/03-architecture-evolution.md
     about: Branch evolution and DDD patterns

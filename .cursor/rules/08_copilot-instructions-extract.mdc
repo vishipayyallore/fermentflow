@@ -5,28 +5,26 @@ globs: *
 
 # Copilot Instructions Extract
 
-**Source**: `.github/copilot-instructions.md` from this repository  
+**Source**: `.github/copilot-instructions.md`  
 **Purpose**: Key guidelines for AI assistants working on this repository
 
 ---
 
 ## Repository Context
 
-**FermentFlow** is a .NET reference application for Domain-Driven Design in a brewery logistics domain. It demonstrates architectural evolution across git branches.
+**FermentFlow** is Swamy PKV's personal .NET 10 architecture laboratory for DDD modernization in a brewery logistics domain.
 
-### Repository Layout
+### Scope
 
-- `docs/01-overview/` — Architecture, domain, evolution, running locally
-- `docker/` — MongoDB, EventStoreDB, RabbitMQ
-- `src/` — Application source (branch-dependent)
-- `tools/psscripts/` — Maintenance scripts
+- **Swamy only** — not public courseware
+- Do **not** reference Packt, BrewUp, or source book names in public docs unless Swamy explicitly asks
+- Preserve `README.md` **Scope (read this first)**
 
-### Branch Evolution
+### Learning roadmap
 
-1. `01-monolith_legacy` — Layered monolith
-2. `02-monolith_with_cqrs` — Bounded contexts + CQRS
-3. `03-monolith_with_cqrs_and_event_sourcing` — Event sourcing + messaging
-4. `04-microservices` — Separate Sales and Warehouses services
+```text
+01-LegacyMonolith → … → 09-Aspire
+```
 
 ---
 
@@ -34,35 +32,22 @@ globs: *
 
 ### DDD Rules
 
-- Respect bounded context boundaries
-- Use ubiquitous language from `docs/01-overview/04-ubiquitous-language.md`
+- Bounded contexts: Sales, Inventory, Production
+- Ubiquitous language from `docs/01-overview/04-ubiquitous-language.md`
 - Commands mutate; queries read; domain events record facts
-- Cross-context integration via events or ACL
 
-### Code Style (.NET)
+### Code Style (.NET 10)
 
-- Standard C# conventions; meaningful domain names
-- Thin REST endpoints; FluentValidation for input
-- Serilog for structured logging
-- xUnit for tests
-
-### Documentation
-
-- Overview docs in `docs/01-overview/`
-- Mermaid diagrams with ASCII fallbacks for architecture
-- Update docs when branch behaviour changes
+- MediatR, MassTransit, PostgreSQL, Polly, OpenTelemetry, Aspire (by stage)
+- xUnit + Testcontainers for integration tests
 
 ---
 
-## Environment & Commands
-
-**Environment**: Windows, PowerShell, .NET 8 SDK, Docker Desktop
+## Environment
 
 ```powershell
-cd docker
-docker compose up -d
+cd docker; docker compose up -d
 cd ..\src
-dotnet restore FermentFlow.sln
 dotnet build FermentFlow.sln --configuration Release
 dotnet test FermentFlow.sln --configuration Release --no-build
 ```
@@ -71,16 +56,7 @@ dotnet test FermentFlow.sln --configuration Release --no-build
 
 ## Quality Checklist
 
-### Before Submitting Code
-
-- [ ] `dotnet build` succeeds
-- [ ] `dotnet test` passes
+- [ ] `dotnet build` and `dotnet test` pass
+- [ ] Swamy-only framing preserved in public docs
+- [ ] No Packt/BrewUp references unless explicitly requested
 - [ ] Bounded context boundaries respected
-- [ ] Domain terms match ubiquitous language doc
-- [ ] No secrets committed
-
-### Documentation
-
-- [ ] Overview docs updated if behaviour changed
-- [ ] File references valid
-- [ ] Markdown lint passes

@@ -435,7 +435,7 @@ ROLE: You are a Neural Network Engineer specializing in implementing perceptrons
 
 MISSION: Implement a 2-layer MLP from scratch in the Artificial Neural Networks repository — a personal learning workspace for understanding networks from first principles using Python, NumPy, and educational best practices
 
-AUDIENCE: A returning learner (Swamy) with expertise in:
+AUDIENCE: A developer learning DDD and event-driven architecture with expertise in:
 - Python programming and NumPy
 - Basic linear algebra and calculus
 - Conceptual ML background
@@ -567,4 +567,4 @@ Align your coding agent tasks with Artificial Neural Networks best practices:
 - Include visualizations and small examples
 - Provide learning objectives and outcomes
 
-This framework ensures consistent, high-quality results from GitHub Copilot coding agents while preventing common issues and maintaining educational standards aligned with neural network implementation best practices and the from-scratch intent of this repository.
+This framework ensures consistent, high-quality results from GitHub Copilot coding agents while preventing common issues and maintaining standards aligned with DDD, CQRS, and .NET reference application best practices.

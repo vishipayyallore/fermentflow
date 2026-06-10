@@ -1,20 +1,20 @@
 # FermentFlow — Modernization Vision
 
-A proposed evolution of the FermentFlow reference application into **FermentFlow**: a distinct, production-grade DDD learning platform that preserves the brewery logistics domain while extending the architectural journey.
+A personal architecture laboratory that extends the brewery logistics domain through nine modernization stages — from legacy monolith to .NET Aspire orchestration.
 
 ---
 
 ## Why FermentFlow?
 
-| Criterion | FermentFlow (original) | FermentFlow (proposed) |
-|-----------|-------------------|------------------------|
-| Domain fit | Brewery logistics | Same — brewery logistics |
-| Name distinctiveness | Packt book sample | Standalone product identity |
+| Criterion | Starting point | FermentFlow direction |
+|-----------|----------------|----------------------|
+| Domain fit | Brewery logistics | Same — Production → Inventory → Sales |
+| Identity | Imported baseline code | Personal architecture laboratory |
 | Process metaphor | Implicit | **Flow**: Production → Inventory → Sales |
-| Learning value | 4 branches | 9 branches (legacy → cloud-native) |
-| Production readiness | Teaching sample | Outbox, resilience, observability |
+| Learning value | Four baseline branches | Nine intentional stages |
+| Production patterns | Core DDD/CQRS/ES | Outbox, resilience, observability, Aspire |
 
-**Verdict:** FermentFlow is a strong choice. It reads as a real product, a learning platform, and a portfolio project simultaneously.
+**Verdict:** FermentFlow gives Swamy a coherent domain story, a structured learning path, and room to experiment beyond any single baseline implementation.
 
 ### Recommended naming
 
@@ -71,20 +71,20 @@ This is the same process FermentFlow models today — FermentFlow makes it expli
 
 ---
 
-## Extended Branch Journey
+## Extended Stage Journey
 
-The original Packt repo has 4 branches. FermentFlow extends to 9:
+FermentFlow extends the four baseline branches into nine intentional stages:
 
 ```text
-01-LegacyMonolith          ← maps to FermentFlow 01-monolith_legacy
-02-ModularMonolith         ← maps to FermentFlow 02-monolith_with_cqrs
-03-CQRS                    ← split from FermentFlow 02 (explicit CQRS step)
-04-EventSourcing           ← maps to FermentFlow 03-monolith_with_cqrs_and_event_sourcing
-05-Microservices           ← maps to FermentFlow 04-microservices
+01-LegacyMonolith          ← baseline 01-monolith_legacy
+02-ModularMonolith         ← split from baseline 02
+03-CQRS                    ← explicit CQRS step
+04-EventSourcing           ← baseline 03-monolith_with_cqrs_and_event_sourcing
+05-Microservices           ← baseline 04-microservices
 06-OutboxPattern           ← NEW
 07-CircuitBreaker          ← NEW
 08-Observability           ← NEW
-09-CloudNative             ← NEW (Aspire, containers, deployment)
+09-Aspire                  ← NEW (service discovery, orchestration, local DX)
 ```
 
 ### Why split CQRS and Event Sourcing?
@@ -101,7 +101,7 @@ FermentFlow branch 02 already has CQRS but branch 03 adds event sourcing — the
 | 06 | Outbox pattern | Reliable messaging, no lost events |
 | 07 | Circuit breaker | Polly v8, sync call resilience |
 | 08 | Observability | OpenTelemetry, Prometheus, Grafana |
-| 09 | Cloud-native | .NET Aspire, container orchestration |
+| 09 | .NET Aspire | Service discovery, orchestration, dashboards, container lifecycle |
 
 ### Architecture capabilities matrix
 
@@ -115,7 +115,7 @@ FermentFlow branch 02 already has CQRS but branch 03 adds event sourcing — the
 | Outbox | | | | | | ✓ | ✓ | ✓ | ✓ |
 | Circuit breaker | | | | | | | ✓ | ✓ | ✓ |
 | Observability | | | | | | | | ✓ | ✓ |
-| Cloud-native | | | | | | | | | ✓ |
+| Aspire / orchestration | | | | | | | | | ✓ |
 
 ---
 
@@ -344,54 +344,51 @@ CREATE TABLE outbox_messages (
 
 ### MediatR vs Muflone
 
-| Aspect | Muflone (FermentFlow) | MediatR (FermentFlow) |
-|--------|------------------|----------------------|
+| Aspect | Legacy baseline (Muflone) | Target stack (FermentFlow) |
+|--------|---------------------------|----------------------------|
 | Learning curve | Steeper, less docs | Gentle, massive community |
-| Event sourcing | Built-in | Pair with EventStore client + custom aggregate base |
-| Messaging | Built-in RabbitMQ | MassTransit (better outbox, sagas) |
-| Book alignment | Packt original | Modern .NET ecosystem |
+| Event sourcing | Built-in | EventStore client + custom aggregate base |
+| Messaging | Built-in RabbitMQ | MassTransit (outbox, sagas) |
+| Ecosystem | Older patterns | Modern .NET 10 defaults |
 
-Keeping event sourcing concepts from FermentFlow but implementing with MediatR + MassTransit is the right trade-off for a learning platform.
+Keeping event sourcing concepts from the baseline but implementing with MediatR + MassTransit is the intended modernization path.
 
 ---
 
-## Relationship to Current Repository
+## Evolution Within This Repository
 
-This repo (**Domain-driven-Refactoring**) remains the **FermentFlow baseline**. FermentFlow is the proposed **successor project**.
+This repo is Swamy's **personal architecture laboratory**. Baseline branches provide a starting implementation; stages 06–09 add production-oriented patterns on top.
 
 ### Migration strategy
 
 ```text
-Phase 1 — Document (done)
-  └── FermentFlow docs in /docs (current repo)
+Phase 1 — Document (in progress)
+  └── Nine-stage roadmap in README and /docs
 
-Phase 2 — Scaffold FermentFlow
-  └── New repo: fermentflow
-  └── Branch 01: port FermentFlow 01-monolith_legacy → FermentFlow 01-LegacyMonolith
-  └── Rename Warehouses → Inventory in docs and code
+Phase 2 — Port baseline
+  └── Stages 01–05 from legacy branch names and stack
 
-Phase 3 — Extend branches 02–05
-  └── Port and modernize FermentFlow branches with new stack
+Phase 3 — Modernize stack
+  └── .NET 10, PostgreSQL, MediatR, MassTransit, Inventory rename
 
-Phase 4 — Add branches 06–09
-  └── Outbox, Polly, OpenTelemetry, Aspire
+Phase 4 — Extend stages 06–09
+  └── Outbox, Polly, OpenTelemetry, .NET Aspire
 ```
 
-### What to keep from FermentFlow verbatim
+### What to preserve
 
 - Domain rules (availability check before order, production-driven stock)
 - Aggregate boundaries (SalesOrder, Availability/InventoryItem)
-- Evolution narrative (monolith → microservices)
-- ADR format and workbook structure
+- Evolution narrative (monolith → microservices → Aspire)
+- ADR format and architecture workbook structure
 
 ### What to change
 
-- Name, namespaces, Docker service names
-- Warehouses → Inventory context
+- Context naming: Warehouses → Inventory
 - Production promoted from contracts to full service
 - Muflone → MediatR + MassTransit
 - MongoDB writes → PostgreSQL + outbox
-- Add resilience and observability layers
+- Add resilience, observability, and Aspire orchestration
 
 ---
 
@@ -408,14 +405,12 @@ Phase 4 — Add branches 06–09
 
 ## Summary
 
-FermentFlow is a well-aligned modernization of FermentFlow:
+FermentFlow is Swamy's personal architecture laboratory for brewery logistics:
 
-1. **Name** — strong, domain-fitting, distinct
-2. **Inventory** — better ubiquitous language than Warehouses
-3. **9 branches** — significantly more learning value than 4
-4. **Building blocks** — eliminates duplicated `FermentFlow.Shared` anti-pattern from branch 04
-5. **Outbox** — the highest-impact production improvement
-6. **Polly + OpenTelemetry** — completes the cloud-native story
-7. **Stack** — MediatR, MassTransit, PostgreSQL are modern .NET defaults
-
-The current FermentFlow repo is the foundation. FermentFlow is where the architecture earns production credibility.
+1. **Nine stages** — from legacy monolith to .NET Aspire
+2. **Inventory** — clearer ubiquitous language than Warehouses
+3. **Building blocks** — replaces duplicated shared-library anti-patterns
+4. **Outbox** — reliable integration events
+5. **Polly + OpenTelemetry** — resilience and observability
+6. **Aspire at stage 09** — service discovery, orchestration, and local developer experience
+7. **Stack** — .NET 10, MediatR, MassTransit, PostgreSQL as modern defaults

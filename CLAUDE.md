@@ -2,18 +2,30 @@
 
 ## Repository
 
-**fermentflow** — a .NET reference application for brewery logistics. Demonstrates DDD, CQRS, Event Sourcing, Outbox Pattern, Circuit Breaker, and microservices through a refactoring journey across git branches. **Not** a production system; it is a teaching and portfolio sample.
+**fermentflow** — Swamy PKV's personal .NET 10 architecture laboratory. Explores DDD, CQRS, Event Sourcing, Outbox, Circuit Breaker, Observability, and .NET Aspire through incremental refactoring of a brewery logistics domain. **Not** production software; not public courseware.
+
+## Non-negotiable: Swamy only
+
+This repository is **Swamy PKV's personal learning and experimentation workspace**. Do **not** reword `README.md` or docs to imply a general audience unless Swamy explicitly asks. Preserve the **Scope (read this first)** block in `README.md`. Do **not** reference Packt, BrewUp, or source book names in public docs unless Swamy explicitly asks.
+
+## Learning roadmap
+
+Nine intentional stages — see `README.md`:
+
+```text
+01-LegacyMonolith → … → 09-Aspire
+```
+
+Detail: `docs/01-overview/07-fermentflow-modernization-vision.md`
 
 ## Project layout
 
 | Path | Purpose |
 |------|---------|
 | `docs/01-overview/` | Architecture, domain language, evolution vision |
-| `docker/` | Local infrastructure (MongoDB, EventStore, RabbitMQ) |
-| `src/` | Application source (branch-dependent: monolith or microservices) |
+| `docker/` | Local infrastructure |
+| `src/` | Application source (stage-dependent) |
 | `tools/` | Maintenance scripts (`psscripts/`) |
-
-Branch evolution is the primary learning axis — see `docs/01-overview/03-architecture-evolution.md`.
 
 ## Agent skills (`SKILL.md`)
 
@@ -29,11 +41,9 @@ Bundled on-demand procedures live under `.github/skills/` (mirrored at `.cursor/
 
 | Layer | In this repository | Holds |
 |------|---------------------|--------|
-| **Global contract** | **`CLAUDE.md` (this file)** | What this repo *is*, layout, env, CI pointers, key-file table |
+| **Global contract** | **`CLAUDE.md` (this file)** | What this repo *is*, Swamy-only scope, layout, env, CI pointers |
 | **Playbooks** | **`.github/skills/`**, **`.cursor/agents/`**, **`.github/prompts/`** | How to run CI, audit architecture docs, write prompts |
 | **Optional Claude Code extras** | **`.claude/`** | Short CLI-only additions; see **`.claude/README.md`** |
-
-**Rule of thumb:** universal behaviour → **`.github/copilot-instructions.md`** + **`.cursor/rules/`**. Repeatable procedure → **`SKILL.md`** or **subagent**. **`CLAUDE.md`** → **links and summaries** only.
 
 ## Governance integrity
 
@@ -42,7 +52,7 @@ Assistant behaviour is defined under `.github/copilot-instructions.md`, `.cursor
 ## Environment
 
 ```powershell
-# Prerequisites: .NET 8 SDK, Docker Desktop
+# Prerequisites: .NET 10 SDK, Docker Desktop
 cd docker
 docker compose up -d
 cd ..\src
@@ -51,7 +61,7 @@ dotnet build FermentFlow.sln
 dotnet test FermentFlow.sln
 ```
 
-See `docs/01-overview/06-running-locally.md` for branch-specific run instructions.
+See `docs/01-overview/06-running-locally.md` for stage-specific run instructions.
 
 ## CI checks (run locally)
 
@@ -69,22 +79,11 @@ Optional link check: `.\tools\psscripts\Run-MarkdownLintAndLychee.ps1`
 
 | Path | Purpose |
 |------|---------|
-| `README.md` | Project overview |
-| `docs/01-overview/01-project-overview.md` | Structure, stack, branches |
-| `docs/01-overview/04-ubiquitous-language.md` | Domain vocabulary |
+| `README.md` | Overview, scope, learning roadmap |
+| `docs/01-overview/07-fermentflow-modernization-vision.md` | 9-stage modernization plan |
 | `docs/01_repository-structure.md` | Structural single source of truth |
-| `docs/agent-skills.md` | SKILL.md pattern and skills mirror |
-| `docs/agent-subagents.md` | Subagent index |
 | `.github/copilot-instructions.md` | Canonical Copilot / agent instructions |
-| `.github/skills/fermentflow-foundations/SKILL.md` | DDD/CQRS workspace SOP |
-| `.github/skills/ci-checks/SKILL.md` | Local CI runner |
-| `tools/README.md` | Repo-local helpers |
-| `.cursor/rules/00_project_scope.mdc` | Project scope (always apply) |
-| `.cursor/rules/01_architecture-guidelines.mdc` | DDD and bounded-context rules |
-| `.cursor/rules/02_repository-structure.mdc` | Layout pointer |
-| `.cursor/rules/05_primary-directives.mdc` | Primary directives |
-| `.cursor/skills.md` | Bundled skills pointer |
+| `.cursor/rules/00_project_scope.mdc` | Swamy-only scope (always apply) |
+| `.github/skills/fermentflow-foundations/SKILL.md` | DDD workspace SOP |
 | `.github/workflows/ci-dotnet.yml` | .NET build and test |
-| `.github/workflows/ci-documentation.yml` | Markdown lint and Lychee |
-| `.github/workflows/ci-skills-parity.yml` | Skills mirror parity |
 | `.github/workflows/ci-agent-docs-guard.yml` | Agent docs guard |

@@ -13,7 +13,7 @@ Commands mirror `.github/workflows/ci-dotnet.yml` and `.github/workflows/ci-docu
 
 ## Prerequisites
 
-- **.NET:** .NET 8 SDK at repo root
+- **Prerequisites:** .NET 10 SDK at repo root
 - **Docker:** Docker Desktop for integration tests that require infrastructure (optional for build-only)
 - **Node.js:** **20.x** for `markdownlint-cli2` (match `ci-documentation.yml`)
 - **Link checks:** Docker with `lycheeverse/lychee:latest`, local `lychee`, or `.\tools\psscripts\Run-MarkdownLintAndLychee.ps1`

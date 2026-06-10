@@ -1,25 +1,24 @@
 ---
-description: FermentFlow project scope and audience
+description: Swamy-only personal architecture laboratory — not public courseware
 globs: *
 alwaysApply: true
 ---
 
-# FermentFlow project scope
+# Swamy-only personal architecture laboratory
 
-This repository (`fermentflow`) is a **.NET reference application** for Domain-Driven Design and event-driven architecture in a brewery logistics domain.
+This repository (`fermentflow`) is **Swamy PKV's personal software architecture and Domain-Driven Design laboratory**.
 
-1. **Reference application** — demonstrates DDD, CQRS, Event Sourcing, and microservices through branch-based evolution.
-2. **Teaching sample** — aligned with the Packt book *Domain-driven Refactoring*; not a production deployment target.
-3. **Open documentation** — architecture docs in `docs/01-overview/` are intended for readers and contributors.
+1. **Only Swamy's learning** — artifacts support his DDD, CQRS, event sourcing, and modernization study; they are not institutional or third-party curriculum.
+2. **Not for anyone else** — do not edit copy to welcome a general audience, imply shared courseware, or invite others to treat this as tutorials, templates, or authoritative reference material.
+3. **Inspired, not derivative** — FermentFlow is a personal architecture laboratory inspired by DDD modernization patterns; do not frame it as an official book sample or third-party product fork.
 
 ## Do
 
-- Keep `README.md` and `docs/01-overview/` accurate for the active branch structure.
-- Preserve ubiquitous language from `docs/01-overview/04-ubiquitous-language.md`.
-- Document architectural decisions when adding bounded contexts or cross-context integration.
+- Keep `README.md` **Scope (read this first)** accurate in spirit across public docs.
+- Preserve the 9-stage learning roadmap and Swamy-only audience framing.
 
 ## Do not
 
-- Treat this as a generic CRUD tutorial — respect bounded context boundaries.
-- Add framework magic without explaining the DDD pattern it implements.
-- Break branch isolation — changes on one evolution branch should not silently assume another branch's structure.
+- Reference Packt, BrewUp, or other source book/product names in public docs unless Swamy explicitly requests it.
+- Soften or remove the personal-only stance unless Swamy explicitly requests it.
+- Replace "Swamy only" framing with "students," "learners," or open-education language.

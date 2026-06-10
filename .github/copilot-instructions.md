@@ -1,33 +1,39 @@
 # GitHub Copilot Instructions for FermentFlow
 
-**Version**: 1.0  
+**Version**: 1.1  
 **Last Updated**: June 10, 2026  
 **Repository**: `fermentflow`  
-**Context**: Domain-Driven Design reference application (.NET)
+**Context**: Personal DDD architecture laboratory (.NET 10)
 
-**Environment**: Windows, PowerShell, .NET 8 SDK, Docker Desktop  
+**Environment**: Windows, PowerShell, .NET 10 SDK, Docker Desktop  
 **Note**: All commands and scripts should use PowerShell syntax. File paths use Windows format.
+
+---
+
+## Strict scope (non-negotiable)
+
+This repository is **Swamy PKV's personal architecture laboratory only**. It is **not** for anyone else as courseware, templates, tutorials, or a reference corpus. **Do not** frame content for a general audience (other students, "learners," recruiters). Public visibility is **not** an invitation to use this repo for third-party purposes. Keep `README.md` aligned with the **Scope (read this first)** section.
+
+**Do not** reference Packt, BrewUp, or other source book/product names in public docs unless Swamy explicitly asks.
 
 ---
 
 ## Repository Purpose
 
-**FermentFlow** is a sample application for the Packt book *Domain-driven Refactoring*. It models a fictional brewery logistics company that manages beer sales, warehouse inventory, and production-driven availability.
+**FermentFlow** is Swamy's personal laboratory for exploring how a brewery logistics domain evolves from a legacy monolith into a modern, resilient, cloud-native distributed system using contemporary .NET practices.
 
-The repository's primary value is the **refactoring journey** encoded in git branches — from legacy monolith to resilient microservices.
+The business domain is **brewery logistics management**: Production → Inventory → Sales.
 
 ### What This Repository Provides
 
-- **Bounded contexts**: Sales, Warehouses (Inventory in modernization vision), Production
-- **Architectural patterns**: DDD, CQRS, Event Sourcing, Outbox, Circuit Breaker
-- **Documentation**: Architecture evolution, ubiquitous language, reverse-engineering reports
-- **Infrastructure**: Docker Compose for MongoDB, EventStoreDB, RabbitMQ
+- **Bounded contexts**: Sales, Inventory, Production
+- **Architectural patterns**: DDD, CQRS, Event Sourcing, Outbox, Circuit Breaker, Observability, .NET Aspire
+- **Branch evolution**: Nine intentional stages from legacy monolith to Aspire orchestration
+- **Documentation**: Architecture evolution, ubiquitous language, modernization vision
 
 ### Who this is for
 
-- Developers learning DDD and event-driven architecture in .NET
-- Readers of the *Domain-driven Refactoring* book
-- Portfolio and reference implementations
+- **Swamy PKV only** — personal study, experimentation, and reference implementations. Not written for, maintained for, or aimed at any other audience.
 
 ---
 
@@ -35,21 +41,20 @@ The repository's primary value is the **refactoring journey** encoded in git bra
 
 **Quick Reference:**
 
-- `docs/01-overview/` — Project overview, domain, architecture evolution, running locally
+- `docs/01-overview/` — Project overview, domain, architecture evolution, modernization vision
 - `docker/` — Infrastructure compose files
-- `src/` — Application source (structure varies by branch)
+- `src/` — Application source (evolves by branch/stage)
 - `tools/psscripts/` — Maintenance and CI helper scripts
 
-**Branch evolution** (primary learning axis):
+**Learning roadmap** (primary axis):
 
-| Branch | Summary |
-|--------|---------|
-| `01-monolith_legacy` | Single solution, layered architecture, shared MongoDB |
-| `02-monolith_with_cqrs` | Bounded contexts, CQRS read/write split |
-| `03-monolith_with_cqrs_and_event_sourcing` | Event sourcing, RabbitMQ, modular monolith |
-| `04-microservices` | Two deployable services: Sales and Warehouses |
+```text
+01-LegacyMonolith → 02-ModularMonolith → 03-CQRS → 04-EventSourcing
+→ 05-Microservices → 06-OutboxPattern → 07-CircuitBreaker
+→ 08-Observability → 09-Aspire
+```
 
-See `docs/01-overview/03-architecture-evolution.md` for full detail.
+See `README.md` and `docs/01-overview/07-fermentflow-modernization-vision.md`.
 
 ---
 
@@ -62,48 +67,43 @@ See `docs/01-overview/03-architecture-evolution.md` for full detail.
 - Keep aggregates small; enforce invariants inside aggregate roots
 - Prefer explicit commands and queries (CQRS) over anemic service layers
 
-### Code Style (.NET)
+### Code Style (.NET 10)
 
 - Follow standard C# conventions and nullable reference type annotations
-- Use meaningful names aligned with domain language (`SalesOrder`, not `OrderDto`)
-- Keep REST endpoints thin — delegate to application layer (Mediator/command bus)
-- Use FluentValidation for request validation
-- Structured logging via Serilog
+- Use meaningful names aligned with domain language
+- Keep REST endpoints thin — delegate to application layer (MediatR/command bus)
+- Use FluentValidation for request validation where applicable
+- Structured logging via Serilog; observability via OpenTelemetry in later stages
 
 ### Documentation Standards
 
 - **Overview docs**: `docs/01-overview/`
-- **Review reports**: `docs/reviews/` (if present)
-- Update docs when architecture or branch behaviour changes
+- Update docs when architecture or stage behaviour changes
 - Use Mermaid diagrams with ASCII fallbacks for architecture sketches
+- Write in first-person learning/reflection tone where appropriate (Swamy's notes)
 
 ### Testing
 
-- xUnit for integration and domain tests
+- xUnit + Testcontainers where infrastructure is involved
 - Tests must pass on the active branch before merging
-- Domain tests should exercise aggregate invariants, not infrastructure details
+- Domain tests should exercise aggregate invariants
 
 ---
 
 ## Running the Code
 
-**Prerequisites:** .NET 8 SDK, Docker Desktop
+**Prerequisites:** .NET 10 SDK, Docker Desktop
 
 ```powershell
-# Start infrastructure
 cd docker
 docker compose up -d
-
-# Build and test (adjust solution path for branch)
 cd ..\src
 dotnet restore FermentFlow.sln
 dotnet build FermentFlow.sln --configuration Release
 dotnet test FermentFlow.sln --configuration Release --no-build
 ```
 
-API (branch 01): `http://localhost:5098` — Swagger at `/documentation`
-
-See `docs/01-overview/06-running-locally.md` for branch-specific instructions.
+See `docs/01-overview/06-running-locally.md` for stage-specific instructions.
 
 ---
 
@@ -111,7 +111,7 @@ See `docs/01-overview/06-running-locally.md` for branch-specific instructions.
 
 When asking Copilot for help:
 
-- Name the bounded context and branch (e.g., "Sales aggregate on branch 03")
+- Name the bounded context and evolution stage (e.g., "Sales aggregate on stage 04-EventSourcing")
 - Specify whether the change is a command, query, domain event, or infrastructure concern
 - Ask for DDD rationale when introducing new types or cross-context communication
 - Request integration test coverage for behavioural changes

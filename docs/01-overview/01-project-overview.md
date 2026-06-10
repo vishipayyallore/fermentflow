@@ -2,88 +2,116 @@
 
 ## What Is FermentFlow?
 
-**FermentFlow** is a sample application for the Packt book *Domain-driven Refactoring*. It models a fictional brewery logistics company that manages beer sales, warehouse inventory, and production-driven availability.
+**FermentFlow** is Swamy PKV's personal architecture laboratory for exploring Domain-Driven Design and modernization patterns in .NET 10. It models brewery logistics: coordinating beer production, inventory availability, and customer sales orders.
 
-The repository's primary value is not the application itself — it is the **refactoring journey** encoded in four git branches.
+The primary value is the **incremental refactoring journey** — nine intentional stages from legacy monolith to .NET Aspire orchestration. See the [Learning Roadmap](../../README.md#learning-roadmap) in `README.md`.
 
-## Repository Structure
+## Target Repository Structure
 
-```
-Domain-driven-Refactoring/
-├── docs/                  # This documentation
-├── docker/                # Infrastructure (MongoDB, EventStore, RabbitMQ)
-├── src/                   # Application source code
-│   ├── FermentFlow.sln         # Monolith solution (branches 01–03)
-│   ├── Sales/             # Sales bounded context (branches 02–04)
-│   └── Warehouses/        # Warehouses bounded context (branches 02–04)
-├── tools/                 # Utility scripts
+As stages progress, source organizes around bounded contexts and building blocks:
+
+```text
+fermentflow/
+├── docs/                  # Documentation
+├── docker/                # Infrastructure
+├── src/
+│   ├── BuildingBlocks/
+│   ├── Services/
+│   │   ├── Sales/
+│   │   ├── Inventory/
+│   │   └── Production/
+│   ├── Gateway/
+│   └── Tests/
+├── tools/
 └── README.md
 ```
 
-## Architectural Evolution Branches
+Early baseline stages may use a flatter layout (monolith solution, legacy context names such as `Warehouses`) before the Inventory rename and service split.
 
-| Branch | Summary |
-|--------|---------|
-| `01-monolith_legacy` | Single solution, layered architecture, shared MongoDB |
-| `02-monolith_with_cqrs` | Bounded contexts, CQRS read/write split, Mediator orchestration |
-| `03-monolith_with_cqrs_and_event_sourcing` | Muflone event sourcing, RabbitMQ, ACL, modular monolith |
-| `04-microservices` | Two deployable services: Sales and Warehouses |
+## Learning Roadmap (Nine Stages)
 
-## Technology Stack
+| Stage | Focus |
+|-------|-------|
+| `01-LegacyMonolith` | Layered monolith, architectural smells |
+| `02-ModularMonolith` | Physical bounded contexts, modular monolith |
+| `03-CQRS` | Command/query split, MediatR |
+| `04-EventSourcing` | EventStoreDB, domain events, projections |
+| `05-Microservices` | Separate deployables per context |
+| `06-OutboxPattern` | Reliable integration events |
+| `07-CircuitBreaker` | Polly resilience |
+| `08-Observability` | OpenTelemetry, Prometheus, Grafana |
+| `09-Aspire` | Service discovery, orchestration, local developer experience |
 
-| Technology | Usage |
-|------------|-------|
-| .NET 8 | ASP.NET Core minimal APIs |
-| .NET 7 | Shared library (branch 01) |
-| MongoDB | Read models, saga state, legacy persistence |
-| EventStoreDB | Event sourcing (branches 03–04) |
-| RabbitMQ | Async messaging between contexts (branches 03–04) |
-| Muflone | CQRS/event sourcing framework (branches 03–04) |
-| FluentValidation | Request validation |
-| Serilog | Structured logging |
-| Swashbuckle | OpenAPI at `/documentation` |
-| xUnit | Integration and domain tests |
-| Docker Compose | Local infrastructure |
+Full detail: [Modernization vision](07-fermentflow-modernization-vision.md)
+
+## Baseline Stages (Imported Starting Point)
+
+The earliest working code may arrive on legacy-named branches before the full nine-stage rename:
+
+| Legacy branch | Maps to stage | Summary |
+|---------------|---------------|---------|
+| `01-monolith_legacy` | 01-LegacyMonolith | Single solution, layered architecture, shared MongoDB |
+| `02-monolith_with_cqrs` | 02–03 | Bounded contexts, CQRS read/write split |
+| `03-monolith_with_cqrs_and_event_sourcing` | 04-EventSourcing | Event sourcing, RabbitMQ, ACL |
+| `04-microservices` | 05-Microservices | Sales and Warehouses as separate services |
+
+## Target Technology Stack
+
+| Area | Technology |
+|------|------------|
+| Runtime | .NET 10 |
+| API | ASP.NET Core Minimal APIs |
+| CQRS | MediatR |
+| Messaging | MassTransit + RabbitMQ |
+| Event Store | EventStoreDB |
+| Database | PostgreSQL |
+| Resilience | Polly |
+| Observability | OpenTelemetry, Prometheus, Grafana |
+| Orchestration | .NET Aspire (stage 09) |
+| Testing | xUnit + Testcontainers |
+| Containers | Docker |
+
+Baseline branches may use older runtimes (e.g., .NET 7/8), MongoDB, or Muflone until ported forward.
 
 ## Getting Started
 
 ### Prerequisites
 
-- .NET 8 SDK
+- .NET 10 SDK (target); .NET 8 SDK for baseline branches until ported
 - Docker Desktop
 
-### Run Branch 01 (Monolith)
+### Run Baseline Stage 01 (when branch exists)
 
-```bash
+```powershell
 git checkout 01-monolith_legacy
-cd docker && docker compose up -d
-cd ../src
+cd docker; docker compose up -d
+cd ..\src
 dotnet restore FermentFlow.sln
 dotnet run --project FermentFlow.Rest
 ```
 
-API: `http://localhost:5098`  
-Swagger: `http://localhost:5098/documentation`
+API: [http://localhost:5098](http://localhost:5098)  
+Swagger: [http://localhost:5098/documentation](http://localhost:5098/documentation)
 
-### Run Branch 04 (Microservices)
+### Run Baseline Stage 05 / Microservices (when branch exists)
 
-```bash
+```powershell
 git checkout 04-microservices
-cd docker && docker compose up -d
-cd ../src/Sales && dotnet run --project FermentFlow.Sales.Rest
-cd ../Warehouses && dotnet run --project FermentFlow.Warehouses.Rest
+cd docker; docker compose up -d
+cd ..\src\Sales; dotnet run --project FermentFlow.Sales.Rest
+cd ..\Warehouses; dotnet run --project FermentFlow.Warehouses.Rest
 ```
 
-## Solutions by Branch
+## Solutions by Baseline Branch
 
 | Branch | Solution(s) |
 |--------|-------------|
-| 01 | `src/FermentFlow.sln` (6 projects) |
+| 01 | `src/FermentFlow.sln` (~6 projects) |
 | 02 | `src/FermentFlow.sln` (~15 projects) |
 | 03 | `src/FermentFlow.sln` (~18 projects) |
 | 04 | `src/Sales/FermentFlow.Sales.sln`, `src/Warehouses/FermentFlow.Warehouses.sln` |
 
-## API Endpoints (Evolution)
+## API Endpoints (Baseline Evolution)
 
 | Endpoint | Branch 01 | Branch 02 | Branch 03–04 |
 |----------|-----------|-----------|--------------|

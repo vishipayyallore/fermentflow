@@ -1,6 +1,6 @@
 # Agent instructions (index)
 
-This repository is an **Applied Engineering** workspace for FermentFlow — a .NET reference application that demonstrates Domain-Driven Design, CQRS, Event Sourcing, and microservices through a brewery logistics domain.
+This repository is Swamy PKV's **personal architecture laboratory** for FermentFlow — exploring DDD, CQRS, Event Sourcing, and modernization patterns in .NET 10 through a brewery logistics domain.
 
 ## Scope
 
@@ -8,19 +8,19 @@ Applies to: code changes, documentation edits, Docker infrastructure, automation
 
 ## Read first
 
-1. `README.md` — project purpose and branch evolution overview.
+1. `README.md` — **Scope (read this first)** and learning roadmap.
 2. `CLAUDE.md` — repo-level assistant entry point and key policies.
 3. `.github/copilot-instructions.md` — canonical assistant rules for this repository.
-4. `.cursor/rules/00_project_scope.mdc` — FermentFlow project scope (always apply).
+4. `.cursor/rules/00_project_scope.mdc` — Swamy-only scope (always apply).
 5. `.cursor/rules/05_primary-directives.mdc` — primary engineering directives for agent work.
 
 ### Precedence on conflict
 
 When the files above disagree, resolve in this order (highest wins):
 
-1. `.github/copilot-instructions.md` (canonical assistant rules; overrides `CLAUDE.md`)
-2. `.cursor/rules/05_primary-directives.mdc`
-3. `.cursor/rules/00_project_scope.mdc`
+1. `.cursor/rules/00_project_scope.mdc`
+2. `.github/copilot-instructions.md` (canonical assistant rules; overrides `CLAUDE.md`)
+3. `.cursor/rules/05_primary-directives.mdc`
 4. `CLAUDE.md`
 5. `README.md`
 
