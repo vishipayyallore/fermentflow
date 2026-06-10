@@ -16,10 +16,15 @@ A clear and concise description of what this PR does.
 
 ## Branch / Context
 
-- [ ] `01-monolith_legacy`
+- [ ] `01-LegacyMonolith`
+- [ ] `02-ModularMonolith`
 - [ ] `03-CQRS-VerticalSlices`
-- [ ] `03-monolith_with_cqrs_and_event_sourcing`
-- [ ] `04-microservices`
+- [ ] `04-EventSourcing`
+- [ ] `05-Microservices`
+- [ ] `06-OutboxPattern`
+- [ ] `07-CircuitBreaker`
+- [ ] `08-Observability`
+- [ ] `09-Aspire`
 - [ ] Main/docs only (no branch-specific source change)
 
 ## Changes Made

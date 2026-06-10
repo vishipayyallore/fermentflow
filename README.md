@@ -1,5 +1,16 @@
 # FermentFlow
 
+![.NET](https://img.shields.io/badge/.NET-10-512BD4)
+![DDD](https://img.shields.io/badge/DDD-Domain--Driven--Design-blue)
+![CQRS](https://img.shields.io/badge/CQRS-MediatR-green)
+![Vertical Slice](https://img.shields.io/badge/Architecture-Vertical%20Slice-orange)
+![Event Sourcing](https://img.shields.io/badge/Event%20Sourcing-EventStoreDB-red)
+![Microservices](https://img.shields.io/badge/Microservices-RabbitMQ-yellow)
+![Outbox](https://img.shields.io/badge/Pattern-Outbox-brightgreen)
+![Polly](https://img.shields.io/badge/Polly-Resilience-blueviolet)
+![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Observability-informational)
+![Aspire](https://img.shields.io/badge/.NET-Aspire-6E4AFF)
+
 A .NET 10 architecture laboratory that evolves a brewery logistics domain from a legacy monolith to resilient microservices using DDD, CQRS, Event Sourcing, Outbox, Circuit Breaker, Observability, and .NET Aspire.
 
 ## Scope (read this first)
