@@ -49,12 +49,12 @@ The business domain is **brewery logistics management**: Production → Inventor
 **Learning roadmap** (primary axis):
 
 ```text
-01-LegacyMonolith → 02-ModularMonolith → 03-CQRS → 04-EventSourcing
+01-LegacyMonolith → 02-ModularMonolith → 03-CQRS-VerticalSlices → 04-EventSourcing
 → 05-Microservices → 06-OutboxPattern → 07-CircuitBreaker
 → 08-Observability → 09-Aspire
 ```
 
-See `README.md` and `docs/01-overview/07-fermentflow-modernization-vision.md`.
+See `README.md`, `docs/01_repository-structure.md`, and `docs/01-overview/08-branch-roadmap.md`.
 
 ---
 

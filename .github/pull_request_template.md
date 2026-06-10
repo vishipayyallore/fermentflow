@@ -17,7 +17,7 @@ A clear and concise description of what this PR does.
 ## Branch / Context
 
 - [ ] `01-monolith_legacy`
-- [ ] `02-monolith_with_cqrs`
+- [ ] `03-CQRS-VerticalSlices`
 - [ ] `03-monolith_with_cqrs_and_event_sourcing`
 - [ ] `04-microservices`
 - [ ] Main/docs only (no branch-specific source change)

@@ -1,6 +1,6 @@
 ---
 name: fermentflow-foundations
-description: Work on FermentFlow — Swamy's personal DDD architecture laboratory, nine-stage evolution, bounded contexts, CQRS, event sourcing, .NET 10, Aspire, brewery logistics domain, and architecture documentation.
+description: Work on FermentFlow — Swamy's personal DDD architecture laboratory, nine-branch evolution (CQRS-VerticalSlices at 03), bounded contexts, event sourcing, .NET 10, Aspire, brewery logistics domain, and architecture documentation.
 ---
 
 # FermentFlow Foundations
@@ -11,22 +11,26 @@ description: Work on FermentFlow — Swamy's personal DDD architecture laborator
 
 | Path | Purpose |
 |------|---------|
-| `docs/01-overview/` | Overview, domain, architecture evolution, modernization vision |
+| `docs/01_repository-structure.md` | Layout, branch strategy, naming (SSOT) |
+| `docs/01-overview/08-branch-roadmap.md` | Per-branch folder trees and characteristics |
 | `docker/` | Local infrastructure compose |
-| `src/` | Application source (stage-dependent) |
+| `src/` | Application source (branch-dependent) |
+| `tests/` | Cross-service and architecture tests (from stage 06+) |
 | `tools/psscripts/` | Maintenance scripts |
 
-## Nine-stage evolution
+## Nine-branch evolution
 
-Always confirm the active git branch/stage before editing source:
+Always confirm the active git branch before editing source:
 
 ```text
-01-LegacyMonolith → 02-ModularMonolith → 03-CQRS → 04-EventSourcing
+01-LegacyMonolith → 02-ModularMonolith → 03-CQRS-VerticalSlices → 04-EventSourcing
 → 05-Microservices → 06-OutboxPattern → 07-CircuitBreaker
 → 08-Observability → 09-Aspire
 ```
 
-Legacy baseline branches (`01-monolith_legacy` … `04-microservices`) map to early stages — see `docs/01-overview/01-project-overview.md`.
+**Branch 03** combines CQRS, MediatR, and **Vertical Slice Architecture** (feature folders per use case). Do not split CQRS from vertical slices on this branch — they are one learning step.
+
+Legacy baseline branches map to early stages — see `docs/01_repository-structure.md`.
 
 ## Domain theme
 
@@ -36,7 +40,8 @@ Brewery logistics: Production → Inventory → Sales. Ubiquitous language in `d
 
 - Respect bounded context boundaries — no cross-context DB coupling
 - Use domain language in type and method names
-- Explain pattern choices (CQRS, ACL, outbox, Aspire) in comments and docs
+- From branch 03 onward: organize by feature slice (`Features/CreateSalesOrder/`, etc.)
+- Explain pattern choices (vertical slices, CQRS, ACL, outbox, Aspire) in comments and docs
 - Do not reference Packt, BrewUp, or source book names in public docs unless Swamy explicitly asks
 - Include Mermaid context or sequence diagrams with ASCII fallbacks when explaining flows
 

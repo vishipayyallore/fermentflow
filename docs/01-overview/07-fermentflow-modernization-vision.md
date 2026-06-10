@@ -78,7 +78,7 @@ FermentFlow extends the four baseline branches into nine intentional stages:
 ```text
 01-LegacyMonolith          ← baseline 01-monolith_legacy
 02-ModularMonolith         ← split from baseline 02
-03-CQRS                    ← explicit CQRS step
+03-CQRS-VerticalSlices                    ← CQRS + vertical slice / feature folders
 04-EventSourcing           ← baseline 03-monolith_with_cqrs_and_event_sourcing
 05-Microservices           ← baseline 04-microservices
 06-OutboxPattern           ← NEW
@@ -87,15 +87,15 @@ FermentFlow extends the four baseline branches into nine intentional stages:
 09-Aspire                  ← NEW (service discovery, orchestration, local DX)
 ```
 
-### Why split CQRS and Event Sourcing?
+### Why separate modular monolith, CQRS + vertical slices, and event sourcing?
 
-FermentFlow branch 02 already has CQRS but branch 03 adds event sourcing — they are combined in one jump. Separating them makes each concept easier to teach:
+Each branch introduces one major leap. Branch 02 establishes bounded contexts; branch 03 adds **CQRS and Vertical Slice Architecture together** (MediatR, feature folders); branch 04 adds event sourcing.
 
 | Branch | Focus | Key addition |
 |--------|-------|--------------|
 | 01 | Layered monolith, smells | Baseline |
-| 02 | Physical bounded contexts, modular monolith | Folder isolation, `IModule` |
-| 03 | CQRS (command/query split) | MediatR, separate read/write paths |
+| 02 | Physical bounded contexts, modular monolith | Folder isolation, explicit boundaries |
+| 03 | CQRS + Vertical Slice Architecture | MediatR, `Features/` per use case |
 | 04 | Event sourcing | EventStoreDB, domain events, projections |
 | 05 | Microservices | Separate deployables per context |
 | 06 | Outbox pattern | Reliable messaging, no lost events |
@@ -109,6 +109,7 @@ FermentFlow branch 02 already has CQRS but branch 03 adds event sourcing — the
 |------------|----|----|----|----|----|----|----|----|-----|
 | Monolith | ✓ | ✓ | ✓ | ✓ | | | | | |
 | Bounded contexts | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Vertical slices | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | CQRS | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Event sourcing | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Microservices | | | | | ✓ | ✓ | ✓ | ✓ | ✓ |

@@ -16,7 +16,7 @@ Nine intentional stages — see `README.md`:
 01-LegacyMonolith → … → 09-Aspire
 ```
 
-Detail: `docs/01-overview/07-fermentflow-modernization-vision.md`
+Detail: `docs/01_repository-structure.md` and `docs/01-overview/08-branch-roadmap.md`
 
 ## Project layout
 

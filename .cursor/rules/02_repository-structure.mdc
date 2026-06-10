@@ -5,27 +5,26 @@ globs: *
 
 # Repository Structure
 
-**Project**: FermentFlow (.NET DDD reference application)
+**Project**: FermentFlow (.NET 10 architecture laboratory)
 
-> **Single Source of Truth**: For complete structure and naming conventions, refer to [docs/01_repository-structure.md](../../docs/01_repository-structure.md).
+> **Single Source of Truth**: [docs/01_repository-structure.md](../../docs/01_repository-structure.md) — layout, branch strategy, naming. Per-branch trees: [docs/01-overview/08-branch-roadmap.md](../../docs/01-overview/08-branch-roadmap.md).
 
 ## Quick Summary
 
-- **`docs/01-overview/`**: Project overview, domain, architecture evolution, running locally
-- **`docker/`**: Local infrastructure (MongoDB, EventStoreDB, RabbitMQ)
-- **`src/`**: Application source — structure varies by git branch
-- **`tools/psscripts/`**: Maintenance and CI helper scripts
-- **`.github/`**, **`.cursor/`**: CI, agent skills, and assistant governance
+- **`docs/01_repository-structure.md`**: Roadmap, naming, documentation layout
+- **`docs/01-overview/08-branch-roadmap.md`**: Per-branch source trees (01–09)
+- **`docker/`**: Docker Compose infrastructure
+- **`src/`**: Application source — structure varies by branch
+- **`tests/`**: Cross-service and architecture tests (from stage 06+)
+- **`tools/psscripts/`**: Maintenance scripts
 
-## Branch-dependent source layout
+## Nine-branch roadmap
 
-| Branch | Source layout |
-|--------|---------------|
-| 01–03 | `src/FermentFlow.sln` — monolith or modular monolith |
-| 04 | `src/Sales/FermentFlow.Sales.sln`, `src/Warehouses/FermentFlow.Warehouses.sln` |
+```text
+01-LegacyMonolith → 02-ModularMonolith → 03-CQRS-VerticalSlices → 04-EventSourcing
+→ 05-Microservices → 06-OutboxPattern → 07-CircuitBreaker → 08-Observability → 09-Aspire
+```
+
+Branch **03** teaches CQRS and Vertical Slice Architecture together (MediatR + `Features/` folders).
 
 Always confirm the active branch before editing project paths or solution references.
-
-## Preserved archives
-
-- `.archive/` (if present) contains old layouts — leave as legacy unless explicitly asked to migrate.

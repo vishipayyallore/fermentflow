@@ -1,8 +1,9 @@
 # Architecture Evolution
 
-This document compares all four branches side by side. Use it as a quick reference when studying what changed and why.
+> **Target nine-branch journey:** see [Branch roadmap](08-branch-roadmap.md) and [Repository structure](../01_repository-structure.md).  
+> **This document** compares the **imported baseline** (four legacy branches) side by side for historical reference.
 
-## Evolution Summary
+## Evolution Summary (Baseline Import)
 
 ```
 01-monolith_legacy

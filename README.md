@@ -16,7 +16,7 @@ The business domain is **brewery logistics management**: coordinating beer produ
 | Purpose       | DDD learning, architecture experimentation, modernization patterns, and reference implementations |
 | Domain        | Brewery logistics (Production → Inventory → Sales)                                                |
 | Runtime       | .NET 10                                                                                           |
-| Architecture  | DDD, CQRS, Event Sourcing, Microservices                                                          |
+| Architecture  | DDD, CQRS, Vertical Slice Architecture, Event Sourcing, Microservices                          |
 | Modernization | Outbox Pattern, Circuit Breaker, Observability, .NET Aspire                                       |
 | Goal          | Understand architectural evolution through incremental refactoring                                |
 
@@ -58,7 +58,7 @@ The repository intentionally evolves through multiple architectural stages.
         ↓
 02-ModularMonolith
         ↓
-03-CQRS
+03-CQRS-VerticalSlices
         ↓
 04-EventSourcing
         ↓
@@ -73,7 +73,9 @@ The repository intentionally evolves through multiple architectural stages.
 09-Aspire
 ```
 
-Each stage introduces a specific architectural concept while preserving the same business domain.
+Each stage introduces a single major architectural concept while preserving the same business domain.
+
+Full per-branch layouts: [Branch roadmap](docs/01-overview/08-branch-roadmap.md) · [Repository structure](docs/01_repository-structure.md)
 
 Optional future stages:
 
@@ -115,13 +117,14 @@ Optional future stages:
 ```text
 src/
 ├── BuildingBlocks/
-├── Services/
+├── Services/          # from stage 05; Features/ folders from stage 03
 │   ├── Sales/
 │   ├── Inventory/
 │   └── Production/
-├── Gateway/
+├── Gateway/           # stage 05+
 └── Tests/
 
+tests/                 # cross-service tests from stage 06+
 docs/
 tools/
 ```
@@ -167,6 +170,7 @@ Responsible for:
 - Value Objects
 - Domain Events
 - CQRS
+- Vertical Slice Architecture
 - Event Sourcing
 - Microservices
 - Integration Events
@@ -210,7 +214,9 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 | -------- | ------- |
 | [Project overview](docs/01-overview/01-project-overview.md) | Structure and baseline stages |
 | [Business domain](docs/01-overview/02-business-domain.md) | Domain flows and rules |
-| [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Stage-by-stage patterns |
+| [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Baseline import comparison |
+| [Branch roadmap](docs/01-overview/08-branch-roadmap.md) | Per-branch layout and learning goals |
+| [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |
 | [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md) | Full 9-stage roadmap |
 

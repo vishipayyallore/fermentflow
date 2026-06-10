@@ -1,49 +1,160 @@
-# Repository structure
+# Repository Structure
 
 **Project**: FermentFlow  
-**Purpose**: Single source of truth for repository layout and naming conventions.
+**Purpose**: Single source of truth for repository layout, branch strategy, and naming conventions.
 
-## Top-level layout
+---
 
-```
+## Top-level Layout
+
+```text
 fermentflow/
 ├── docs/                  # Documentation
 │   └── 01-overview/       # Project, domain, architecture, running locally
-├── docker/                # Infrastructure (MongoDB, EventStore, RabbitMQ)
-├── src/                   # Application source (branch-dependent)
-├── tools/                 # Maintenance scripts
-│   └── psscripts/         # PowerShell helpers
-├── .github/               # CI, issue templates, agent skills/agents
-├── .cursor/               # Cursor rules, mirrored skills/agents
+│
+├── docker/                # Docker Compose infrastructure
+│
+├── src/                   # Application source code
+│
+├── tests/                 # Cross-service and architecture tests
+│
+├── tools/
+│   └── psscripts/
+│
+├── .github/
+│
+├── .cursor/
+│
 ├── README.md
-└── CLAUDE.md              # Assistant entry point
+└── CLAUDE.md
 ```
 
-## Source layout by branch
+---
 
-| Branch | Solution(s) | Notes |
-|--------|-------------|-------|
-| `01-monolith_legacy` | `src/FermentFlow.sln` | Layered monolith, ~6 projects |
-| `02-monolith_with_cqrs` | `src/FermentFlow.sln` | Bounded contexts, ~15 projects |
-| `03-monolith_with_cqrs_and_event_sourcing` | `src/FermentFlow.sln` | Event sourcing, ~18 projects |
-| `04-microservices` | `src/Sales/FermentFlow.Sales.sln`, `src/Warehouses/FermentFlow.Warehouses.sln` | Two deployable services |
+## Architecture Evolution Roadmap
 
-## Documentation layout
+```text
+01-LegacyMonolith
+        ↓
+02-ModularMonolith
+        ↓
+03-CQRS-VerticalSlices
+        ↓
+04-EventSourcing
+        ↓
+05-Microservices
+        ↓
+06-OutboxPattern
+        ↓
+07-CircuitBreaker
+        ↓
+08-Observability
+        ↓
+09-Aspire
+```
 
-| Path | Content |
-|------|---------|
-| `docs/01-overview/01-project-overview.md` | Stack, branches, endpoints |
-| `docs/01-overview/02-business-domain.md` | Brewery logistics domain |
-| `docs/01-overview/03-architecture-evolution.md` | Branch-by-branch patterns |
-| `docs/01-overview/04-ubiquitous-language.md` | Domain vocabulary |
-| `docs/01-overview/05-ddd-reverse-engineering-report.md` | Reverse-engineering notes |
-| `docs/01-overview/06-running-locally.md` | Local run instructions |
-| `docs/01-overview/07-fermentflow-modernization-vision.md` | Future evolution plan |
-| `docs/agent-skills.md` | Agent skills pattern |
-| `docs/agent-subagents.md` | Subagent index |
-| `docs/agent-governance-recovery.md` | Governance recovery |
+Each branch introduces a single major architectural concept while preserving the same brewery logistics domain.
 
-## Agent governance mirrors
+Per-branch folder layouts and characteristics: [08-branch-roadmap.md](01-overview/08-branch-roadmap.md).
+
+---
+
+## Branch Learning Goals
+
+| Branch | Main Learning Goal |
+| ------ | ------------------ |
+| 01-LegacyMonolith | Layered Architecture |
+| 02-ModularMonolith | DDD + Bounded Contexts |
+| 03-CQRS-VerticalSlices | CQRS + Vertical Slice Architecture |
+| 04-EventSourcing | Domain Events + EventStoreDB |
+| 05-Microservices | Service Decomposition |
+| 06-OutboxPattern | Reliable Messaging |
+| 07-CircuitBreaker | Resilience with Polly |
+| 08-Observability | OpenTelemetry, Prometheus, Grafana |
+| 09-Aspire | Service Orchestration and Cloud-Native Development |
+
+---
+
+## Documentation Layout
+
+```text
+docs/
+├── 01_repository-structure.md    # This file — layout, roadmap, naming
+├── agent-skills.md
+├── agent-subagents.md
+├── agent-governance-recovery.md
+└── 01-overview/
+    ├── 01-project-overview.md
+    ├── 02-business-domain.md
+    ├── 03-architecture-evolution.md
+    ├── 04-ubiquitous-language.md
+    ├── 05-ddd-reverse-engineering-report.md
+    ├── 06-running-locally.md
+    ├── 07-fermentflow-modernization-vision.md
+    └── 08-branch-roadmap.md
+```
+
+---
+
+## Naming Conventions
+
+### Branches
+
+```text
+01-LegacyMonolith
+02-ModularMonolith
+03-CQRS-VerticalSlices
+04-EventSourcing
+05-Microservices
+06-OutboxPattern
+07-CircuitBreaker
+08-Observability
+09-Aspire
+```
+
+### Projects
+
+```text
+FermentFlow.<Context>.<Layer>
+```
+
+Examples:
+
+```text
+FermentFlow.Sales.Domain
+FermentFlow.Inventory.Application
+FermentFlow.Production.Infrastructure
+```
+
+### Building Blocks
+
+```text
+FermentFlow.BuildingBlocks.Domain
+FermentFlow.BuildingBlocks.Application
+FermentFlow.BuildingBlocks.Infrastructure
+FermentFlow.BuildingBlocks.EventSourcing
+FermentFlow.BuildingBlocks.Messaging
+FermentFlow.BuildingBlocks.Outbox
+FermentFlow.BuildingBlocks.Resilience
+FermentFlow.BuildingBlocks.Observability
+```
+
+---
+
+## Baseline Import Mapping
+
+Legacy-named branches from the imported baseline map to early roadmap stages:
+
+| Legacy branch | Roadmap stage |
+|---------------|---------------|
+| `01-monolith_legacy` | 01-LegacyMonolith |
+| `02-monolith_with_cqrs` | 02-ModularMonolith (partial) → 03-CQRS-VerticalSlices (target) |
+| `03-monolith_with_cqrs_and_event_sourcing` | 04-EventSourcing |
+| `04-microservices` | 05-Microservices |
+
+---
+
+## Agent Governance Mirrors
 
 | Canonical | Mirror |
 |-----------|--------|
@@ -51,9 +162,3 @@ fermentflow/
 | `.github/agents/` | `.cursor/agents/` |
 
 Both trees must stay byte-identical. CI enforces parity via `ci-skills-parity.yml` and `ci-agent-docs-guard.yml`.
-
-## Naming conventions
-
-- **Docs**: numbered prefixes under `docs/01-overview/` (`01-`, `02-`, …)
-- **C# projects**: `FermentFlow.<Context>.<Layer>` (e.g., `FermentFlow.Sales.Domain`)
-- **REST projects**: `FermentFlow.<Context>.Rest` or `FermentFlow.Rest` (branch 01)

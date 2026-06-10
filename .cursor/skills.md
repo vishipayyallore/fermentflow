@@ -8,7 +8,7 @@ This file is **local to `fermentflow`**. It complements `.cursor/rules/*.mdc` an
 
 **Subagents:** **`fermentflow-ci-verify`**, **`fermentflow-architecture-review`**.
 
-**Learning roadmap:** nine stages from legacy monolith to .NET Aspire — see `README.md`.
+**Learning roadmap:** nine branches ending at `09-Aspire`; branch **03-CQRS-VerticalSlices** combines CQRS, MediatR, and vertical slice / feature folders — see `docs/01_repository-structure.md` and `docs/01-overview/08-branch-roadmap.md`.
 
 ---
 
