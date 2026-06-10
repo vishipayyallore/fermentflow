@@ -94,6 +94,25 @@ Run on every PR that touches `src/` or `tests/`. CI should fail on boundary viol
 
 ---
 
+## Architectural fitness functions
+
+Evolutionary architecture checks — automated where possible, manual where not yet codified.
+
+| Fitness function | Validation | Introduced |
+|------------------|------------|------------|
+| Context isolation | NetArchTest / ArchUnitNET — no cross-context Infrastructure references | Branch 02 |
+| No infrastructure leakage | Domain must not reference EF, MassTransit, MediatR | Branch 02 |
+| Vertical slice boundaries | Features depend only on Application + Domain | Branch 03 |
+| No direct RabbitMQ publish | Architecture tests — integration events via outbox only | Branch 06 |
+| No cross-service DB access | Architecture tests + service ownership per context | Branch 05 |
+| Domain invariants | Domain unit tests (Given/When/Then) | Branch 03 |
+| Trace coverage | OpenTelemetry integration tests — spans present on HTTP and messaging | Branch 08 |
+| Saga orchestration isolation | Saga state machines not in domain aggregates | Branch 10 (proposed) |
+
+Extend this table as new branches add constraints. Prefer encoding rules in `FermentFlow.Architecture.Tests` over prose-only governance.
+
+---
+
 ## Domain unit tests
 
 Introduced on **`03-CQRS-VerticalSlices`** — one test project per bounded context:
@@ -155,6 +174,7 @@ Avoid a monolithic `BuildingBlocks.Infrastructure` project — it becomes a dump
 | Branch 06+ | `Outbox` |
 | Branch 07+ | `Resilience` |
 | Branch 08+ | `Observability` |
+| Branch 10+ (proposed) | `Sagas` |
 | All branches 02+ | `Testing` (shared fakes/fixtures) |
 
 Target layout:
@@ -169,6 +189,7 @@ BuildingBlocks/
 ├── Outbox
 ├── Resilience
 ├── Observability
+├── Sagas                  # branch 10+ (proposed)
 └── Testing
 ```
 

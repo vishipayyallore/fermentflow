@@ -162,6 +162,7 @@ BuildingBlocks/
 ├── Outbox               # branch 06+
 ├── Resilience           # branch 07+
 ├── Observability        # branch 08+
+├── Sagas                # branch 10+ (proposed — ADR-009)
 └── Testing              # shared test fixtures and fakes
 ```
 

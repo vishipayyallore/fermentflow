@@ -28,8 +28,18 @@ Introduce **event-driven sagas** as stage **10-EventDrivenSagas**, **before** Ku
 |--------|--------|
 | **Saga style** | **Orchestration** (explicit process manager / state machine) |
 | **Technology** | **MassTransit state machine** on existing RabbitMQ |
+| **Saga persistence store** | **PostgreSQL** (same store family as branch 03 Testcontainers and branch 06 outbox) |
 | **Stage** | `10-EventDrivenSagas` |
 | **Fit** | MassTransit + RabbitMQ + Aspire (branch 09) |
+
+**Why PostgreSQL for saga state:**
+
+- Already introduced in branch 03 (Testcontainers)
+- Shared infrastructure with the outbox pattern (branch 06)
+- Simpler local dev and CI than MongoDB
+- Natural fit for MassTransit EF Core saga persistence
+
+Add `BuildingBlocks/Sagas/` (MassTransit state machine configuration, saga repository abstractions, correlation helpers).
 
 Example orchestrated flow:
 

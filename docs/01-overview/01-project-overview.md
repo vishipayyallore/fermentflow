@@ -42,7 +42,7 @@ Early baseline stages may use a flatter layout (monolith solution, legacy contex
 | `08-Observability` | OpenTelemetry, Prometheus, Grafana |
 | `09-Aspire` | Service discovery, orchestration, local developer experience |
 
-Full detail: [Branch roadmap](08-branch-roadmap.md) · [Architecture governance](09-architecture-governance.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
+Full detail: [Branch roadmap](08-branch-roadmap.md) · [Architecture governance](09-architecture-governance.md) · [Event catalog](10-event-catalog.md) · [Domain invariants](11-domain-invariants.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
 
 ## Baseline Stages (Imported Starting Point)
 

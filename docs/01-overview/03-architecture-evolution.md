@@ -127,6 +127,8 @@
 ## Related Documents
 
 - [Architecture Evolution Workbook](../diagrams/architecture-evolution-workbook.md) — step-by-step learning guide
+- [Event catalog](10-event-catalog.md) — domain, integration, and saga events
+- [Domain invariants](11-domain-invariants.md) — aggregate rules for unit tests
 - [ADR-000: Establish FermentFlow](../adr/ADR-000-establish-fermentflow.md)
 - [ADR-001: Introduce Modular Monolith](../adr/ADR-001-introduce-modular-monolith.md)
 - [ADR-002: Introduce CQRS with Vertical Slices](../adr/ADR-002-introduce-cqrs.md)

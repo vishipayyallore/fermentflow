@@ -172,6 +172,7 @@ The domain flow `Production → Inventory → Sales` is a natural **long-running
 |--------|--------|
 | **Saga style** | Orchestration |
 | **Technology** | MassTransit state machine |
+| **Saga persistence** | PostgreSQL |
 | **Stage** | `10-EventDrivenSagas` |
 | **Stack fit** | MassTransit + RabbitMQ + .NET Aspire (branch 09) |
 
