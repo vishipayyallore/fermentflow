@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 💬 Discussions
-    url: https://github.com/msc-dsai-swamypkv-practice/t2-artificial-neural-networks/discussions
-    about: Ask questions, share ideas, or discuss Artificial Neural Networks
-  - name: 📚 Documentation
-    url: https://github.com/msc-dsai-swamypkv-practice/t2-artificial-neural-networks#readme
-    about: Check the README and documentation for more information
+  - name: Documentation
+    url: https://github.com/swamypkv/fermentflow#readme
+    about: Project overview and architecture docs
+  - name: Architecture overview
+    url: https://github.com/swamypkv/fermentflow/blob/main/docs/01-overview/03-architecture-evolution.md
+    about: Branch evolution and DDD patterns

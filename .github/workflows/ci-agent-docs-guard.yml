@@ -2,14 +2,14 @@ name: Agent Docs Guard (.cursor/.github/CLAUDE)
 
 on:
   push:
-    branches: [main, master, 'swamy/**']
+    branches: [main, master]
     paths:
       - '.cursor/**'
       - '.github/**'
       - 'CLAUDE.md'
       - '.github/workflows/ci-agent-docs-guard.yml'
   pull_request:
-    branches: [main, master, 'swamy/**']
+    branches: [main, master]
     paths:
       - '.cursor/**'
       - '.github/**'
@@ -37,14 +37,12 @@ jobs:
           test -d .github/skills
           test -d .cursor/skills
           test -n "$(find .cursor/rules -name '*.mdc' -print -quit)"
-          test -f .cursor/rules/00_swamy_personal_learning_only.mdc
-          test -f .cursor/rules/01_educational-content-rules.mdc
+          test -f .cursor/rules/00_project_scope.mdc
+          test -f .cursor/rules/01_architecture-guidelines.mdc
           test -f .cursor/rules/02_repository-structure.mdc
           test -f .cursor/rules/03_quality-assurance.mdc
           test -f .cursor/rules/04_markdown-standards.mdc
           test -f .cursor/rules/05_primary-directives.mdc
-          test -f .cursor/rules/06_source_material_rules.mdc
-          test -f .cursor/rules/07_file-naming-conventions.mdc
           test -f .cursor/rules/08_copilot-instructions-extract.mdc
           test -d .cursor/agents
           test -d .github/agents
@@ -52,7 +50,7 @@ jobs:
 
       - name: Validate CLAUDE/.cursor skills references
         run: |
-          grep -Fq ".cursor/rules/00_swamy_personal_learning_only.mdc" CLAUDE.md
+          grep -Fq ".cursor/rules/00_project_scope.mdc" CLAUDE.md
           grep -Fq ".cursor/rules/02_repository-structure.mdc" CLAUDE.md
           grep -Fq ".cursor/skills.md" CLAUDE.md
           grep -Fq ".github/skills/" CLAUDE.md

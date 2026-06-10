@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug or error in the repository
+about: Report a bug in FermentFlow
 title: '[BUG] '
 labels: bug
 assignees: ''
@@ -12,42 +12,39 @@ A clear and concise description of what the bug is.
 
 ## Location
 
+**Git branch**:
+
+- e.g. `01-monolith_legacy`, `04-microservices`
+
 **File(s) affected**:
 
-- `path/to/file.md` or `path/to/file.ipynb`
-
-**Section(s) affected**:
-
-- Section name or line numbers
+- `path/to/file.cs` or `docs/01-overview/...`
 
 ## Steps to Reproduce
 
-1. Open Notebook '...'
-2. Run cell number '...'
+1. Checkout branch '...'
+2. Run '...'
 3. See error
 
 ## Expected Behavior
 
-A clear and concise description of what you expected to happen.
+What you expected to happen.
 
 ## Actual Behavior
 
-A clear and concise description of what actually happened.
+What actually happened.
 
-## Screenshots
+## Environment
 
-If applicable, add screenshots to help explain your problem.
+- .NET SDK version
+- OS
+- Docker version (if relevant)
 
 ## Additional Context
 
-- **Component**: [Notebook / Reading Notes / Python Script / Documentation / Other]
+- **Component**: [Domain / REST API / Infrastructure / Documentation / Other]
 - **Severity**: [Low / Medium / High]
-- **Impact**: How does this affect the learning experience?
 
 ## Proposed Fix (Optional)
 
 If you have a suggestion for how to fix this, please describe it here.
-
----
-
-**Note**: This repository is Swamy PKV's personal Artificial Neural Networks study workspace. Bug reports help improve the learning experience.

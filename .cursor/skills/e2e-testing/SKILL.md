@@ -1,42 +1,53 @@
 ---
 name: e2e-testing
-description: Smoke verification for Artificial Neural Networks (environment, notebook JSON, optional manual notebook run). Use when smoke-testing the workspace end-to-end.
+description: Smoke verification for FermentFlow (Docker infrastructure, dotnet build/test, optional API health check). Use when smoke-testing the workspace end-to-end.
 ---
 
-# Smoke / E2E-style verification — Artificial Neural Networks
-
-No deployed application here. "End-to-end" means **environment + parse + optional notebook execution**.
+# E2E Smoke — FermentFlow
 
 ## Prerequisites
 
-- Python 3.12+ with **`uv`** at repo root
-- Optional: Jupyter — **Kernel → Restart & Run All**
+- .NET 8 SDK
+- Docker Desktop
 
-## Suggested sequence
+## Smoke steps
 
-1. **Dependencies**
-
-   ```powershell
-   $Env:UV_LINK_MODE = "copy"
-   uv sync
-   ```
-
-2. **Import smoke (optional)**
+1. **Infrastructure**
 
    ```powershell
-   uv run python -c "import numpy, pandas, sklearn, scipy; print('ok')"
+   cd docker
+   docker compose up -d
+   docker compose ps
    ```
 
-3. **Notebook JSON** (same as CI):
+2. **Build and test**
 
    ```powershell
-   uv run python -c "import json,glob; paths=sorted(glob.glob('src/**/*.ipynb',recursive=True)); [json.load(open(p,encoding='utf-8')) for p in paths]"
+   cd ..\src
+   dotnet restore FermentFlow.sln
+   dotnet build FermentFlow.sln --configuration Release
+   dotnet test FermentFlow.sln --configuration Release --no-build
    ```
 
-4. **Manual (optional)** — open a representative notebook from `src/weekN/03-notebooks/`, run all cells.
+3. **Run API** (branch 01 example)
 
-## Summary
+   ```powershell
+   dotnet run --project FermentFlow.Rest
+   ```
 
-Report each step **PASS** / **FAIL** / **SKIPPED**.
+   Verify Swagger at `http://localhost:5098/documentation`
 
-When the failure affects teaching flow, explain it in beginner-friendly language so the next fix is obvious.
+4. **Docs lint**
+
+   ```powershell
+   npx --yes markdownlint-cli2 "README.md" "docs/**/*.md"
+   ```
+
+## Branch notes
+
+- Branch 04: run Sales and Warehouses REST projects separately — see `docs/01-overview/06-running-locally.md`
+- If solution paths differ on the active branch, document the mismatch as a finding
+
+## Output
+
+PASS/FAIL per step; blockers for local development.

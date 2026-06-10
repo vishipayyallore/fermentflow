@@ -8,8 +8,6 @@ ignores:
   - "**/node_modules/**"
   - "**/.venv/**"
   - "**/.vscode/**"
-  - "source-material/**"
-  - "docs/masterplan.md"
   - ".git/**"
   - "**/*.png"
   - "**/*.PNG"

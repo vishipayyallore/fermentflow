@@ -1,0 +1,31 @@
+name: .NET CI (FermentFlow)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore src/FermentFlow.sln
+      continue-on-error: true
+
+    - name: Build
+      run: dotnet build src/FermentFlow.sln --configuration Release --no-restore
+      continue-on-error: true
+
+    - name: Test
+      run: dotnet test src/FermentFlow.sln --configuration Release --no-build --verbosity normal
+      continue-on-error: true

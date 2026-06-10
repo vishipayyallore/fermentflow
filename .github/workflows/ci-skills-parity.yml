@@ -2,13 +2,13 @@ name: Skills Parity (.github ↔ .cursor)
 
 on:
   push:
-    branches: [main, master, 'swamy/**']
+    branches: [main, master]
     paths:
       - '.github/skills/**'
       - '.cursor/skills/**'
       - '.github/workflows/ci-skills-parity.yml'
   pull_request:
-    branches: [main, master, 'swamy/**']
+    branches: [main, master]
     paths:
       - '.github/skills/**'
       - '.cursor/skills/**'

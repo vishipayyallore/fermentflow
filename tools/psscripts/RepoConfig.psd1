@@ -1,12 +1,13 @@
 @{
-  RepoName = 't2-artificial-neural-networks'
+  RepoName = 'fermentflow'
 
   ExpectedFolders = @(
     '.copilot'
     '.cursor'
     '.claude'
     'docs'
-    'source-material'
+    'docs\01-overview'
+    'docker'
     'src'
     'tools'
     'tools\psscripts'

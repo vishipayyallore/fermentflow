@@ -2,7 +2,7 @@ name: Documentation Quality (Markdown & Links)
 
 on:
   push:
-    branches: [main, master, 'swamy/**']
+    branches: [main, master]
     paths:
       - '**.md'
       - 'lychee.toml'

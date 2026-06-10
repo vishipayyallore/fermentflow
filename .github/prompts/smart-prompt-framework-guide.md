@@ -1,6 +1,6 @@
 # S.M.A.R.T. Prompt Framework for GitHub Copilot Coding Agents
 
-**Artificial Neural Networks Edition** — Framework for creating high-quality coding agent instructions aligned with neural network implementation best practices and educational standards.
+**FermentFlow Edition** — Framework for creating high-quality coding agent instructions aligned with DDD, CQRS, and .NET reference application standards.
 
 ---
 

@@ -1,36 +1,31 @@
 ---
 name: docs-verification
-description: Verify markdown structure, four-layer week companions, folder naming, beginner-friendly explanations, and business-use-case grounding. Use when auditing docs, broken links, or cross-layer consistency.
+description: Verify FermentFlow markdown structure, architecture doc consistency, ubiquitous language alignment, and broken links. Use when auditing docs or cross-references.
 ---
 
-# Documentation Verification — Artificial Neural Networks
+# Docs Verification — FermentFlow
 
-**Four-layer** companions are organized by week under `src/weekN/` with four subfolders: `01-notes/`, `02-quizzes/`, `03-notebooks/`, `04-discussions/`.
+## Protocol
 
-## Verification matrix
+1. Read `.github/copilot-instructions.md` and `docs/01-overview/01-project-overview.md`.
+2. Compare tree to `docs/01_repository-structure.md` and `README.md`.
+3. Verify ubiquitous language in code comments and docs matches `docs/01-overview/04-ubiquitous-language.md`.
+4. Confirm branch evolution docs match `docs/01-overview/03-architecture-evolution.md`.
+5. Check internal markdown links resolve (run **ci-checks** Lychee step or `Validate-FileReferences.ps1`).
+6. Spot-check Mermaid diagrams have ASCII fallbacks where used.
+7. Run markdownlint per **ci-checks** skill.
 
-| Concern | Source of truth | Common errors |
-|--------|-----------------|---------------|
-| Layout | `docs/01_repository-structure.md`, `README.md` | Missing layer for a week; wrong subfolder name |
-| Notes | `src/weekN/01-notes/` | Instructor tone; concepts without layman intuition before math; missing business use case where helpful |
-| Quizzes | `src/weekN/02-quizzes/` | Marked answers inconsistent with explanations; copied institution questions; bare `**Correct answer**:` without `<details>` rationales on active quizzes |
-| Notebooks | `src/weekN/03-notebooks/` | Missing `-implementation` suffix; broken JSON; hidden cell state |
-| Discussions | `src/weekN/04-discussions/` | Copied institution scenarios; missing original synthesis |
-| Reusable code | `src/` (alongside week folders) | Network logic duplicated in notebooks without clear separation |
-| Public docs | `.cursor/rules/06_source_material_rules.mdc` | Listing `source-material/` in `README.md`, `docs/**/*.md`, or structure diagrams |
-| Diagrams | `.cursor/rules/01_educational-content-rules.mdc` | Mermaid diagram missing an ASCII fallback where a visual explanation is applicable |
-| Week folders | `src/week1/`, `src/week2/`, … | Wrong casing (`Week1` instead of `week1`); content in wrong week |
-| Topic numbering | `src/weekN/*/` | `00-` / `00_` prefix; topic index out of sync with filesystem; assuming same `NN` across layers when index differs |
+## Key docs
 
-## Archive handling
+| Doc | Validates |
+|-----|-----------|
+| `01-project-overview.md` | Stack, branches, endpoints |
+| `02-business-domain.md` | Domain flows |
+| `03-architecture-evolution.md` | Branch patterns |
+| `04-ubiquitous-language.md` | Term consistency |
+| `06-running-locally.md` | Run instructions |
+| `07-fermentflow-modernization-vision.md` | Future direction |
 
-- `.archive/` (if present) is preserved legacy content and is not part of active docs parity unless Swamy asks for migration.
-- `source-material/.archive/` (if present) is preserved raw/reference material; keep it internal-only and read-only.
-- Do not require archive content to appear in `src/weekN/` during ordinary documentation audits.
+## Output
 
-## Output format
-
-Use a table: **File | Status | Issues**. Concrete paths only; offer fixes when requested.
-
-When noting teaching issues, explain them in beginner-friendly terms and mention when a missing business use case weakens the real-world explanation.
-When noting diagram issues, mention whether a Mermaid diagram needs an ASCII fallback for environments that do not render Mermaid.
+Critical / Major / Minor findings; link check summary; terminology mismatches.

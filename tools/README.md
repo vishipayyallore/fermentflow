@@ -1,6 +1,5 @@
 # tools
 
-Repository-local helper scripts (**not** `src/` package code). Flags and examples live in the nested README files.
+Repository-local helper scripts (**not** application source). Flags and examples live in the nested README.
 
-- [Python utilities — `pyscripts/README.md`](pyscripts/README.md)
 - [PowerShell helpers — `psscripts/README.md`](psscripts/README.md)
