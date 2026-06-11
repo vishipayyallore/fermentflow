@@ -430,3 +430,6 @@ FodyWeavers.xsd
 
 # Source material
 source-material/
+
+# Link checker cache (CI restores via actions/cache — see ci-documentation.yml)
+.lycheecache

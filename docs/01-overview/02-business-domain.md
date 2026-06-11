@@ -85,20 +85,23 @@ Contexts are **logical only** — shared code, database, and repositories:
 
 ### Target context map (branch 02+)
 
+Domain events stay **inside** each context. Only **integration** events cross boundaries (Stage 05+; outbox from Stage 06). See [Event catalog](10-event-catalog.md).
+
 ```text
 ┌─────────────────┐
-│   Production    │  BatchCompleted, StockProduced
+│   Production    │  domain: ProductionOrderStarted, ProductionOrderCompleted
 └────────┬────────┘
-         │ integration event
+         │ integration: ProductionCompleted
          v
 ┌─────────────────┐
-│   Inventory     │  StockReceived, StockReserved, InventoryUpdated
+│   Inventory     │  domain: StockReceived, StockReserved, StockReservationReleased
 └────────┬────────┘
-         │ integration event
+         │ integration: InventoryUpdated, StockAvailable, StockUnavailable
          v
 ┌─────────────────┐
-│     Sales       │  OrderPlaced, OrderConfirmed
+│     Sales       │  domain: SalesOrderCreated, SalesOrderClosed
 └─────────────────┘
+         │ integration: OrderPlaced, OrderConfirmed (downstream)
 ```
 
 Future stage **10-EventDrivenSagas** orchestrates the long-running flow across these contexts (see [Architecture governance](09-architecture-governance.md)).
@@ -128,7 +131,7 @@ From **Stage 03** onward (see [ADR-012](../adr/ADR-012-cross-context-collaborati
 2. Sales orchestrates **reservation** per line via application contract (`IInventoryReservationService`)
 3. **Inventory** enforces stock invariants on `InventoryItem.ReserveStock` — final authority
 4. On successful reservation, `SalesOrder` is created
-5. Domain and integration events follow in Stages 04–06 (`StockReserved`, `SalesOrderCreated`, outbox)
+5. Domain events (`StockReserved`, `SalesOrderCreated`) in Stages 04+; integration events (`InventoryUpdated`, `OrderPlaced`) via outbox in Stage 06
 
 ### Inventory and availability
 

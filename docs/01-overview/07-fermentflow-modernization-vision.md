@@ -144,20 +144,23 @@ FermentFlow.Production    — brewing batches, production orders, completion eve
 
 ### Context map (target state)
 
+Domain events are **internal** to each context; arrows show **integration** events only. See [Event catalog](10-event-catalog.md).
+
 ```text
 ┌─────────────────┐
-│   Production    │  publishes: BatchCompleted, StockProduced
+│   Production    │  domain: ProductionOrderStarted, ProductionOrderCompleted
 └────────┬────────┘
-         │ integration event
+         │ integration: ProductionCompleted
          v
 ┌─────────────────┐
-│   Inventory     │  publishes: StockReceived, StockReserved, InventoryUpdated
+│   Inventory     │  domain: StockReceived, StockReserved, StockReservationReleased
 └────────┬────────┘
-         │ integration event
+         │ integration: InventoryUpdated, StockAvailable, StockUnavailable
          v
 ┌─────────────────┐
-│     Sales       │  publishes: OrderPlaced, OrderConfirmed
+│     Sales       │  domain: SalesOrderCreated, SalesOrderClosed
 └─────────────────┘
+         │ integration: OrderPlaced, OrderConfirmed (downstream)
 ```
 
 Sales may also call Inventory synchronously (with circuit breaker) for real-time stock checks during order placement.
