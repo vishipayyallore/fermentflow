@@ -59,6 +59,7 @@ ADR-009  Event-Driven Sagas         (10 — Proposed)
 ADR-010  InventoryItem Aggregate    (domain — from 02)
 ADR-011  Production Bounded Context (from 02 module; deployable 05)
 ADR-012  Cross-Context Collaboration (Stage 03 application contracts)
+ADR-013  Compensating Actions (Stage 03; no cross-context TransactionScope)
 ```
 
 ---
@@ -99,7 +100,25 @@ Inside the modular monolith, contexts collaborate through **application-layer co
 | Consumer context owns the interface; provider implements in **Application** | Clear dependency direction |
 | `InventoryItem.ReserveStock` is the stock invariant authority | Sales orchestrates; Inventory enforces |
 
-Preferred flow: **ReserveStock → SalesOrder.Create** — not Sales-only validation against a foreign read model.
+Preferred flow: **ReserveStock → SalesOrder.Create** — on failure, **ReleaseStockReservation** ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
+
+**Forbidden at Stage 03+:** `TransactionScope` (or equivalent) spanning Sales and Inventory persistence — contexts must stay operationally autonomous.
+
+### MediatR boundary (Stage 03+)
+
+| Allowed | Forbidden |
+|---------|-----------|
+| `IMediator.Send` **within** one bounded context's `Features/` | `IMediator.Send` from Sales to Inventory (or any cross-context) handlers |
+| Consumer-owned `IInventoryReservationService` | Sales.Application referencing Inventory.Application command/query types |
+| Domain events (Stage 04+) | Cross-context handler chains disguised as "just another MediatR call" |
+
+Encode in `FermentFlow.Architecture.Tests`:
+
+```text
+Types in Sales.Features must not depend on types in Inventory.Features
+Sales.Application must not reference Inventory.Application
+   (except interfaces/DTOs defined in Sales.Application and implemented via DI)
+```
 
 ### Database ownership (Stage 05+)
 
@@ -136,6 +155,8 @@ Evolutionary architecture checks — automated where possible, manual where not 
 |------------------|------------|------------|
 | Context isolation | NetArchTest / ArchUnitNET — no cross-context Infrastructure references | Stage 02 |
 | Cross-context collaboration | Application contracts only; no cross-context repos, DbContext, or MediatR | Stage 03 |
+| Compensating actions | `ReleaseStockReservation` on partial failure; no `TransactionScope` across contexts | Stage 03 |
+| MediatR scope | Intra-context only; architecture tests forbid cross-context handler invocation | Stage 03 |
 | No infrastructure leakage | Domain must not reference EF, MassTransit, MediatR | Branch 02 |
 | Vertical slice boundaries | Features depend only on Application + Domain | Branch 03 |
 | No direct RabbitMQ publish | Architecture tests — integration events via outbox only | Branch 06 |

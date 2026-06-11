@@ -102,7 +102,7 @@ docs/
 │   ├── README.md
 │   ├── ADR-000-establish-fermentflow.md
 │   ├── ADR-001-introduce-modular-monolith.md
-│   └── … (through ADR-012)
+│   └── … (through ADR-013)
 ├── agent-skills.md
 ├── agent-subagents.md
 ├── agent-governance-recovery.md

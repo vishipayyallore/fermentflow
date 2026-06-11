@@ -33,8 +33,11 @@ Inventory Context
               ├── BeerName
               ├── OnHandQuantity
               ├── ReservedQuantity
-              └── AvailableQuantity  → derived: OnHand - Reserved
+              ├── AvailableQuantity  → derived: OnHand - Reserved
+              └── Reservations[]     → InventoryReservation (Stage 03+)
 ```
+
+`InventoryReservation` is a first-class concept — compensation uses `ReleaseReservation(reservationId)`, not anonymous stock bumps ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
 
 **Availability** is not persisted as its own aggregate. Queries that answer “how much can we sell?” project `AvailableQuantity`.
 

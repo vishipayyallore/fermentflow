@@ -95,7 +95,7 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 |--------|-------|--------------|
 | 01 | Layered monolith, smells | Baseline |
 | 02 | Physical bounded contexts, modular monolith | Folder isolation, **architecture tests** |
-| 03 | CQRS + Vertical Slice Architecture | MediatR, `Features/`, **domain unit tests**, **Testcontainers** |
+| 03 | CQRS + Vertical Slice Architecture | MediatR (intra-context), application contracts, **compensation**, `InventoryReservation`, **domain unit tests**, **Testcontainers** |
 | 04 | CQRS + Event sourcing | EventStoreDB; **CQRS and vertical slices retained** |
 | 05 | Microservices | Separate deployables per context |
 | 06 | Outbox pattern | Reliable messaging, no lost events |

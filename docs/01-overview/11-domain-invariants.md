@@ -2,7 +2,7 @@
 
 Explicit aggregate rules for FermentFlow. These become **Given/When/Then domain unit tests** from branch **03-CQRS-VerticalSlices** onward.
 
-**Related:** [Business domain](02-business-domain.md) · [Event catalog](10-event-catalog.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Stage 03 cross-context collaboration](16-stage-03-cross-context-collaboration.md) · [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [Architecture governance](09-architecture-governance.md)
+**Related:** [Business domain](02-business-domain.md) · [Event catalog](10-event-catalog.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Stage 03 cross-context collaboration](16-stage-03-cross-context-collaboration.md) · [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) · [Architecture governance](09-architecture-governance.md)
 
 ---
 
@@ -27,12 +27,41 @@ When ReserveStock 15 for Beer-A is attempted
 Then reservation is rejected and SalesOrder is not created
 ```
 
-Stock rejection tests belong in **Inventory** unit tests (`InventoryItem.ReserveStock`). Sales tests mock `IInventoryReservationService`.
+Stock rejection tests belong in **Inventory** unit tests (`InventoryItem.ReserveStock`). Sales tests mock `IInventoryReservationService` and verify `ReleaseStockReservationAsync` on handler failure ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
 
 ```text
 Given a closed SalesOrder
 When Close is invoked again
 Then operation is rejected
+```
+
+---
+
+## InventoryReservation
+
+First-class entity within the Inventory aggregate (Stage 03+). Compensation targets `ReservationId`, not anonymous quantity reversals.
+
+| Invariant | Rule |
+|-----------|------|
+| Identity | Each reservation has a unique `ReservationId` |
+| Quantity | Reservation quantity must be positive |
+| Release | `ReleaseReservation(id)` is idempotent |
+| Lifecycle | Cannot release a non-existent reservation |
+
+### Example unit tests (Stage 03+)
+
+```text
+Given AvailableQuantity 10
+When ReserveStock creates Reservation R1 for 5
+Then ReservedQuantity is 5
+
+Given reservation R1 for 5
+When ReleaseReservation R1
+Then ReservedQuantity is 0
+
+Given R1 already released
+When ReleaseReservation R1 again
+Then state unchanged
 ```
 
 ---

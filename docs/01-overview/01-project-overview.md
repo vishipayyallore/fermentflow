@@ -46,6 +46,10 @@ Full detail: [Branch roadmap](08-branch-roadmap.md) · [Stage 01 blueprint](13-s
 
 **Starting Stage 01?** Read [13-stage-01-overview.md](13-stage-01-overview.md) and [14-stage-01-smells.md](14-stage-01-smells.md) before writing code.
 
+## Blueprint status
+
+**Implementation-ready** (blueprint frozen). Architectural unknowns for Stages 01–09 are documented in ADRs 000–013 and overview docs 01–16. Further design changes should follow the ADR process — validate assumptions through code on each stage branch, not additional pre-implementation redesign.
+
 ## Target Technology Stack
 
 | Area | Technology |

@@ -139,8 +139,10 @@ Characteristics:
 
 - MediatR **within** each context only (not cross-context)
 - CQRS + Vertical Slice Architecture (`Features/` per use case)
-- **Cross-context collaboration** via consumer-owned application contracts — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)
-- Preferred order flow: `ReserveStock` → `SalesOrder.Create` (Inventory owns stock invariants)
+- **Cross-context collaboration** via consumer-owned contracts — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)
+- **Compensation** on partial failure (`ReleaseStockReservation`); **no** `TransactionScope` across contexts — [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)
+- **`InventoryReservation`** as first-class entity; MediatR **intra-context only** (architecture tests)
+- Preferred flow: `ReserveStock` → `SalesOrder.Create` → compensate on failure
 - **Domain unit tests** per context (aggregate invariants, Given/When/Then)
 - **Testcontainers** for integration tests against real PostgreSQL
 
@@ -152,7 +154,7 @@ When order requests 15
 Then order is rejected
 ```
 
-Decisions: [ADR-002](../adr/ADR-002-introduce-cqrs.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [16-stage-03-cross-context-collaboration.md](16-stage-03-cross-context-collaboration.md)
+Decisions: [ADR-002](../adr/ADR-002-introduce-cqrs.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) · [16-stage-03-cross-context-collaboration.md](16-stage-03-cross-context-collaboration.md)
 
 ---
 
