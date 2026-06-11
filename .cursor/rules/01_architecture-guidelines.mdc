@@ -10,7 +10,7 @@ globs: *
 FermentFlow models brewery logistics across contexts:
 
 - **Sales** — customer orders, order lifecycle
-- **Inventory** — stock availability, reservations (legacy baseline may use `Warehouses`)
+- **Inventory** — `InventoryItem` aggregate; availability derived (`OnHand - Reserved`); Stage 01 uses anemic `Availability` entity (legacy baseline may use `Warehouses`)
 - **Production** — brewing batches, stock creation events
 
 Each context owns its aggregates, persistence, and public integration contracts. Cross-context communication uses integration events or ACL — never shared database tables across contexts.

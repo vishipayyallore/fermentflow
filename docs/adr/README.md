@@ -14,6 +14,7 @@ Swamy's personal ADR log for FermentFlow. ADRs **reinforce** the [nine-branch ro
 | [ADR-007](ADR-007-introduce-observability.md) | 08-Observability | Accepted | OpenTelemetry + Prometheus + Grafana |
 | [ADR-008](ADR-008-introduce-aspire.md) | 09-Aspire | Accepted | .NET Aspire orchestration |
 | [ADR-009](ADR-009-introduce-event-driven-sagas.md) | 10-EventDrivenSagas | Proposed | Event-driven sagas across Production → Inventory → Sales |
+| [ADR-010](ADR-010-inventory-item-aggregate-root.md) | `02-ModularMonolith`+ | Accepted | `InventoryItem` aggregate; `Availability` derived |
 
 **Format:** MADR-inspired — Status, Context, Decision, **Alternatives Considered**, Consequences.
 

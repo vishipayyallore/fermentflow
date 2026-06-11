@@ -2,6 +2,32 @@
 
 Step-by-step guide for each branch.
 
+**Greenfield Stage 01** (`01-LegacyMonolith`): PostgreSQL + `FermentFlow.Api` — see [Stage 01 blueprint](13-stage-01-overview.md). Sections below labelled **Baseline import** describe legacy branch names and MongoDB from an external import path.
+
+---
+
+## Branch 01 — Legacy Monolith (target)
+
+When `01-LegacyMonolith` is implemented per [13-stage-01-overview.md](13-stage-01-overview.md):
+
+```powershell
+git checkout 01-LegacyMonolith
+cd docker
+docker compose up -d
+cd ..\src
+dotnet restore FermentFlow.sln
+dotnet run --project FermentFlow.Api
+```
+
+| Resource | URL |
+|----------|-----|
+| API | <http://localhost:5000> (configure in `launchSettings.json`) |
+| Health | `GET /health` (when added) |
+
+Endpoints: `POST /api/inventory/availability`, `POST /api/sales/orders`, `POST /api/production/completed` — see blueprint.
+
+Tests: `dotnet test tests/FermentFlow.Api.Tests`
+
 ---
 
 ## Prerequisites
@@ -22,7 +48,7 @@ Branch 04 onward runs PostgreSQL, RabbitMQ, and EventStoreDB concurrently (via D
 
 ---
 
-## Branch 01 — Monolith Legacy (simplest)
+## Baseline import — Branch 01 (legacy MongoDB path)
 
 ### 1. Start MongoDB
 

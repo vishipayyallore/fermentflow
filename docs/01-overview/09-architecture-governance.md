@@ -56,6 +56,7 @@ ADR-006  Circuit Breaker            (07)
 ADR-007  Observability              (08)
 ADR-008  .NET Aspire                (09)
 ADR-009  Event-Driven Sagas         (10 — Proposed)
+ADR-010  InventoryItem Aggregate    (domain — from 02)
 ```
 
 ---

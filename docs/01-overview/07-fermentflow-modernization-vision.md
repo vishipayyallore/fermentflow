@@ -43,7 +43,7 @@ The name maps directly to the domain flow documented in [Business Domain](02-bus
 ```text
 Production
     ↓  (beer batch completed)
-Inventory / Availability
+Inventory (`InventoryItem`; availability derived)
     ↓  (stock updated, Sales notified)
 Sales Orders
     ↓  (customer purchases in-stock beer)
@@ -59,7 +59,7 @@ This is the same process FermentFlow models today — FermentFlow makes it expli
 |------------------|------------------------|-------|
 | `FermentFlow` | `FermentFlow` | Rename solution, namespaces, Docker services |
 | `Warehouses` | `Inventory` | Better ubiquitous language; "warehouse" becomes implementation detail |
-| `Availability` | `InventoryItem` or keep `Availability` | Aggregate name can stay; context is `Inventory` |
+| `Availability` (legacy entity) | `InventoryItem` aggregate | `Availability` becomes derived (`OnHand - Reserved`); see [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
 | `Production` (contracts only) | `FermentFlow.Production` | Promote to full bounded context |
 | `FermentFlow.Shared` | `FermentFlow.BuildingBlocks.*` | Replace duplicated shared libs with building blocks |
 | Muflone | MediatR + MassTransit | Modern .NET ecosystem; easier for learners |
@@ -129,7 +129,7 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 
 ```text
 FermentFlow.Sales         — customer orders, pricing, order lifecycle
-FermentFlow.Inventory     — stock levels, availability, reservations
+FermentFlow.Inventory     — `InventoryItem` aggregates; availability derived from on-hand minus reserved
 FermentFlow.Production    — brewing batches, production orders, completion events
 ```
 
@@ -140,7 +140,7 @@ FermentFlow.Production    — brewing batches, production orders, completion eve
 | **Warehouses** | Physical location / infrastructure | Implementation detail |
 | **Inventory** | Business concept everyone knows | Core domain language |
 
-The aggregate can remain `Availability` or become `StockLevel` / `InventoryItem` inside the Inventory context. The context name changes; the concept does not.
+**Aggregate decision (accepted):** `InventoryItem` is the aggregate root; `Availability` is a derived business concept, not a separate aggregate. Stage 01 intentionally keeps an anemic `Availability` entity for refactoring practice — see [Stage 01 blueprint](13-stage-01-overview.md) and [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md).
 
 ### Context map (target state)
 
@@ -151,7 +151,7 @@ The aggregate can remain `Availability` or become `StockLevel` / `InventoryItem`
          │ integration event
          v
 ┌─────────────────┐
-│   Inventory     │  publishes: AvailabilityChanged, StockReserved
+│   Inventory     │  publishes: StockReceived, StockReserved, InventoryUpdated
 └────────┬────────┘
          │ integration event
          v
@@ -414,7 +414,7 @@ Phase 4 — Extend stages 06–09
 ### What to preserve
 
 - Domain rules (availability check before order, production-driven stock)
-- Aggregate boundaries (SalesOrder, Availability/InventoryItem)
+- Aggregate boundaries (SalesOrder, InventoryItem)
 - Evolution narrative (monolith → microservices → Aspire)
 - ADR format and architecture workbook structure
 

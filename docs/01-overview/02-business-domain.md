@@ -17,7 +17,7 @@ FermentFlow documentation describes both the **imported baseline** (legacy branc
 | Aspect | Current state (baseline import) | Target state (branch 02 onward) |
 |--------|--------------------------------|----------------------------------|
 | **Production** | Supporting; **contracts only** — not a full bounded context | **Full bounded context** — brewing batches, production orders, completion events |
-| **Inventory** | Named `Warehouses` in code and APIs | Renamed to **Inventory** — business capability, not a physical location |
+| **Inventory** | Named `Warehouses` in baseline import | **Inventory** context with **`InventoryItem`** aggregate; **Availability** is derived (`OnHand - Reserved`) — [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
 | **Sales** | Core context | Core context (unchanged role) |
 | **Integration** | Direct calls (branch 01) → events (branch 04+) | Production → Inventory → Sales via integration events and sagas (stage 10+) |
 
@@ -30,7 +30,7 @@ See [Modernization vision](07-fermentflow-modernization-vision.md) and [Business
 The system supports these major capabilities:
 
 - **Create Sales Orders** — customers place orders for beer products
-- **Manage Inventory** — track beer availability and stock levels
+- **Manage Inventory** — `InventoryItem` aggregates track on-hand and reserved stock; **availability** is derived
 - **Check Beer Availability** — validate that ordered beers are in stock
 - **Produce Beer** — production batches create or update inventory (full context from branch 02 target)
 - **Generate Read Models** — query-optimized views for reporting and UI
@@ -54,7 +54,7 @@ The system supports these major capabilities:
 | Subdomain | Type | Purpose | Bounded Context |
 |-----------|------|---------|-----------------|
 | **Sales** | Core | Customer orders, order lifecycle | `FermentFlow.Sales` |
-| **Inventory** | Core | Stock, availability, reservations | `FermentFlow.Inventory` |
+| **Inventory** | Core | `InventoryItem` lifecycle — on-hand, reserved, derived availability | `FermentFlow.Inventory` |
 | **Production** | Core | Brewing batches, production orders | `FermentFlow.Production` |
 
 ---
@@ -92,7 +92,7 @@ Contexts are **logical only** — shared code, database, and repositories:
          │ integration event
          v
 ┌─────────────────┐
-│   Inventory     │  AvailabilityChanged, StockReserved
+│   Inventory     │  StockReceived, StockReserved, InventoryUpdated
 └────────┬────────┘
          │ integration event
          v
@@ -127,12 +127,14 @@ See [Context Map Evolution](../diagrams/context-map-evolution.md) for the full b
 3. Only beers with sufficient stock are included in the order
 4. Order is persisted (and later, events are published)
 
-### Availability Management
+### Inventory and availability
 
 1. Production completes for a beer batch
-2. Inventory availability is created or updated
-3. Sales context is notified of the change (branches 03–04 baseline; all target branches)
-4. Sales read model reflects updated availability
+2. Inventory context receives stock (`ReceiveStock` / `StockReceived` from branch 04)
+3. `AvailableQuantity` is derived: `OnHandQuantity - ReservedQuantity`
+4. Sales validates orders against available quantity; read models sync via integration events (branch 05+)
+
+Stage 01 uses a simplified anemic `Availability` entity — see [Stage 01 blueprint](13-stage-01-overview.md).
 
 ---
 
@@ -153,6 +155,8 @@ On **imported baseline branches**, Production is not a full bounded context — 
 
 ## Related documents
 
+- [Inventory aggregate model](12-inventory-aggregate-model.md) — `InventoryItem` vs derived availability
 - [Domain invariants](11-domain-invariants.md) — explicit aggregate rules for branch 03 unit tests
 - [Event catalog](10-event-catalog.md) — domain, integration, and saga events
+- [Stage 01 blueprint](13-stage-01-overview.md) — legacy monolith before DDD tactical patterns
 - [DDD reverse engineering report](05-ddd-reverse-engineering-report.md) — baseline vs target bounded contexts

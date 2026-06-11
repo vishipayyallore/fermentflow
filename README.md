@@ -86,7 +86,7 @@ The repository intentionally evolves through multiple architectural stages.
 
 Each stage introduces a single major architectural concept while preserving the same business domain.
 
-Full per-branch layouts: [Branch roadmap](docs/01-overview/08-branch-roadmap.md) · [Repository structure](docs/01_repository-structure.md)
+Full per-branch layouts: [Branch roadmap](docs/01-overview/08-branch-roadmap.md) · [Stage 01 blueprint](docs/01-overview/13-stage-01-overview.md) · [Repository structure](docs/01_repository-structure.md)
 
 Optional future stages:
 
@@ -224,7 +224,10 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 
 | Document | Purpose |
 | -------- | ------- |
-| [Project overview](docs/01-overview/01-project-overview.md) | Structure and baseline stages |
+| [Stage 01 blueprint](docs/01-overview/13-stage-01-overview.md) | Legacy monolith implementation guide |
+| [Stage 01 smells](docs/01-overview/14-stage-01-smells.md) | Intentional architectural problems |
+| [Inventory aggregate model](docs/01-overview/12-inventory-aggregate-model.md) | `InventoryItem` aggregate; derived availability |
+| [Project overview](docs/01-overview/01-project-overview.md) | Structure and learning roadmap |
 | [Business domain](docs/01-overview/02-business-domain.md) | Domain flows and rules |
 | [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Baseline import comparison |
 | [Branch roadmap](docs/01-overview/08-branch-roadmap.md) | Per-branch layout and learning goals |

@@ -9,24 +9,30 @@ Per-branch source layout and learning focus for the nine-stage FermentFlow evolu
 
 ## Branch 01 — Legacy Monolith
 
+**Blueprint:** [13-stage-01-overview.md](13-stage-01-overview.md) · **Smells:** [14-stage-01-smells.md](14-stage-01-smells.md)
+
 ```text
 src/
 │
 ├── FermentFlow.DomainModel
 ├── FermentFlow.Infrastructure
 ├── FermentFlow.ReadModel
-├── FermentFlow.Rest
+├── FermentFlow.Api
 ├── FermentFlow.Shared
 └── FermentFlow.sln
+
+tests/
+└── FermentFlow.Api.Tests
 ```
 
 Characteristics:
 
 - Layered architecture
 - Single deployable
-- Shared database
-- Direct repository coupling
-- No domain events
+- PostgreSQL + EF Core (shared `FermentFlowDbContext`)
+- Anemic `Availability` entity / `Availabilities` table (refactored to `InventoryItem` in branch 02)
+- Direct repository coupling (`SalesOrderService` → `InventoryRepository`)
+- No domain events, CQRS, or DDD tactical patterns
 
 ---
 
@@ -64,6 +70,7 @@ Characteristics:
 - Modular monolith
 - Shared deployment
 - Explicit domain boundaries
+- **`InventoryItem` aggregate** replaces Stage 01 anemic `Availability` — [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md)
 - **Architecture tests** (NetArchTest.Rules or ArchUnitNET) — see [ADR-001](../adr/ADR-001-introduce-modular-monolith.md)
 
 Example rules:
@@ -98,10 +105,11 @@ src/
 │
 ├── Inventory/
 │   ├── Features/
-│   │   ├── CreateAvailability/
-│   │   ├── UpdateAvailability/
-│   │   ├── GetAvailability/
-│   │   └── ReserveInventory/
+│   │   ├── ReceiveStock/
+│   │   ├── ReserveStock/
+│   │   ├── ReleaseStockReservation/
+│   │   ├── GetInventoryItem/
+│   │   └── AdjustInventory/
 │   │
 │   ├── Domain/
 │   └── Infrastructure/

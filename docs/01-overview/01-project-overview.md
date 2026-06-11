@@ -26,7 +26,7 @@ fermentflow/
 └── README.md
 ```
 
-Early baseline stages may use a flatter layout (monolith solution, legacy context names such as `Warehouses`) before the Inventory rename and service split.
+Stage 01 starts with a flatter monolith layout — see [Stage 01 blueprint](13-stage-01-overview.md).
 
 ## Learning Roadmap (Nine Stages)
 
@@ -42,18 +42,9 @@ Early baseline stages may use a flatter layout (monolith solution, legacy contex
 | `08-Observability` | OpenTelemetry, Prometheus, Grafana |
 | `09-Aspire` | Service discovery, orchestration, local developer experience |
 
-Full detail: [Branch roadmap](08-branch-roadmap.md) · [Architecture governance](09-architecture-governance.md) · [Event catalog](10-event-catalog.md) · [Domain invariants](11-domain-invariants.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
+Full detail: [Branch roadmap](08-branch-roadmap.md) · [Stage 01 blueprint](13-stage-01-overview.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Architecture governance](09-architecture-governance.md) · [Event catalog](10-event-catalog.md) · [Domain invariants](11-domain-invariants.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
 
-## Baseline Stages (Imported Starting Point)
-
-The earliest working code may arrive on legacy-named branches before the full nine-stage rename:
-
-| Legacy branch | Maps to stage | Summary |
-|---------------|---------------|---------|
-| `01-monolith_legacy` | 01-LegacyMonolith | Single solution, layered architecture, shared MongoDB |
-| `02-monolith_with_cqrs` | 02-ModularMonolith → 03-CQRS-VerticalSlices | Layered monolith with early CQRS patterns |
-| `03-monolith_with_cqrs_and_event_sourcing` | 04-CQRS-EventSourcing | Event sourcing, RabbitMQ, ACL |
-| `04-microservices` | 05-Microservices | Sales and Warehouses as separate services |
+**Starting Stage 01?** Read [13-stage-01-overview.md](13-stage-01-overview.md) and [14-stage-01-smells.md](14-stage-01-smells.md) before writing code.
 
 ## Target Technology Stack
 
@@ -61,63 +52,34 @@ The earliest working code may arrive on legacy-named branches before the full ni
 |------|------------|
 | Runtime | .NET 10 |
 | API | ASP.NET Core Minimal APIs |
-| CQRS | MediatR |
-| Messaging | MassTransit + RabbitMQ |
-| Event Store | EventStoreDB |
+| CQRS | MediatR (from stage 03) |
+| Messaging | MassTransit + RabbitMQ (from stage 05) |
+| Event Store | EventStoreDB (from stage 04) |
 | Database | PostgreSQL |
-| Resilience | Polly |
-| Observability | OpenTelemetry, Prometheus, Grafana |
+| Resilience | Polly (from stage 07) |
+| Observability | OpenTelemetry, Prometheus, Grafana (from stage 08) |
 | Orchestration | .NET Aspire (stage 09) |
-| Testing | xUnit + Testcontainers |
+| Testing | xUnit; Testcontainers from stage 03 |
 | Containers | Docker |
 
-Baseline branches may use older **patterns** (MongoDB, Muflone) until ported forward — runtime is **.NET 10** on import.
+Stage 01 uses only .NET 10, PostgreSQL, EF Core, and xUnit — see the [Stage 01 blueprint](13-stage-01-overview.md).
 
 ## Getting Started
-
-Baseline import git names (`01-monolith_legacy`, etc.) map to roadmap stages — code on each branch is **.NET 10** after port.
 
 ### Prerequisites
 
 - .NET 10 SDK
 - Docker Desktop
 
-### Run Baseline Stage 01 (when branch exists)
+### Run Stage 01 (`01-LegacyMonolith`)
 
 ```powershell
-git checkout 01-monolith_legacy
-cd docker; docker compose up -d
+git checkout 01-LegacyMonolith
+cd docker
+docker compose up -d
 cd ..\src
 dotnet restore FermentFlow.sln
-dotnet run --project FermentFlow.Rest
+dotnet run --project FermentFlow.Api
 ```
 
-API: [http://localhost:5098](http://localhost:5098)  
-Swagger: [http://localhost:5098/documentation](http://localhost:5098/documentation)
-
-### Run Baseline Stage 05 / Microservices (when branch exists)
-
-```powershell
-git checkout 04-microservices
-cd docker; docker compose up -d
-cd ..\src\Sales; dotnet run --project FermentFlow.Sales.Rest
-cd ..\Warehouses; dotnet run --project FermentFlow.Warehouses.Rest
-```
-
-## Solutions by Baseline Branch
-
-| Branch | Solution(s) |
-|--------|-------------|
-| 01 | `src/FermentFlow.sln` (~6 projects) |
-| 02 | `src/FermentFlow.sln` (~15 projects) |
-| 03 | `src/FermentFlow.sln` (~18 projects) |
-| 04 | `src/Sales/FermentFlow.Sales.sln`, `src/Warehouses/FermentFlow.Warehouses.sln` |
-
-## API Endpoints (Baseline Evolution)
-
-| Endpoint | Branch 01 | Branch 02 | Branch 03–04 |
-|----------|-----------|-----------|--------------|
-| `POST /v1/sales/` | Create order | — (moved) | Create order (command bus) |
-| `GET /v1/sales/` | List orders | List orders | List orders |
-| `POST /v1/FermentFlow/` | — | Create order (mediator) | — (removed) |
-| `POST /v1/warehouses/availabilities` | Set availability | Set availability | Set availability |
+Full setup, endpoints, and Definition of Done: [13-stage-01-overview.md](13-stage-01-overview.md) · [Running locally](06-running-locally.md)
