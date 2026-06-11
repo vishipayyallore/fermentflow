@@ -20,13 +20,27 @@ See [Business Domain](02-business-domain.md).
 
 ---
 
-## 3. Bounded Contexts
+## 3. Baseline Bounded Contexts
+
+Imported baseline code through branch 04 microservices import. **Production remains contracts-only** on these branches.
 
 | Context | Branch 01 | Branch 02+ | Branch 04 |
 |---------|-----------|------------|-----------|
 | **Sales** | Logical (in `DomainModel`) | `src/Sales/` | `FermentFlow.Sales.Rest` service |
 | **Warehouses** | Logical (in `DomainModel`) | `src/Warehouses/` | `FermentFlow.Warehouses.Rest` service |
 | **Production** | Contracts only | Contracts only | Contracts only |
+
+### Target FermentFlow state
+
+From branch **02-ModularMonolith** onward (target roadmap), three full bounded contexts:
+
+```text
+Sales
+Inventory        (renamed from Warehouses)
+Production       (promoted from contracts-only)
+```
+
+See [Business domain](02-business-domain.md) for baseline vs target integration styles.
 
 ---
 

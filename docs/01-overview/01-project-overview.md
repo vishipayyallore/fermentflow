@@ -42,7 +42,7 @@ Early baseline stages may use a flatter layout (monolith solution, legacy contex
 | `08-Observability` | OpenTelemetry, Prometheus, Grafana |
 | `09-Aspire` | Service discovery, orchestration, local developer experience |
 
-Full detail: [Branch roadmap](08-branch-roadmap.md) · [Architecture governance](09-architecture-governance.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
+Full detail: [Branch roadmap](08-branch-roadmap.md) · [Architecture governance](09-architecture-governance.md) · [Event catalog](10-event-catalog.md) · [Domain invariants](11-domain-invariants.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
 
 ## Baseline Stages (Imported Starting Point)
 
@@ -51,7 +51,7 @@ The earliest working code may arrive on legacy-named branches before the full ni
 | Legacy branch | Maps to stage | Summary |
 |---------------|---------------|---------|
 | `01-monolith_legacy` | 01-LegacyMonolith | Single solution, layered architecture, shared MongoDB |
-| `02-monolith_with_cqrs` | 02-ModularMonolith → 03-CQRS-VerticalSlices (target) |
+| `02-monolith_with_cqrs` | 02-ModularMonolith → 03-CQRS-VerticalSlices | Layered monolith with early CQRS patterns |
 | `03-monolith_with_cqrs_and_event_sourcing` | 04-CQRS-EventSourcing | Event sourcing, RabbitMQ, ACL |
 | `04-microservices` | 05-Microservices | Sales and Warehouses as separate services |
 

@@ -11,6 +11,15 @@ Step-by-step guide for each branch.
 
 > FermentFlow targets a **single SDK** (.NET 10) across every stage to reduce friction for CI, demos, and portfolio review.
 
+### Recommended hardware
+
+Branch 04 onward runs PostgreSQL, RabbitMQ, and EventStoreDB concurrently (via Docker Compose or Testcontainers).
+
+| Profile | RAM | Notes |
+|---------|-----|-------|
+| **Minimum** | 16 GB | Adequate for one branch at a time; close other heavy apps |
+| **Recommended** | 32 GB | Comfortable for Aspire (branch 09), Testcontainers, and IDE together |
+
 ---
 
 ## Branch 01 — Monolith Legacy (simplest)
@@ -35,7 +44,7 @@ dotnet run --project FermentFlow.Rest
 
 | Resource | URL |
 |----------|-----|
-| Swagger | http://localhost:5098/documentation |
+| Swagger | <http://localhost:5098/documentation> |
 | Health | API responds on port 5098 |
 
 ### 4. Test Order Creation
@@ -123,14 +132,14 @@ cd docker && docker compose up -d
 cd src/Sales
 dotnet run --project FermentFlow.Sales.Rest
 ```
-→ http://localhost:5155/documentation
+→ <http://localhost:5155/documentation>
 
 **Terminal 2 — Warehouses:**
 ```bash
 cd src/Warehouses
 dotnet run --project FermentFlow.Warehouses.Rest
 ```
-→ http://localhost:5112/documentation
+→ <http://localhost:5112/documentation>
 
 ---
 

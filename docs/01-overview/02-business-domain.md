@@ -148,3 +148,11 @@ On **imported baseline branches**, Production is not a full bounded context — 
 | `BeerAvailabilityJson` | `FermentFlow.Shared.Contracts` | Availability query result |
 
 **Target state:** replace contract-only integration with the **Production** bounded context and domain/integration events — see [ADR-001](../adr/ADR-001-introduce-modular-monolith.md) and [ADR-004](../adr/ADR-004-introduce-microservices.md).
+
+---
+
+## Related documents
+
+- [Domain invariants](11-domain-invariants.md) — explicit aggregate rules for branch 03 unit tests
+- [Event catalog](10-event-catalog.md) — domain, integration, and saga events
+- [DDD reverse engineering report](05-ddd-reverse-engineering-report.md) — baseline vs target bounded contexts

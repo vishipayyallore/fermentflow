@@ -228,7 +228,9 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 | [Business domain](docs/01-overview/02-business-domain.md) | Domain flows and rules |
 | [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Baseline import comparison |
 | [Branch roadmap](docs/01-overview/08-branch-roadmap.md) | Per-branch layout and learning goals |
-| [Architecture governance](docs/01-overview/09-architecture-governance.md) | ADRs, architecture tests, Definition of Done |
+| [Architecture governance](docs/01-overview/09-architecture-governance.md) | ADRs, architecture tests, fitness functions, Definition of Done |
+| [Event catalog](docs/01-overview/10-event-catalog.md) | Domain, integration, and saga events |
+| [Domain invariants](docs/01-overview/11-domain-invariants.md) | Aggregate rules → branch 03 unit tests |
 | [Architecture decisions](docs/adr/README.md) | ADR index (branch 02 onward) |
 | [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |

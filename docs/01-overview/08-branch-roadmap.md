@@ -334,6 +334,15 @@ Characteristics:
 14-MultiTenancy
 ```
 
+Stage 10 additions:
+
+```text
+BuildingBlocks/
+└── Sagas/               # MassTransit state machine, PostgreSQL saga persistence
+```
+
+Saga persistence: **PostgreSQL** (see [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md)).
+
 Example saga flow (stage 10):
 
 ```text

@@ -29,6 +29,30 @@ Add `BuildingBlocks/Outbox/` and extend architecture tests to forbid direct brok
 
 **Storage split (branch 04+):** EventStoreDB holds **domain events** (aggregate history). PostgreSQL holds **projections**, **relational state where needed**, and the **outbox table** for integration events. There is no two-phase commit across EventStore and PostgreSQL — the application writes to EventStore first, then records pending integration events in the outbox (same PostgreSQL transaction as projection/outbox row updates, or via a dedicated integration-event step with idempotent outbox inserts).
 
+## EventStore and Outbox consistency model
+
+FermentFlow intentionally accepts **eventual consistency** between:
+
+- **Aggregate event stream** (EventStoreDB)
+- **Integration event publication** (PostgreSQL outbox → RabbitMQ)
+
+There is **no two-phase commit** across EventStore and PostgreSQL. The write path is sequential and idempotent:
+
+```text
+1. Append domain event(s) to EventStoreDB
+2. Update PostgreSQL projection / read model (if applicable)
+3. Insert integration event row(s) into outbox (PostgreSQL transaction)
+4. Background publisher relays outbox rows to RabbitMQ
+```
+
+The goal is to teach:
+
+- **Domain events** — aggregate history inside a bounded context
+- **Integration events** — cross-context messaging contracts
+- **Reliable messaging** — outbox pattern for at-least-once delivery
+
+…rather than distributed transactions or dual-write atomicity across heterogeneous stores.
+
 ## Alternatives Considered
 
 | Alternative | Outcome |
