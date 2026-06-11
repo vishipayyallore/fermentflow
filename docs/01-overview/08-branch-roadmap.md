@@ -1,6 +1,8 @@
 # Branch Roadmap
 
-Per-branch source layout and learning focus for the nine-stage FermentFlow evolution.
+Per-stage source layout and learning focus for the nine-stage FermentFlow evolution.
+
+**Terminology:** [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch) — use **Stage NN** in prose; use git branch slugs for `git checkout`.
 
 **Canonical index:** [Repository structure](../01_repository-structure.md) — roadmap, naming, and documentation layout.  
 **Decisions:** [Architecture Decision Records](../adr/README.md) — one ADR per major branch from 02 onward.
@@ -135,11 +137,10 @@ tests/
 
 Characteristics:
 
-- MediatR
-- CQRS
-- Vertical Slice Architecture
-- Feature-based organization
-- Independent use-case slices
+- MediatR **within** each context only (not cross-context)
+- CQRS + Vertical Slice Architecture (`Features/` per use case)
+- **Cross-context collaboration** via consumer-owned application contracts — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)
+- Preferred order flow: `ReserveStock` → `SalesOrder.Create` (Inventory owns stock invariants)
 - **Domain unit tests** per context (aggregate invariants, Given/When/Then)
 - **Testcontainers** for integration tests against real PostgreSQL
 
@@ -151,7 +152,7 @@ When order requests 15
 Then order is rejected
 ```
 
-Decision: [ADR-002](../adr/ADR-002-introduce-cqrs.md)
+Decisions: [ADR-002](../adr/ADR-002-introduce-cqrs.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [16-stage-03-cross-context-collaboration.md](16-stage-03-cross-context-collaboration.md)
 
 ---
 

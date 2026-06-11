@@ -1,7 +1,7 @@
 # Architecture Evolution
 
-> **Target nine-branch journey:** see [Branch roadmap](08-branch-roadmap.md) and [Repository structure](../01_repository-structure.md).  
-> **This document** compares the **imported baseline** (four legacy branches) side by side for historical reference.
+> **Greenfield path:** [06-running-locally.md](06-running-locally.md) · [Branch roadmap](08-branch-roadmap.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)  
+> **This document** compares an **external baseline import** (four legacy git branches) for historical reference only. Run instructions: [15-baseline-import-running.md](15-baseline-import-running.md).
 
 ## Evolution Summary (Baseline Import)
 

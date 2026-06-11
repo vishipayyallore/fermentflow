@@ -102,7 +102,7 @@ docs/
 │   ├── README.md
 │   ├── ADR-000-establish-fermentflow.md
 │   ├── ADR-001-introduce-modular-monolith.md
-│   └── … (through ADR-010)
+│   └── … (through ADR-012)
 ├── agent-skills.md
 ├── agent-subagents.md
 ├── agent-governance-recovery.md
@@ -120,14 +120,34 @@ docs/
     ├── 11-domain-invariants.md
     ├── 12-inventory-aggregate-model.md
     ├── 13-stage-01-overview.md         # Stage 01 implementation blueprint
-    └── 14-stage-01-smells.md           # Stage 01 intentional smells
+    ├── 14-stage-01-smells.md           # Stage 01 intentional smells
+    ├── 15-baseline-import-running.md   # optional — external baseline run reference
+    └── 16-stage-03-cross-context-collaboration.md
 ```
 
 ---
 
 ## Naming Conventions
 
-### Branches
+### Stage vs git branch
+
+Use **Stage** in prose (learning step). Use the **git branch** slug for `git checkout` and folder strategy.
+
+| Stage (prose) | Git branch |
+|---------------|------------|
+| Stage 01 — Legacy Monolith | `01-LegacyMonolith` |
+| Stage 02 — Modular Monolith | `02-ModularMonolith` |
+| Stage 03 — CQRS + Vertical Slices | `03-CQRS-VerticalSlices` |
+| Stage 04 — CQRS + Event Sourcing | `04-CQRS-EventSourcing` |
+| Stage 05 — Microservices | `05-Microservices` |
+| Stage 06 — Outbox Pattern | `06-OutboxPattern` |
+| Stage 07 — Circuit Breaker | `07-CircuitBreaker` |
+| Stage 08 — Observability | `08-Observability` |
+| Stage 09 — Aspire | `09-Aspire` |
+
+In documentation, prefer **“Stage 03 introduces CQRS”** over ambiguous **“branch 03”** unless referring explicitly to git.
+
+### Git branches
 
 ```text
 01-LegacyMonolith

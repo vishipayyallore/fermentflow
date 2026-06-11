@@ -35,8 +35,9 @@ The shared vocabulary used across all bounded contexts. Terms are derived from b
 |------|---------|---------------|
 | **SalesOrderCreated** | Domain event raised when an order is created | Branch 03 |
 | **SalesOrderClosed** | Domain event raised when an order is closed | Branch 03 |
-| **CreateSalesOrder** | Command to create a new sales order | Branch 03 |
-| **SyncInventoryNotification** | Command to update Sales read model from inventory change | Branch 03 |
+| **CreateSalesOrder** | Command to create a new sales order | Stage 03 |
+| **IInventoryReservationService** | Sales-owned application contract; Inventory implements in-process (Stage 03–04), remote client (Stage 05+) | Stage 03 |
+| **SyncInventoryNotification** | Command to update Sales read model from inventory change | Stage 03 |
 
 ### Inventory Context
 

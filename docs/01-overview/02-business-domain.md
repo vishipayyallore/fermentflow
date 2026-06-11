@@ -16,7 +16,7 @@ FermentFlow documentation describes both the **imported baseline** (legacy branc
 
 | Aspect | Current state (baseline import) | Target state (branch 02 onward) |
 |--------|--------------------------------|----------------------------------|
-| **Production** | Supporting; **contracts only** — not a full bounded context | **Full bounded context** — brewing batches, production orders, completion events |
+| **Production** | Stage 01: DTO/endpoint only (smell) | **Full bounded context** from Stage 02 module — [ADR-011](../adr/ADR-011-promote-production-bounded-context.md) |
 | **Inventory** | Named `Warehouses` in baseline import | **Inventory** context with **`InventoryItem`** aggregate; **Availability** is derived (`OnHand - Reserved`) — [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
 | **Sales** | Core context | Core context (unchanged role) |
 | **Integration** | Direct calls (branch 01) → events (branch 04+) | Production → Inventory → Sales via integration events and sagas (stage 10+) |
@@ -122,10 +122,13 @@ See [Context Map Evolution](../diagrams/context-map-evolution.md) for the full b
 
 ### Sales Order Creation
 
+From **Stage 03** onward (see [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)):
+
 1. Customer submits an order with one or more beer line items
-2. System checks inventory availability for each beer
-3. Only beers with sufficient stock are included in the order
-4. Order is persisted (and later, events are published)
+2. Sales orchestrates **reservation** per line via application contract (`IInventoryReservationService`)
+3. **Inventory** enforces stock invariants on `InventoryItem.ReserveStock` — final authority
+4. On successful reservation, `SalesOrder` is created
+5. Domain and integration events follow in Stages 04–06 (`StockReserved`, `SalesOrderCreated`, outbox)
 
 ### Inventory and availability
 
@@ -138,9 +141,19 @@ Stage 01 uses a simplified anemic `Availability` entity — see [Stage 01 bluepr
 
 ---
 
+## Production evolution (greenfield)
+
+| Stage | Production shape |
+|-------|------------------|
+| 01 | `ProductionOrderDto`; `POST /api/production/completed` updates Inventory directly |
+| 02–04 | `FermentFlow.Production.*` module; `ProductionOrder` aggregate emerges |
+| 05+ | Separate deployable; `ProductionCompleted` integration event |
+
+Detail: [ADR-011](../adr/ADR-011-promote-production-bounded-context.md).
+
 ## Contracts (baseline import only)
 
-On **imported baseline branches**, Production is not a full bounded context — integration uses shared contracts:
+On **external baseline imports**, Production is not a full bounded context — integration uses shared contracts:
 
 | Contract | Location | Purpose |
 |----------|----------|---------|

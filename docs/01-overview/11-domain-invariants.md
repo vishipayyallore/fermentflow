@@ -2,7 +2,7 @@
 
 Explicit aggregate rules for FermentFlow. These become **Given/When/Then domain unit tests** from branch **03-CQRS-VerticalSlices** onward.
 
-**Related:** [Business domain](02-business-domain.md) · [Event catalog](10-event-catalog.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) · [Architecture governance](09-architecture-governance.md) · [ADR-002](../adr/ADR-002-introduce-cqrs.md)
+**Related:** [Business domain](02-business-domain.md) · [Event catalog](10-event-catalog.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Stage 03 cross-context collaboration](16-stage-03-cross-context-collaboration.md) · [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [Architecture governance](09-architecture-governance.md)
 
 ---
 
@@ -11,7 +11,7 @@ Explicit aggregate rules for FermentFlow. These become **Given/When/Then domain 
 | Invariant | Rule |
 |-----------|------|
 | Minimum lines | Must contain at least one order row |
-| Stock availability | Cannot order unavailable stock (line quantity must not exceed `AvailableQuantity` per beer) |
+| Stock coordination | Order creation requires successful **reservation** in Inventory (`ReserveStock`); Sales does not own stock math — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) |
 | Lifecycle | Cannot be closed twice |
 | Customer | Must reference a valid customer identity |
 
@@ -19,13 +19,15 @@ Explicit aggregate rules for FermentFlow. These become **Given/When/Then domain 
 
 ```text
 Given InventoryItem with AvailableQuantity 10 for Beer-A
-When CreateSalesOrder requests 5 of Beer-A
-Then order is accepted
+When ReserveStock 5 for Beer-A succeeds
+Then SalesOrder.Create with 5 of Beer-A is accepted
 
 Given InventoryItem with AvailableQuantity 10 for Beer-A
-When CreateSalesOrder requests 15 of Beer-A
-Then order is rejected
+When ReserveStock 15 for Beer-A is attempted
+Then reservation is rejected and SalesOrder is not created
 ```
+
+Stock rejection tests belong in **Inventory** unit tests (`InventoryItem.ReserveStock`). Sales tests mock `IInventoryReservationService`.
 
 ```text
 Given a closed SalesOrder

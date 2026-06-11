@@ -41,4 +41,4 @@ Extend this rule set on each subsequent branch (see [Architecture governance](..
 
 - **Positive:** Boundaries become visible in the folder structure; architecture tests catch dependency violations early.
 - **Negative:** More projects and references to manage within one solution.
-- **Follow-up:** [ADR-010](ADR-010-inventory-item-aggregate-root.md) standardizes `InventoryItem` as the Inventory aggregate (refactor from Stage 01 `Availability` entity). ADR-002 adds CQRS and vertical slices on top of these boundaries.
+- **Follow-up:** [ADR-010](ADR-010-inventory-item-aggregate-root.md) (`InventoryItem` aggregate); [ADR-011](ADR-011-promote-production-bounded-context.md) (Production module). ADR-002 adds CQRS and vertical slices on top of these boundaries.

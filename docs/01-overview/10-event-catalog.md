@@ -18,11 +18,43 @@ Cross-context catalog of **domain events**, **integration events**, and **saga e
 
 ---
 
+## Domain event → integration event mapping (Stage 06+)
+
+From **Stage 06 (Outbox)**, domain events do not cross context boundaries directly. An integration mapper writes to the **outbox** in the same PostgreSQL transaction as the projection or application state; a worker publishes **integration events** to RabbitMQ/MassTransit.
+
+```text
+Domain Event (EventStoreDB / aggregate)
+        ↓
+Integration event mapper (Application layer)
+        ↓
+Outbox row (PostgreSQL, same transaction)
+        ↓
+Outbox worker → MassTransit publish
+        ↓
+Integration Event (cross-context)
+```
+
+| Domain event | Source context | Integration event | Notes |
+|--------------|----------------|-------------------|-------|
+| `StockReceived` | Inventory | `InventoryUpdated` | Stock entered inventory |
+| `StockReserved` | Inventory | `InventoryUpdated` | Reservation changed |
+| `StockReservationReleased` | Inventory | `InventoryUpdated` | Reservation released |
+| `InventoryAdjusted` | Inventory | `InventoryUpdated` | On-hand correction |
+| *(derived)* `AvailableQuantity > 0` after change | Inventory | `StockAvailable` | Optional; may batch with `InventoryUpdated` |
+| *(derived)* insufficient stock for demand | Inventory | `StockUnavailable` | Optional signal to Sales |
+| `ProductionOrderCompleted` | Production | `ProductionCompleted` | Triggers Inventory `ReceiveStock` handler |
+| `SalesOrderCreated` | Sales | `OrderPlaced` | Notify downstream contexts |
+| `SalesOrderClosed` | Sales | `OrderConfirmed` | Order accepted / fulfilled |
+
+**Stage 05** may publish integration events directly (at-least-once risk). **Stage 06** replaces direct publish with outbox for all rows above.
+
+---
+
 ## Sales context
 
 | Type | Event | Introduced | Notes |
 |------|-------|------------|-------|
-| Domain | `SalesOrderCreated` | Branch 03 | Aggregate raised when order is placed |
+| Domain | `SalesOrderCreated` | Stage 03 | Raised after successful `ReserveStock` and order aggregate creation |
 | Domain | `SalesOrderClosed` | Branch 03 | Order lifecycle complete |
 | Integration | `OrderPlaced` | Branch 05+ | Cross-context notification |
 | Integration | `OrderConfirmed` | Branch 05+ | Stock validated and order accepted |

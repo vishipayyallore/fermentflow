@@ -208,7 +208,7 @@ Detailed setup instructions are documented under:
 docs/
 ```
 
-See [Running locally](docs/01-overview/06-running-locally.md) and [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md).
+See [Running locally (greenfield)](docs/01-overview/06-running-locally.md) and [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md).
 
 ---
 

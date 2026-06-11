@@ -23,16 +23,16 @@ These smells are what Stages 02–09 systematically remove.
 
 ## What not to implement yet
 
-| Pattern | First stage |
-|---------|-------------|
-| Bounded contexts (physical) | 02 |
-| MediatR / CQRS | 03 |
-| EventStoreDB / domain events | 04 |
-| Separate deployables | 05 |
-| Outbox | 06 |
-| Polly | 07 |
-| OpenTelemetry | 08 |
-| Aspire | 09 |
+| Pattern | First stage (git branch) |
+|---------|------------------------|
+| Bounded contexts (physical) | Stage 02 — `02-ModularMonolith` |
+| MediatR / CQRS | Stage 03 — `03-CQRS-VerticalSlices` |
+| EventStoreDB / domain events | Stage 04 — `04-CQRS-EventSourcing` |
+| Separate deployables | Stage 05 — `05-Microservices` |
+| Outbox | Stage 06 — `06-OutboxPattern` |
+| Polly | Stage 07 — `07-CircuitBreaker` |
+| OpenTelemetry | Stage 08 — `08-Observability` |
+| Aspire | Stage 09 — `09-Aspire` |
 
 ---
 
