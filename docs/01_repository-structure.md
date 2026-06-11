@@ -122,8 +122,12 @@ docs/
     ├── 13-stage-01-overview.md         # Stage 01 implementation blueprint
     ├── 14-stage-01-smells.md           # Stage 01 intentional smells
     ├── 15-baseline-import-running.md   # optional — external baseline run reference
-    └── 16-stage-03-cross-context-collaboration.md
+    ├── 16-stage-03-cross-context-collaboration.md
+    ├── 17-branching-tags-and-releases.md
+    └── release-notes/              # GitHub release note templates (v1.0+)
 ```
+
+**Branching, tags, releases:** [17-branching-tags-and-releases.md](01-overview/17-branching-tags-and-releases.md) — blueprint freeze, stage branches, tag naming, GitHub releases.
 
 ---
 

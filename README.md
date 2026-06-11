@@ -236,6 +236,7 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 | [Domain invariants](docs/01-overview/11-domain-invariants.md) | Aggregate rules → branch 03 unit tests |
 | [Architecture decisions](docs/adr/README.md) | ADR index (branch 02 onward) |
 | [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
+| [Branching, tags, releases](docs/01-overview/17-branching-tags-and-releases.md) | Blueprint freeze, stage branches, GitHub releases |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |
 | [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md) | Full 9-stage roadmap |
 

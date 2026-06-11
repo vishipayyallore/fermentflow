@@ -50,6 +50,8 @@ Full detail: [Branch roadmap](08-branch-roadmap.md) · [Stage 01 blueprint](13-s
 
 **Implementation-ready** (blueprint frozen). Architectural unknowns for Stages 01–09 are documented in ADRs 000–013 and overview docs 01–16. Further design changes should follow the ADR process — validate assumptions through code on each stage branch, not additional pre-implementation redesign.
 
+**Git workflow:** Tag `v1.0-blueprint-approved`, stage branches, and releases — [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md).
+
 ## Target Technology Stack
 
 | Area | Technology |

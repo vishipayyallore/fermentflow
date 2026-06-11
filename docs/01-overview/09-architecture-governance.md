@@ -2,7 +2,7 @@
 
 How FermentFlow enforces architectural decisions across the nine-stage evolution and beyond.
 
-**Related:** [Branch roadmap](08-branch-roadmap.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)
+**Related:** [Branch roadmap](08-branch-roadmap.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md) · [Branching, tags, releases](17-branching-tags-and-releases.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)
 
 ---
 
@@ -28,6 +28,20 @@ Optional future stages after Aspire:
 ```
 
 Stage 10 models the natural long-running workflow: Production → Inventory → Sales.
+
+---
+
+## Blueprint freeze (v1.0)
+
+The architecture blueprint is **frozen for implementation** as of tag **`v1.0-blueprint-approved`**.
+
+| Rule | Detail |
+|------|--------|
+| **Default** | No further architectural changes unless implementation reveals a real problem |
+| **Exception** | Wrong aggregate boundary, awkward repository, impractical fitness function — document via **new ADR** and update affected docs with the code |
+| **Not allowed** | Pre-implementation redesign of later stages while still on Stage 01–02 |
+
+Tag, branch, and GitHub release workflow: [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md).
 
 ---
 
