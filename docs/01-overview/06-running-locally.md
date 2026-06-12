@@ -6,6 +6,8 @@ Step-by-step guide for the **nine-stage greenfield** implementation. This is the
 
 **Terminology:** [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch) in repository structure.
 
+> **Blueprint-only (pre-implementation):** On `main` and docs-only branches, **PostgreSQL via Docker Compose** is the only runnable infrastructure. `src/FermentFlow.sln` and `FermentFlow.Api` exist on **`01-LegacyMonolith`** after Stage 01 implementation begins — see [Blueprint status](01-project-overview.md#blueprint-status).
+
 ---
 
 ## Prerequisites
@@ -28,9 +30,20 @@ Stage 04 onward runs PostgreSQL, RabbitMQ, and EventStoreDB concurrently.
 
 ## Stage 01 — Legacy Monolith
 
-Git branch: **`01-LegacyMonolith`**
+Git branch: **`01-LegacyMonolith`** (create from `main` at `v1.0-blueprint-approved` — [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md))
 
 Blueprint: [13-stage-01-overview.md](13-stage-01-overview.md)
+
+### Infrastructure (runnable now)
+
+```powershell
+cd docker
+docker compose up -d
+```
+
+PostgreSQL listens on **port 5432** (`fermentflow` / `fermentflow` — see `docker/docker-compose.yml`).
+
+### Application (after Stage 01 code lands on `01-LegacyMonolith`)
 
 ```powershell
 git checkout 01-LegacyMonolith

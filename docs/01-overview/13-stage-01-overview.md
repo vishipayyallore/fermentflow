@@ -6,6 +6,8 @@ Implementation guide for branch **`01-LegacyMonolith`**.
 
 **Related:** [Architectural smells](14-stage-01-smells.md) · [Branch roadmap](08-branch-roadmap.md) · [ADR-000](../adr/ADR-000-establish-fermentflow.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) (target from Stage 02)
 
+> **Pre-implementation:** This document is the implementation guide. Application projects and `FermentFlow.sln` are added on branch **`01-LegacyMonolith`**. Until then, only [Docker Compose](#docker-compose) (PostgreSQL) is present in the repository.
+
 ---
 
 ## Learning outcomes
@@ -205,7 +207,13 @@ No architecture tests, domain unit tests, or Testcontainers until later stages.
 
 ```text
 docker/
-└── docker-compose.yml    # PostgreSQL for local dev
+└── docker-compose.yml    # PostgreSQL for local dev (Stage 01+)
+```
+
+Local connection (Stage 01 `appsettings` when implemented):
+
+```text
+Host=localhost;Port=5432;Database=fermentflow;Username=fermentflow;Password=fermentflow
 ```
 
 ---

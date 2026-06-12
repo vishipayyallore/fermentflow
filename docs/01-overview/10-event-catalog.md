@@ -74,7 +74,8 @@ Aggregate: **`InventoryItem`** ([ADR-010](../adr/ADR-010-inventory-item-aggregat
 | Integration | `InventoryUpdated` | Branch 05+ | Stock change visible to other contexts |
 | Integration | `StockAvailable` | Branch 05+ | Beer can be sold (derived availability > 0) |
 | Integration | `StockUnavailable` | Branch 05+ | Insufficient stock for demand |
-| Integration | `StockProduced` | Branch 05+ | Production batch reflected in inventory (from Production context) |
+
+Production output crosses contexts via **`ProductionCompleted`** (Production context) → Inventory `ReceiveStock` — not a separate Inventory integration event name.
 
 ### Baseline import only (legacy `Warehouses` / Muflone)
 

@@ -1,0 +1,23 @@
+# Stage 01 local infrastructure — PostgreSQL only.
+# See docs/01-overview/13-stage-01-overview.md and docs/01-overview/06-running-locally.md
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fermentflow-postgres
+    environment:
+      POSTGRES_USER: fermentflow
+      POSTGRES_PASSWORD: fermentflow
+      POSTGRES_DB: fermentflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - fermentflow_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fermentflow -d fermentflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  fermentflow_postgres_data:

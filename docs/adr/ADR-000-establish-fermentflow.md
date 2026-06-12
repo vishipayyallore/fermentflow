@@ -58,4 +58,4 @@ Do **not** frame the repository as third-party courseware or an official book sa
 - **Positive:** All future architectural decisions are evaluated against the [staged learning roadmap](../01_repository-structure.md#architecture-evolution-roadmap).
 - **Positive:** Documentation, ADRs, and branch names stay aligned — ADRs reinforce the roadmap rather than duplicating it.
 - **Negative:** High documentation and branch-maintenance overhead before every stage has code.
-- **Follow-up:** Implement `01-LegacyMonolith` — import baseline, port to .NET 10, then evolve branch by branch.
+- **Follow-up:** Implement **`01-LegacyMonolith`** as a **greenfield** Stage 01 monolith per [Stage 01 blueprint](../01-overview/13-stage-01-overview.md) (PostgreSQL, EF Core, intentional smells). Optional external baseline import (MongoDB, legacy branch names) is reference-only — [15-baseline-import-running.md](../01-overview/15-baseline-import-running.md). Evolve stage by stage through `09-Aspire`.

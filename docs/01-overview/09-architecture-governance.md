@@ -33,7 +33,7 @@ Stage 10 models the natural long-running workflow: Production → Inventory → 
 
 ## Blueprint freeze (v1.0)
 
-The architecture blueprint is **frozen for implementation** as of tag **`v1.0-blueprint-approved`**.
+The architecture blueprint is **frozen for implementation** when tag **`v1.0-blueprint-approved`** is applied to the approved docs commit on `main` (see [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md)).
 
 | Rule | Detail |
 |------|--------|

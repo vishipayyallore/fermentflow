@@ -102,25 +102,27 @@ Optional future stages:
 
 ## Technology Stack
 
-| Area              | Technology                |
-| ----------------- | ------------------------- |
-| Runtime           | .NET 10                   |
-| API               | ASP.NET Core Minimal APIs |
-| Architecture      | Domain-Driven Design      |
-| CQRS              | MediatR                   |
-| Messaging         | MassTransit               |
-| Broker            | RabbitMQ                  |
-| Event Store       | EventStoreDB              |
-| Database          | PostgreSQL                |
-| Resilience        | Polly                     |
-| Service Discovery | .NET Aspire               |
-| Orchestration     | .NET Aspire               |
-| Observability     | OpenTelemetry             |
-| Metrics           | Prometheus                |
-| Dashboards        | Grafana                   |
-| Logging           | Serilog                   |
-| Testing           | xUnit + Testcontainers    |
-| Containers        | Docker                    |
+Target stack by stage — Stage 01 uses .NET 10, PostgreSQL, EF Core, and xUnit only.
+
+| Area              | Technology                | From stage |
+| ----------------- | ------------------------- | ---------- |
+| Runtime           | .NET 10                   | 01         |
+| API               | ASP.NET Core Minimal APIs | 01         |
+| Architecture      | Domain-Driven Design      | 02         |
+| CQRS              | MediatR                   | 03         |
+| Messaging         | MassTransit               | 05         |
+| Broker            | RabbitMQ                  | 05         |
+| Event Store       | EventStoreDB              | 04         |
+| Database          | PostgreSQL                | 01         |
+| Resilience        | Polly                     | 07         |
+| Service Discovery | .NET Aspire               | 09         |
+| Orchestration     | .NET Aspire               | 09         |
+| Observability     | OpenTelemetry             | 08         |
+| Metrics           | Prometheus                | 08         |
+| Dashboards        | Grafana                   | 08         |
+| Logging           | Serilog                   | 08         |
+| Testing           | xUnit; Testcontainers     | 01 / 03    |
+| Containers        | Docker                    | 01         |
 
 ---
 
@@ -214,9 +216,9 @@ See [Running locally (greenfield)](docs/01-overview/06-running-locally.md) and [
 
 ## Status
 
-This repository is an active learning project and architectural playground.
+**Blueprint approved; Stage 01 code not yet implemented.** The repository currently ships architecture documentation, ADRs, and Docker PostgreSQL infrastructure. Application source arrives on **`01-LegacyMonolith`** per the [Stage 01 blueprint](docs/01-overview/13-stage-01-overview.md).
 
-Expect frequent refactoring, restructuring, and experimentation as new concepts are explored.
+This is an active learning project — expect refactoring and experimentation as each stage lands.
 
 ---
 

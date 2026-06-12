@@ -50,6 +50,8 @@ Full detail: [Branch roadmap](08-branch-roadmap.md) · [Stage 01 blueprint](13-s
 
 **Implementation-ready** (blueprint frozen). Architectural unknowns for Stages 01–09 are documented in ADRs 000–013 and overview docs 01–16. Further design changes should follow the ADR process — validate assumptions through code on each stage branch, not additional pre-implementation redesign.
 
+**Current repository state:** Documentation, governance, and **`docker/`** (PostgreSQL only). No `src/FermentFlow.sln` until Stage 01 is implemented on **`01-LegacyMonolith`**.
+
 **Git workflow:** Tag `v1.0-blueprint-approved`, stage branches, and releases — [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md).
 
 ## Target Technology Stack
@@ -77,7 +79,16 @@ Stage 01 uses only .NET 10, PostgreSQL, EF Core, and xUnit — see the [Stage 01
 - .NET 10 SDK
 - Docker Desktop
 
-### Run Stage 01 (`01-LegacyMonolith`)
+### Infrastructure (runnable on blueprint branches)
+
+```powershell
+cd docker
+docker compose up -d
+```
+
+### Run Stage 01 application (`01-LegacyMonolith`)
+
+After Stage 01 code exists on that branch:
 
 ```powershell
 git checkout 01-LegacyMonolith
