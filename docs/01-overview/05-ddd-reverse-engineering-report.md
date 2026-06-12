@@ -1,6 +1,16 @@
 # DDD Reverse Engineering Report
 
-Complete inventory of domain concepts and architectural elements discovered across all four branches.
+Complete inventory of domain concepts from **baseline import** analysis. **Greenfield target** decisions (Stages 01–09) may differ — see ADRs and stage blueprints.
+
+### Greenfield target additions (not in baseline import)
+
+| Concept | Stage | Decision |
+|---------|-------|----------|
+| `InventoryItem` aggregate | 02+ | [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
+| `InventoryReservation` entity | 03+ | [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) |
+| Cross-context application contracts | 03+ | [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) |
+| Compensation (no cross-context `TransactionScope`) | 03+ | [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) |
+| Production bounded context module | 02+ | [ADR-011](../adr/ADR-011-promote-production-bounded-context.md) |
 
 ---
 

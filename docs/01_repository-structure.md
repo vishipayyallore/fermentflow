@@ -84,6 +84,17 @@ Governance (ADRs, architecture tests, Definition of Done): [09-architecture-gove
 
 ## Documentation Layout
 
+### `docs/01-overview/` numbering
+
+| Range | Purpose | Examples |
+|-------|---------|----------|
+| **01–12** | Cross-cutting reference (stable reading order) | `04-ubiquitous-language.md`, `08-branch-roadmap.md` |
+| **13+** | Per-stage implementation blueprints | `13-stage-01-overview.md`, `14-stage-01-smells.md` |
+
+Add new stage blueprints as `15-stage-02-…`, `16-stage-02-…`, and so on. Do not renumber 01–12 when adding stage docs.
+
+`03-architecture-evolution.md` is optional historical comparison only — not part of the greenfield implementation path.
+
 ```text
 docs/
 ├── 01_repository-structure.md    # This file — layout, roadmap, naming
@@ -91,27 +102,56 @@ docs/
 │   ├── README.md
 │   ├── ADR-000-establish-fermentflow.md
 │   ├── ADR-001-introduce-modular-monolith.md
-│   └── … (through ADR-009)
+│   └── … (through ADR-013)
 ├── agent-skills.md
 ├── agent-subagents.md
 ├── agent-governance-recovery.md
 └── 01-overview/
     ├── 01-project-overview.md
     ├── 02-business-domain.md
-    ├── 03-architecture-evolution.md
+    ├── 03-architecture-evolution.md    # optional — external baseline comparison
     ├── 04-ubiquitous-language.md
     ├── 05-ddd-reverse-engineering-report.md
     ├── 06-running-locally.md
     ├── 07-fermentflow-modernization-vision.md
     ├── 08-branch-roadmap.md
-    └── 09-architecture-governance.md
+    ├── 09-architecture-governance.md
+    ├── 10-event-catalog.md
+    ├── 11-domain-invariants.md
+    ├── 12-inventory-aggregate-model.md
+    ├── 13-stage-01-overview.md         # Stage 01 implementation blueprint
+    ├── 14-stage-01-smells.md           # Stage 01 intentional smells
+    ├── 15-baseline-import-running.md   # optional — external baseline run reference
+    ├── 16-stage-03-cross-context-collaboration.md
+    ├── 17-branching-tags-and-releases.md
+    └── release-notes/              # GitHub release note templates (v1.0+)
 ```
+
+**Branching, tags, releases:** [17-branching-tags-and-releases.md](01-overview/17-branching-tags-and-releases.md) — blueprint freeze, stage branches, tag naming, GitHub releases.
 
 ---
 
 ## Naming Conventions
 
-### Branches
+### Stage vs git branch
+
+Use **Stage** in prose (learning step). Use the **git branch** slug for `git checkout` and folder strategy.
+
+| Stage (prose) | Git branch |
+|---------------|------------|
+| Stage 01 — Legacy Monolith | `01-LegacyMonolith` |
+| Stage 02 — Modular Monolith | `02-ModularMonolith` |
+| Stage 03 — CQRS + Vertical Slices | `03-CQRS-VerticalSlices` |
+| Stage 04 — CQRS + Event Sourcing | `04-CQRS-EventSourcing` |
+| Stage 05 — Microservices | `05-Microservices` |
+| Stage 06 — Outbox Pattern | `06-OutboxPattern` |
+| Stage 07 — Circuit Breaker | `07-CircuitBreaker` |
+| Stage 08 — Observability | `08-Observability` |
+| Stage 09 — Aspire | `09-Aspire` |
+
+In documentation, prefer **“Stage 03 introduces CQRS”** over ambiguous **“branch 03”** unless referring explicitly to git.
+
+### Git branches
 
 ```text
 01-LegacyMonolith
@@ -184,19 +224,6 @@ Introduced on **`02-ModularMonolith`** and extended each branch. Example rules:
 - Application must not reference another context's Infrastructure
 
 See [ADR-001](adr/ADR-001-introduce-modular-monolith.md). Root context: [ADR-000](adr/ADR-000-establish-fermentflow.md).
-
----
-
-## Baseline Import Mapping
-
-Legacy-named branches from the imported baseline map to early roadmap stages:
-
-| Legacy branch | Roadmap stage |
-|---------------|---------------|
-| `01-monolith_legacy` | 01-LegacyMonolith |
-| `02-monolith_with_cqrs` | 02-ModularMonolith (partial) → 03-CQRS-VerticalSlices (target) |
-| `03-monolith_with_cqrs_and_event_sourcing` | 04-CQRS-EventSourcing |
-| `04-microservices` | 05-Microservices |
 
 ---
 

@@ -1,7 +1,7 @@
 # Architecture Evolution
 
-> **Target nine-branch journey:** see [Branch roadmap](08-branch-roadmap.md) and [Repository structure](../01_repository-structure.md).  
-> **This document** compares the **imported baseline** (four legacy branches) side by side for historical reference.
+> **Greenfield path:** [06-running-locally.md](06-running-locally.md) · [Branch roadmap](08-branch-roadmap.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)  
+> **This document** compares an **external baseline import** (four legacy git branches) for historical reference only. Run instructions: [15-baseline-import-running.md](15-baseline-import-running.md).
 
 ## Evolution Summary (Baseline Import)
 
@@ -114,15 +114,29 @@
 - Per-service infrastructure configuration
 - `CreateAvailabilityDueToProductionOrder` command pipeline
 
-## Key Design Smells Fixed
+## Greenfield consistency model (target path)
 
-| Smell (Branch 01) | Fix |
-|-------------------|-----|
-| Sales queries warehouse repository directly | Branch 02: Mediator; Branch 03+: integration events |
-| Shared MongoDB database for all contexts | Branch 02+: separate collections/databases per context |
-| Anemic aggregates (factory + DTO mapping) | Branch 03+: rich aggregates with `RaiseEvent`/`Apply` |
-| No domain events | Branch 03+: explicit event types in SharedKernel |
-| Single deployable unit | Branch 04: independent services |
+How cross-context workflows evolve on the nine-stage path — **not** the baseline import:
+
+| Stage | Mechanism | Example |
+|-------|-----------|---------|
+| 01–02 | Single DB transaction (intentional smell) | Stage 01 shared `DbContext` |
+| **03** | Compensation in handler | Reserve → Create order → `ReleaseReservation` on failure |
+| 04 | Compensation + domain events | `StockReserved`, `StockReservationReleased` |
+| 06 | Outbox + integration events | Reliable cross-service publish |
+| 10 | Saga process manager | Production → Inventory → Sales orchestration |
+
+**Explicit decisions:** [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) (contracts, no cross-context MediatR) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) (no `TransactionScope` across contexts; `InventoryReservation`).
+
+## Key Design Smells Fixed (baseline import reference)
+
+| Smell (legacy branch 01) | Greenfield target fix |
+|--------------------------|----------------------|
+| Sales queries warehouse repository directly | Stage 03: `IInventoryReservationService`; Stage 06: integration events |
+| Shared database for all contexts | Stage 02 modules; Stage 05 database-per-service |
+| Anemic aggregates | Stage 03+: rich aggregates; Stage 04 event sourcing |
+| No domain events | Stage 04+ explicit domain events |
+| Single deployable | Stage 05 independent services |
 
 ## Related Documents
 

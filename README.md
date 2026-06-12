@@ -86,7 +86,7 @@ The repository intentionally evolves through multiple architectural stages.
 
 Each stage introduces a single major architectural concept while preserving the same business domain.
 
-Full per-branch layouts: [Branch roadmap](docs/01-overview/08-branch-roadmap.md) · [Repository structure](docs/01_repository-structure.md)
+Full per-branch layouts: [Branch roadmap](docs/01-overview/08-branch-roadmap.md) · [Stage 01 blueprint](docs/01-overview/13-stage-01-overview.md) · [Repository structure](docs/01_repository-structure.md)
 
 Optional future stages:
 
@@ -102,25 +102,27 @@ Optional future stages:
 
 ## Technology Stack
 
-| Area              | Technology                |
-| ----------------- | ------------------------- |
-| Runtime           | .NET 10                   |
-| API               | ASP.NET Core Minimal APIs |
-| Architecture      | Domain-Driven Design      |
-| CQRS              | MediatR                   |
-| Messaging         | MassTransit               |
-| Broker            | RabbitMQ                  |
-| Event Store       | EventStoreDB              |
-| Database          | PostgreSQL                |
-| Resilience        | Polly                     |
-| Service Discovery | .NET Aspire               |
-| Orchestration     | .NET Aspire               |
-| Observability     | OpenTelemetry             |
-| Metrics           | Prometheus                |
-| Dashboards        | Grafana                   |
-| Logging           | Serilog                   |
-| Testing           | xUnit + Testcontainers    |
-| Containers        | Docker                    |
+Target stack by stage — Stage 01 uses .NET 10, PostgreSQL, EF Core, and xUnit only.
+
+| Area              | Technology                | From stage |
+| ----------------- | ------------------------- | ---------- |
+| Runtime           | .NET 10                   | 01         |
+| API               | ASP.NET Core Minimal APIs | 01         |
+| Architecture      | Domain-Driven Design      | 02         |
+| CQRS              | MediatR                   | 03         |
+| Messaging         | MassTransit               | 05         |
+| Broker            | RabbitMQ                  | 05         |
+| Event Store       | EventStoreDB              | 04         |
+| Database          | PostgreSQL                | 01         |
+| Resilience        | Polly                     | 07         |
+| Service Discovery | .NET Aspire               | 09         |
+| Orchestration     | .NET Aspire               | 09         |
+| Observability     | OpenTelemetry             | 08         |
+| Metrics           | Prometheus                | 08         |
+| Dashboards        | Grafana                   | 08         |
+| Logging           | Serilog                   | 08         |
+| Testing           | xUnit; Testcontainers     | 01 / 03    |
+| Containers        | Docker                    | 01         |
 
 ---
 
@@ -208,15 +210,15 @@ Detailed setup instructions are documented under:
 docs/
 ```
 
-See [Running locally](docs/01-overview/06-running-locally.md) and [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md).
+See [Running locally (greenfield)](docs/01-overview/06-running-locally.md) and [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md).
 
 ---
 
 ## Status
 
-This repository is an active learning project and architectural playground.
+**Blueprint approved; Stage 01 code not yet implemented.** The repository currently ships architecture documentation, ADRs, and Docker PostgreSQL infrastructure. Application source arrives on **`01-LegacyMonolith`** per the [Stage 01 blueprint](docs/01-overview/13-stage-01-overview.md).
 
-Expect frequent refactoring, restructuring, and experimentation as new concepts are explored.
+This is an active learning project — expect refactoring and experimentation as each stage lands.
 
 ---
 
@@ -224,7 +226,10 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 
 | Document | Purpose |
 | -------- | ------- |
-| [Project overview](docs/01-overview/01-project-overview.md) | Structure and baseline stages |
+| [Stage 01 blueprint](docs/01-overview/13-stage-01-overview.md) | Legacy monolith implementation guide |
+| [Stage 01 smells](docs/01-overview/14-stage-01-smells.md) | Intentional architectural problems |
+| [Inventory aggregate model](docs/01-overview/12-inventory-aggregate-model.md) | `InventoryItem` aggregate; derived availability |
+| [Project overview](docs/01-overview/01-project-overview.md) | Structure and learning roadmap |
 | [Business domain](docs/01-overview/02-business-domain.md) | Domain flows and rules |
 | [Architecture evolution](docs/01-overview/03-architecture-evolution.md) | Baseline import comparison |
 | [Branch roadmap](docs/01-overview/08-branch-roadmap.md) | Per-branch layout and learning goals |
@@ -233,6 +238,7 @@ Expect frequent refactoring, restructuring, and experimentation as new concepts 
 | [Domain invariants](docs/01-overview/11-domain-invariants.md) | Aggregate rules → branch 03 unit tests |
 | [Architecture decisions](docs/adr/README.md) | ADR index (branch 02 onward) |
 | [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
+| [Branching, tags, releases](docs/01-overview/17-branching-tags-and-releases.md) | Blueprint freeze, stage branches, GitHub releases |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |
 | [Modernization vision](docs/01-overview/07-fermentflow-modernization-vision.md) | Full 9-stage roadmap |
 

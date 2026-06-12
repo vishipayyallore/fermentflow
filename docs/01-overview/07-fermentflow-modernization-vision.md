@@ -43,7 +43,7 @@ The name maps directly to the domain flow documented in [Business Domain](02-bus
 ```text
 Production
     ↓  (beer batch completed)
-Inventory / Availability
+Inventory (`InventoryItem`; availability derived)
     ↓  (stock updated, Sales notified)
 Sales Orders
     ↓  (customer purchases in-stock beer)
@@ -59,7 +59,7 @@ This is the same process FermentFlow models today — FermentFlow makes it expli
 |------------------|------------------------|-------|
 | `FermentFlow` | `FermentFlow` | Rename solution, namespaces, Docker services |
 | `Warehouses` | `Inventory` | Better ubiquitous language; "warehouse" becomes implementation detail |
-| `Availability` | `InventoryItem` or keep `Availability` | Aggregate name can stay; context is `Inventory` |
+| `Availability` (legacy entity) | `InventoryItem` aggregate | `Availability` becomes derived (`OnHand - Reserved`); see [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
 | `Production` (contracts only) | `FermentFlow.Production` | Promote to full bounded context |
 | `FermentFlow.Shared` | `FermentFlow.BuildingBlocks.*` | Replace duplicated shared libs with building blocks |
 | Muflone | MediatR + MassTransit | Modern .NET ecosystem; easier for learners |
@@ -95,7 +95,7 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 |--------|-------|--------------|
 | 01 | Layered monolith, smells | Baseline |
 | 02 | Physical bounded contexts, modular monolith | Folder isolation, **architecture tests** |
-| 03 | CQRS + Vertical Slice Architecture | MediatR, `Features/`, **domain unit tests**, **Testcontainers** |
+| 03 | CQRS + Vertical Slice Architecture | MediatR (intra-context), application contracts, **compensation**, `InventoryReservation`, **domain unit tests**, **Testcontainers** |
 | 04 | CQRS + Event sourcing | EventStoreDB; **CQRS and vertical slices retained** |
 | 05 | Microservices | Separate deployables per context |
 | 06 | Outbox pattern | Reliable messaging, no lost events |
@@ -129,7 +129,7 @@ Each branch introduces one major leap. Branch 02 establishes bounded contexts; b
 
 ```text
 FermentFlow.Sales         — customer orders, pricing, order lifecycle
-FermentFlow.Inventory     — stock levels, availability, reservations
+FermentFlow.Inventory     — `InventoryItem` aggregates; availability derived from on-hand minus reserved
 FermentFlow.Production    — brewing batches, production orders, completion events
 ```
 
@@ -140,24 +140,27 @@ FermentFlow.Production    — brewing batches, production orders, completion eve
 | **Warehouses** | Physical location / infrastructure | Implementation detail |
 | **Inventory** | Business concept everyone knows | Core domain language |
 
-The aggregate can remain `Availability` or become `StockLevel` / `InventoryItem` inside the Inventory context. The context name changes; the concept does not.
+**Aggregate decision (accepted):** `InventoryItem` is the aggregate root; `Availability` is a derived business concept, not a separate aggregate. Stage 01 intentionally keeps an anemic `Availability` entity for refactoring practice — see [Stage 01 blueprint](13-stage-01-overview.md) and [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md).
 
 ### Context map (target state)
 
+Domain events are **internal** to each context; arrows show **integration** events only. See [Event catalog](10-event-catalog.md).
+
 ```text
 ┌─────────────────┐
-│   Production    │  publishes: BatchCompleted, StockProduced
+│   Production    │  domain: ProductionOrderStarted, ProductionOrderCompleted
 └────────┬────────┘
-         │ integration event
+         │ integration: ProductionCompleted
          v
 ┌─────────────────┐
-│   Inventory     │  publishes: AvailabilityChanged, StockReserved
+│   Inventory     │  domain: StockReceived, StockReserved, StockReservationReleased
 └────────┬────────┘
-         │ integration event
+         │ integration: InventoryUpdated, StockAvailable, StockUnavailable
          v
 ┌─────────────────┐
-│     Sales       │  publishes: OrderPlaced, OrderConfirmed
+│     Sales       │  domain: SalesOrderCreated, SalesOrderClosed
 └─────────────────┘
+         │ integration: OrderPlaced, OrderConfirmed (downstream)
 ```
 
 Sales may also call Inventory synchronously (with circuit breaker) for real-time stock checks during order placement.
@@ -414,7 +417,7 @@ Phase 4 — Extend stages 06–09
 ### What to preserve
 
 - Domain rules (availability check before order, production-driven stock)
-- Aggregate boundaries (SalesOrder, Availability/InventoryItem)
+- Aggregate boundaries (SalesOrder, InventoryItem)
 - Evolution narrative (monolith → microservices → Aspire)
 - ADR format and architecture workbook structure
 

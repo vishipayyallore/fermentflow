@@ -1,14 +1,14 @@
 # Architecture Governance
 
-How FermentFlow enforces architectural decisions across the nine-branch evolution and beyond.
+How FermentFlow enforces architectural decisions across the nine-stage evolution and beyond.
 
-**Related:** [Branch roadmap](08-branch-roadmap.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
+**Related:** [Branch roadmap](08-branch-roadmap.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md) · [Branching, tags, releases](17-branching-tags-and-releases.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)
 
 ---
 
-## Branch evolution philosophy
+## Stage evolution philosophy
 
-Each git branch introduces **one major architectural leap** while preserving the same brewery logistics domain:
+Each **stage** (one git branch) introduces **one major architectural leap** while preserving the same brewery logistics domain:
 
 ```text
 01-LegacyMonolith → … → 09-Aspire
@@ -17,9 +17,9 @@ Each git branch introduces **one major architectural leap** while preserving the
 Rules:
 
 1. **Do not skip stages** when learning — each branch builds on the previous capability set.
-2. **Retain capabilities** — CQRS and vertical slices introduced at branch 03 continue through branch 09; event sourcing at branch 04 does not replace them.
-3. **Outbox before circuit breaker** — reliable messaging (branch 06) precedes sync resilience (branch 07).
-4. **Document the decision** — [ADR-000](../adr/ADR-000-establish-fermentflow.md) establishes the laboratory; branches 02–09 each have a matching ADR; [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) is reserved for stage 10.
+2. **Retain capabilities** — CQRS and vertical slices introduced at Stage 03 continue through Stage 09; event sourcing at Stage 04 does not replace them.
+3. **Outbox before circuit breaker** — reliable messaging (Stage 06) precedes sync resilience (Stage 07).
+4. **Document the decision** — [ADR-000](../adr/ADR-000-establish-fermentflow.md) establishes the laboratory; Stages 02–09 each have a matching ADR; [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) is reserved for Stage 10.
 
 Optional future stages after Aspire:
 
@@ -28,6 +28,20 @@ Optional future stages after Aspire:
 ```
 
 Stage 10 models the natural long-running workflow: Production → Inventory → Sales.
+
+---
+
+## Blueprint freeze (v1.0)
+
+The architecture blueprint is **frozen for implementation** when tag **`v1.0-blueprint-approved`** is applied to the approved docs commit on `main` (see [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md)).
+
+| Rule | Detail |
+|------|--------|
+| **Default** | No further architectural changes unless implementation reveals a real problem |
+| **Exception** | Wrong aggregate boundary, awkward repository, impractical fitness function — document via **new ADR** and update affected docs with the code |
+| **Not allowed** | Pre-implementation redesign of later stages while still on Stage 01–02 |
+
+Tag, branch, and GitHub release workflow: [17-branching-tags-and-releases.md](17-branching-tags-and-releases.md).
 
 ---
 
@@ -56,6 +70,10 @@ ADR-006  Circuit Breaker            (07)
 ADR-007  Observability              (08)
 ADR-008  .NET Aspire                (09)
 ADR-009  Event-Driven Sagas         (10 — Proposed)
+ADR-010  InventoryItem Aggregate    (domain — from 02)
+ADR-011  Production Bounded Context (from 02 module; deployable 05)
+ADR-012  Cross-Context Collaboration (Stage 03 application contracts)
+ADR-013  Compensating Actions (Stage 03; no cross-context TransactionScope)
 ```
 
 ---
@@ -82,7 +100,56 @@ tests/FermentFlow.Architecture.Tests
 | Infrastructure may depend on Domain, Application, and adapters | Outer ring owns EF, MassTransit, etc. |
 | `Features/*` handlers must not reference EF Core or MassTransit directly | Keep slices thin; use abstractions |
 
-Extend rules each branch — for example, branch 06 forbids direct broker publish outside `BuildingBlocks.Outbox`.
+Extend rules each stage — for example, Stage 06 forbids direct broker publish outside `BuildingBlocks.Outbox`.
+
+### Cross-context collaboration (Stage 03+)
+
+Inside the modular monolith, contexts collaborate through **application-layer contracts** owned by the consumer context. See [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md).
+
+| Rule | Rationale |
+|------|-----------|
+| Sales must not reference Inventory or Production **Infrastructure** | No cross-context persistence coupling |
+| Sales must not query Inventory repositories, `DbContext`, or read models | Prevents Stage 01 smell in CQRS clothing |
+| No cross-context MediatR `Send` between contexts | MediatR stays within one bounded context |
+| Consumer context owns the interface; provider implements in **Application** | Clear dependency direction |
+| `InventoryItem.ReserveStock` is the stock invariant authority | Sales orchestrates; Inventory enforces |
+
+Preferred flow: **ReserveStock → SalesOrder.Create** — on failure, **ReleaseStockReservation** ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
+
+**Forbidden at Stage 03+:** `TransactionScope` (or equivalent) spanning Sales and Inventory persistence — contexts must stay operationally autonomous.
+
+### MediatR boundary (Stage 03+)
+
+| Allowed | Forbidden |
+|---------|-----------|
+| `IMediator.Send` **within** one bounded context's `Features/` | `IMediator.Send` from Sales to Inventory (or any cross-context) handlers |
+| Consumer-owned `IInventoryReservationService` | Sales.Application referencing Inventory.Application command/query types |
+| Domain events (Stage 04+) | Cross-context handler chains disguised as "just another MediatR call" |
+
+Encode in `FermentFlow.Architecture.Tests`:
+
+```text
+Types in Sales.Features must not depend on types in Inventory.Features
+Sales.Application must not reference Inventory.Application
+   (except interfaces/DTOs defined in Sales.Application and implemented via DI)
+```
+
+### Database ownership (Stage 05+)
+
+From **`05-Microservices`** onward, each bounded context **owns its PostgreSQL database**. No shared database between Sales, Inventory, and Production.
+
+| Rule | Rationale |
+|------|-----------|
+| Each service has exactly one primary application database | Service autonomy and independent deployment |
+| No cross-context `DbContext` or connection string references | Prevents hidden coupling through shared tables |
+| Integration only via APIs or integration events (outbox from Stage 06) | Replaces monolithic shared-database joins |
+
+Example architecture test (Stage 05+):
+
+```text
+Sales.Infrastructure must not reference Inventory or Production connection strings
+Inventory.Infrastructure must not reference Sales or Production DbContext types
+```
 
 ### When to run
 
@@ -100,11 +167,15 @@ Evolutionary architecture checks — automated where possible, manual where not 
 
 | Fitness function | Validation | Introduced |
 |------------------|------------|------------|
-| Context isolation | NetArchTest / ArchUnitNET — no cross-context Infrastructure references | Branch 02 |
+| Context isolation | NetArchTest / ArchUnitNET — no cross-context Infrastructure references | Stage 02 |
+| Cross-context collaboration | Application contracts only; no cross-context repos, DbContext, or MediatR | Stage 03 |
+| Compensating actions | `ReleaseStockReservation` on partial failure; no `TransactionScope` across contexts | Stage 03 |
+| MediatR scope | Intra-context only; architecture tests forbid cross-context handler invocation | Stage 03 |
 | No infrastructure leakage | Domain must not reference EF, MassTransit, MediatR | Branch 02 |
 | Vertical slice boundaries | Features depend only on Application + Domain | Branch 03 |
 | No direct RabbitMQ publish | Architecture tests — integration events via outbox only | Branch 06 |
-| No cross-service DB access | Architecture tests + service ownership per context | Branch 05 |
+| **Database per bounded context** | Each microservice owns one PostgreSQL database; no shared `DbContext` or cross-service connection strings | Stage 05 |
+| No cross-service DB access | Architecture tests enforce connection-string and DbContext isolation between services | Stage 05 |
 | Domain invariants | Domain unit tests (Given/When/Then) | Branch 03 |
 | Trace coverage | OpenTelemetry integration tests — spans present on HTTP and messaging | Branch 08 |
 | Saga orchestration isolation | Saga state machines not in domain aggregates | Branch 10 (proposed) |

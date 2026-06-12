@@ -1,6 +1,8 @@
 # Branch Roadmap
 
-Per-branch source layout and learning focus for the nine-stage FermentFlow evolution.
+Per-stage source layout and learning focus for the nine-stage FermentFlow evolution.
+
+**Terminology:** [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch) — use **Stage NN** in prose; use git branch slugs for `git checkout`.
 
 **Canonical index:** [Repository structure](../01_repository-structure.md) — roadmap, naming, and documentation layout.  
 **Decisions:** [Architecture Decision Records](../adr/README.md) — one ADR per major branch from 02 onward.
@@ -9,24 +11,30 @@ Per-branch source layout and learning focus for the nine-stage FermentFlow evolu
 
 ## Branch 01 — Legacy Monolith
 
+**Blueprint:** [13-stage-01-overview.md](13-stage-01-overview.md) · **Smells:** [14-stage-01-smells.md](14-stage-01-smells.md)
+
 ```text
 src/
 │
 ├── FermentFlow.DomainModel
 ├── FermentFlow.Infrastructure
 ├── FermentFlow.ReadModel
-├── FermentFlow.Rest
+├── FermentFlow.Api
 ├── FermentFlow.Shared
 └── FermentFlow.sln
+
+tests/
+└── FermentFlow.Api.Tests
 ```
 
 Characteristics:
 
 - Layered architecture
 - Single deployable
-- Shared database
-- Direct repository coupling
-- No domain events
+- PostgreSQL + EF Core (shared `FermentFlowDbContext`)
+- Anemic `Availability` entity / `Availabilities` table (refactored to `InventoryItem` in branch 02)
+- Direct repository coupling (`SalesOrderService` → `InventoryRepository`)
+- No domain events, CQRS, or DDD tactical patterns
 
 ---
 
@@ -64,6 +72,7 @@ Characteristics:
 - Modular monolith
 - Shared deployment
 - Explicit domain boundaries
+- **`InventoryItem` aggregate** replaces Stage 01 anemic `Availability` — [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md)
 - **Architecture tests** (NetArchTest.Rules or ArchUnitNET) — see [ADR-001](../adr/ADR-001-introduce-modular-monolith.md)
 
 Example rules:
@@ -98,10 +107,11 @@ src/
 │
 ├── Inventory/
 │   ├── Features/
-│   │   ├── CreateAvailability/
-│   │   ├── UpdateAvailability/
-│   │   ├── GetAvailability/
-│   │   └── ReserveInventory/
+│   │   ├── ReceiveStock/
+│   │   ├── ReserveStock/
+│   │   ├── ReleaseStockReservation/
+│   │   ├── GetInventoryItem/
+│   │   └── AdjustInventory/
 │   │
 │   ├── Domain/
 │   └── Infrastructure/
@@ -127,11 +137,12 @@ tests/
 
 Characteristics:
 
-- MediatR
-- CQRS
-- Vertical Slice Architecture
-- Feature-based organization
-- Independent use-case slices
+- MediatR **within** each context only (not cross-context)
+- CQRS + Vertical Slice Architecture (`Features/` per use case)
+- **Cross-context collaboration** via consumer-owned contracts — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)
+- **Compensation** on partial failure (`ReleaseStockReservation`); **no** `TransactionScope` across contexts — [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)
+- **`InventoryReservation`** as first-class entity; MediatR **intra-context only** (architecture tests)
+- Preferred flow: `ReserveStock` → `SalesOrder.Create` → compensate on failure
 - **Domain unit tests** per context (aggregate invariants, Given/When/Then)
 - **Testcontainers** for integration tests against real PostgreSQL
 
@@ -143,7 +154,7 @@ When order requests 15
 Then order is rejected
 ```
 
-Decision: [ADR-002](../adr/ADR-002-introduce-cqrs.md)
+Decisions: [ADR-002](../adr/ADR-002-introduce-cqrs.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) · [16-stage-03-cross-context-collaboration.md](16-stage-03-cross-context-collaboration.md)
 
 ---
 
