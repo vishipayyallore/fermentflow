@@ -57,4 +57,5 @@ That gap is the motivation for Stage 02 boundaries and Stage 05 decomposition.
 - **Negative:** Stage 02 adds a third context module before CQRS — more projects to navigate.
 - **Follow-up:** Implement `ProductionOrder` aggregate and invariants from Stage 05; Stage 02–04 may use thinner production models until then.
 
-**Related:** [ADR-001](ADR-001-introduce-modular-monolith.md) · [Business domain](../01-overview/02-business-domain.md) · [Event catalog](../01-overview/10-event-catalog.md)
+**Related:** [ADR-002](ADR-002-introduce-modular-monolith.md) · [Business domain](../01-overview/02-business-domain.md) · [Event catalog](../01-overview/10-event-catalog.md)
+
