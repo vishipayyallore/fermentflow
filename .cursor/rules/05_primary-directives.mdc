@@ -43,3 +43,10 @@ This is **Swamy PKV's personal architecture laboratory** that:
 - Tests must pass: `dotnet test`
 - Keep REST endpoints thin; domain rules belong in aggregates and domain services
 - Infrastructure concerns stay in infrastructure projects
+
+## Naming Conventions
+
+- **Files, folders, and topics:** No leading `00_` or `000-` prefixes
+  - ✅ **Correct:** `01_repository-structure.md`, `ADR-001-establish-fermentflow.md`
+  - ❌ **Incorrect:** `00_something.md`, `ADR-000-example.md`
+- Rationale: One-based numbering is clearer and prevents zero-indexing ambiguity

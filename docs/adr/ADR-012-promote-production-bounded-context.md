@@ -1,4 +1,4 @@
-# ADR-011: Promote Production to Full Bounded Context
+# ADR-012: Promote Production to Full Bounded Context
 
 **Status:** Accepted  
 **Branch:** Physical module from `02-ModularMonolith`; full lifecycle from `05-Microservices`  

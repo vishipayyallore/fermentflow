@@ -1,4 +1,4 @@
-# ADR-002: Introduce CQRS with Vertical Slice Architecture
+# ADR-003: Introduce CQRS with Vertical Slice Architecture
 
 **Status:** Accepted  
 **Branch:** `03-CQRS-VerticalSlices`  
@@ -56,4 +56,4 @@ These tests become essential when event sourcing arrives on branch 04.
 
 - **Positive:** One folder per use case; aligns with modern .NET and MediatR practice; CQRS read/write paths stay explicit.
 - **Negative:** Some duplication across slices until shared building blocks mature.
-- **Follow-up:** [ADR-012](ADR-012-cross-context-collaboration-modular-monolith.md) defines how Sales collaborates with Inventory without cross-context repositories or MediatR. ADR-003 adds event sourcing while **retaining** CQRS and vertical slices — Stage 04 is not a rollback of either pattern.
+- **Follow-up:** [ADR-013](ADR-013-cross-context-collaboration-modular-monolith.md) defines how Sales collaborates with Inventory without cross-context repositories or MediatR. ADR-004 adds event sourcing while **retaining** CQRS and vertical slices — Stage 04 is not a rollback of either pattern.

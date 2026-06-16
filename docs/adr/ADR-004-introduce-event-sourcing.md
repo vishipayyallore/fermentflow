@@ -1,4 +1,4 @@
-# ADR-003: Introduce Event Sourcing (Retain CQRS)
+# ADR-004: Introduce Event Sourcing (Retain CQRS)
 
 **Status:** Accepted  
 **Branch:** `04-CQRS-EventSourcing`  
@@ -31,4 +31,4 @@ Commands and queries from branch 03 remain; write models become event-sourced ag
 
 - **Positive:** Full audit trail; natural domain events for integration; explicit CQRS + ES story.
 - **Negative:** Higher complexity, EventStore operational overhead, projection lag to manage.
-- **Follow-up:** ADR-004 extracts services once event-driven boundaries are stable.
+- **Follow-up:** ADR-005 extracts services once event-driven boundaries are stable.

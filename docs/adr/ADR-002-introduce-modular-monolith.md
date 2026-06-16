@@ -1,4 +1,4 @@
-# ADR-001: Introduce Modular Monolith
+# ADR-002: Introduce Modular Monolith
 
 **Status:** Accepted  
 **Branch:** `02-ModularMonolith`  
@@ -34,11 +34,11 @@ Extend this rule set on each subsequent branch (see [Architecture governance](..
 | Alternative | Outcome |
 |-------------|---------|
 | Logical namespaces only (no physical project split) | **Rejected** — boundaries erode under pressure; folders do not enforce compile-time rules. |
-| Microservices immediately after monolith | **Rejected** — skips modular monolith and DDD boundary learning (ADR-004 comes later). |
+| Microservices immediately after monolith | **Rejected** — skips modular monolith and DDD boundary learning (ADR-005 comes later). |
 | Modular monolith + NetArchTest from branch 02 | **Accepted** — boundaries visible in structure and enforced in CI. |
 
 ## Consequences
 
 - **Positive:** Boundaries become visible in the folder structure; architecture tests catch dependency violations early.
 - **Negative:** More projects and references to manage within one solution.
-- **Follow-up:** [ADR-010](ADR-010-inventory-item-aggregate-root.md) (`InventoryItem` aggregate); [ADR-011](ADR-011-promote-production-bounded-context.md) (Production module). ADR-002 adds CQRS and vertical slices on top of these boundaries.
+- **Follow-up:** [ADR-011](ADR-011-inventory-item-aggregate-root.md) (`InventoryItem` aggregate); [ADR-012](ADR-012-promote-production-bounded-context.md) (Production module). ADR-003 adds CQRS and vertical slices on top of these boundaries.

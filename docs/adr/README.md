@@ -4,20 +4,20 @@ Swamy's personal ADR log for FermentFlow. ADRs **reinforce** the [nine-branch ro
 
 | ADR | Branch | Status | Decision |
 |-----|--------|--------|----------|
-| [ADR-000](ADR-000-establish-fermentflow.md) | *(foundation)* | Accepted | Establish FermentFlow as a staged architecture laboratory |
-| [ADR-001](ADR-001-introduce-modular-monolith.md) | 02-ModularMonolith | Accepted | Modular monolith + architecture tests |
-| [ADR-002](ADR-002-introduce-cqrs.md) | 03-CQRS-VerticalSlices | Accepted | CQRS + vertical slice architecture |
-| [ADR-003](ADR-003-introduce-event-sourcing.md) | 04-CQRS-EventSourcing | Accepted | Event sourcing while retaining CQRS |
-| [ADR-004](ADR-004-introduce-microservices.md) | 05-Microservices | Accepted | Independent deployable services |
-| [ADR-005](ADR-005-introduce-outbox.md) | 06-OutboxPattern | Accepted | Transactional outbox |
-| [ADR-006](ADR-006-introduce-circuit-breaker.md) | 07-CircuitBreaker | Accepted | Polly resilience pipelines |
-| [ADR-007](ADR-007-introduce-observability.md) | 08-Observability | Accepted | OpenTelemetry + Prometheus + Grafana |
-| [ADR-008](ADR-008-introduce-aspire.md) | 09-Aspire | Accepted | .NET Aspire orchestration |
-| [ADR-009](ADR-009-introduce-event-driven-sagas.md) | 10-EventDrivenSagas | Proposed | Event-driven sagas across Production → Inventory → Sales |
-| [ADR-010](ADR-010-inventory-item-aggregate-root.md) | `02-ModularMonolith`+ | Accepted | `InventoryItem` aggregate; `Availability` derived |
-| [ADR-011](ADR-011-promote-production-bounded-context.md) | `02-ModularMonolith`+ | Accepted | Production as full bounded context |
-| [ADR-012](ADR-012-cross-context-collaboration-modular-monolith.md) | `03-CQRS-VerticalSlices` | Accepted | Application contracts; no cross-context repos or MediatR |
-| [ADR-013](ADR-013-compensating-actions-stage-03.md) | `03-CQRS-VerticalSlices` | Accepted | Compensation over TransactionScope; `InventoryReservation` |
+| [ADR-001](ADR-001-establish-fermentflow.md) | *(foundation)* | Accepted | Establish FermentFlow as a staged architecture laboratory |
+| [ADR-002](ADR-002-introduce-modular-monolith.md) | 02-ModularMonolith | Accepted | Modular monolith + architecture tests |
+| [ADR-003](ADR-003-introduce-cqrs.md) | 03-CQRS-VerticalSlices | Accepted | CQRS + vertical slice architecture |
+| [ADR-004](ADR-004-introduce-event-sourcing.md) | 04-CQRS-EventSourcing | Accepted | Event sourcing while retaining CQRS |
+| [ADR-005](ADR-005-introduce-microservices.md) | 05-Microservices | Accepted | Independent deployable services |
+| [ADR-006](ADR-006-introduce-outbox.md) | 06-OutboxPattern | Accepted | Transactional outbox |
+| [ADR-007](ADR-007-introduce-circuit-breaker.md) | 07-CircuitBreaker | Accepted | Polly resilience pipelines |
+| [ADR-008](ADR-008-introduce-observability.md) | 08-Observability | Accepted | OpenTelemetry + Prometheus + Grafana |
+| [ADR-009](ADR-009-introduce-aspire.md) | 09-Aspire | Accepted | .NET Aspire orchestration |
+| [ADR-010](ADR-010-introduce-event-driven-sagas.md) | 10-EventDrivenSagas | Proposed | Event-driven sagas across Production → Inventory → Sales |
+| [ADR-011](ADR-011-inventory-item-aggregate-root.md) | `02-ModularMonolith`+ | Accepted | `InventoryItem` aggregate; `Availability` derived |
+| [ADR-012](ADR-012-promote-production-bounded-context.md) | `02-ModularMonolith`+ | Accepted | Production as full bounded context |
+| [ADR-013](ADR-013-cross-context-collaboration-modular-monolith.md) | `03-CQRS-VerticalSlices` | Accepted | Application contracts; no cross-context repos or MediatR |
+| [ADR-014](ADR-014-compensating-actions-stage-03.md) | `03-CQRS-VerticalSlices` | Accepted | Compensation over TransactionScope; `InventoryReservation` |
 
 **Format:** MADR-inspired — Status, Context, Decision, **Alternatives Considered**, Consequences.
 

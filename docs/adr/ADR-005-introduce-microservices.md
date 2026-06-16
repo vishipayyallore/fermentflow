@@ -1,4 +1,4 @@
-# ADR-004: Introduce Microservices
+# ADR-005: Introduce Microservices
 
 **Status:** Accepted  
 **Branch:** `05-Microservices`  
@@ -26,4 +26,4 @@ CQRS, vertical slices, and event sourcing patterns carry forward inside each ser
 
 - **Positive:** Independent deploy and scale; clearer ownership; production-like topology.
 - **Negative:** Distributed operations, network failures, and eventual consistency become first-class concerns.
-- **Follow-up:** ADR-005 addresses reliable messaging with the outbox pattern before adding sync resilience (ADR-006).
+- **Follow-up:** ADR-006 addresses reliable messaging with the outbox pattern before adding sync resilience (ADR-007).

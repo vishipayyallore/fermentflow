@@ -1,4 +1,4 @@
-# ADR-013: Compensating Actions for Cross-Context Workflows (Stage 03)
+# ADR-014: Compensating Actions in Stage 03
 
 **Status:** Accepted  
 **Branch:** `03-CQRS-VerticalSlices` (precursor to outbox/saga at Stages 06–10)  

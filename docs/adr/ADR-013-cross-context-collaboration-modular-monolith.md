@@ -1,4 +1,4 @@
-# ADR-012: Cross-Context Collaboration in the Modular Monolith
+# ADR-013: Cross-Context Collaboration in Modular Monolith
 
 **Status:** Accepted  
 **Branch:** `03-CQRS-VerticalSlices` (contracts from `02-ModularMonolith`; HTTP/events from `05-Microservices`)  

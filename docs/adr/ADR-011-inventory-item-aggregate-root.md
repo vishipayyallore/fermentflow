@@ -1,4 +1,4 @@
-# ADR-010: InventoryItem as Inventory Aggregate Root
+# ADR-011: InventoryItem as Inventory Aggregate Root
 
 **Status:** Accepted  
 **Branch:** Applies from `02-ModularMonolith`; conceptual target from `01-LegacyMonolith`  
