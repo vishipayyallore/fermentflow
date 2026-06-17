@@ -4,7 +4,7 @@ Implementation guide for branch **`01-LegacyMonolith`**.
 
 **Purpose:** Build a realistic legacy system with intentional architectural smells — **before** DDD tactical patterns, CQRS, event sourcing, or microservices.
 
-**Related:** [Architectural smells](14-stage-01-smells.md) · [Branch roadmap](08-branch-roadmap.md) · [ADR-000](../adr/ADR-000-establish-fermentflow.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) (target from Stage 02)
+**Related:** [Architectural smells](14-stage-01-smells.md) · [Branch roadmap](08-branch-roadmap.md) · [ADR-001](../02-adr/ADR-001-establish-fermentflow.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) (target from Stage 02)
 
 > **Pre-implementation:** This document is the implementation guide. Application projects and `FermentFlow.sln` are added on branch **`01-LegacyMonolith`**. Until then, only [Docker Compose](#docker-compose) (PostgreSQL) is present in the repository.
 
@@ -257,4 +257,4 @@ Host=localhost;Port=5432;Database=fermentflow;Username=fermentflow;Password=ferm
 
 ## Next stage
 
-**02-ModularMonolith:** split physical bounded contexts, introduce `InventoryItem` aggregate per [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md), add architecture tests.
+**02-ModularMonolith:** split physical bounded contexts, introduce `InventoryItem` aggregate per [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md), add architecture tests.

@@ -50,7 +50,7 @@ Production remains contract-only on imported baseline until branch 05 target.
                                       +------------+
 ```
 
-Stage 10 adds orchestrated sagas across this flow — see [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md).
+Stage 10 adds orchestrated sagas across this flow — see [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md).
 
 ---
 

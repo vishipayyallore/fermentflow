@@ -2,7 +2,7 @@
 
 Explicit aggregate rules for FermentFlow. These become **Given/When/Then domain unit tests** from branch **03-CQRS-VerticalSlices** onward.
 
-**Related:** [Business domain](02-business-domain.md) · [Event catalog](10-event-catalog.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Stage 03 cross-context collaboration](16-stage-03-cross-context-collaboration.md) · [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) · [Architecture governance](09-architecture-governance.md)
+**Related:** [Business domain](02-business-domain.md) · [Event catalog](10-event-catalog.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Stage 03 cross-context collaboration](16-stage-03-cross-context-collaboration.md) · [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md) · [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md) · [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md) · [Architecture governance](09-architecture-governance.md)
 
 ---
 
@@ -11,7 +11,7 @@ Explicit aggregate rules for FermentFlow. These become **Given/When/Then domain 
 | Invariant | Rule |
 |-----------|------|
 | Minimum lines | Must contain at least one order row |
-| Stock coordination | Order creation requires successful **reservation** in Inventory (`ReserveStock`); Sales does not own stock math — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) |
+| Stock coordination | Order creation requires successful **reservation** in Inventory (`ReserveStock`); Sales does not own stock math — [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md) |
 | Lifecycle | Cannot be closed twice |
 | Customer | Must reference a valid customer identity |
 
@@ -27,7 +27,7 @@ When ReserveStock 15 for Beer-A is attempted
 Then reservation is rejected and SalesOrder is not created
 ```
 
-Stock rejection tests belong in **Inventory** unit tests (`InventoryItem.ReserveStock`). Sales tests mock `IInventoryReservationService` and verify `ReleaseStockReservationAsync` on handler failure ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
+Stock rejection tests belong in **Inventory** unit tests (`InventoryItem.ReserveStock`). Sales tests mock `IInventoryReservationService` and verify `ReleaseStockReservationAsync` on handler failure ([ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md)).
 
 ```text
 Given a closed SalesOrder

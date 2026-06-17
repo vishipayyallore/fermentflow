@@ -1,4 +1,4 @@
-# ADR-007: Introduce Observability
+# ADR-008: Introduce Observability
 
 **Status:** Accepted  
 **Branch:** `08-Observability`  

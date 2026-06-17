@@ -1,6 +1,6 @@
 # Inventory Aggregate Model
 
-Teaching reference for the Inventory bounded context aggregate decision. **Canonical decision:** [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md).
+Teaching reference for the Inventory bounded context aggregate decision. **Canonical decision:** [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md).
 
 **Related:** [Ubiquitous language](04-ubiquitous-language.md) · [Domain invariants](11-domain-invariants.md) · [Event catalog](10-event-catalog.md) · [Business domain](02-business-domain.md)
 
@@ -37,7 +37,7 @@ Inventory Context
               └── Reservations[]     → InventoryReservation (Stage 03+)
 ```
 
-`InventoryReservation` is a first-class concept — compensation uses `ReleaseReservation(reservationId)`, not anonymous stock bumps ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
+`InventoryReservation` is a first-class concept — compensation uses `ReleaseReservation(reservationId)`, not anonymous stock bumps ([ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md)).
 
 **Availability** is not persisted as its own aggregate. Queries that answer “how much can we sell?” project `AvailableQuantity`.
 

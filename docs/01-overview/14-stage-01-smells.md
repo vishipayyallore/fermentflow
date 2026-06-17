@@ -49,7 +49,7 @@ Sales knows how inventory is stored. You cannot extract Inventory without rewrit
 
 Stage 01 stores one quantity per beer. There is no model for reserved stock, adjustments, or production receipts as distinct facts.
 
-**Later fix:** `InventoryItem` aggregate ([ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md)); derived `AvailableQuantity = OnHand - Reserved`.
+**Later fix:** `InventoryItem` aggregate ([ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md)); derived `AvailableQuantity = OnHand - Reserved`.
 
 ### No domain events
 

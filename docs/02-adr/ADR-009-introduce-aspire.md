@@ -1,4 +1,4 @@
-# ADR-008: Introduce .NET Aspire
+# ADR-009: Introduce .NET Aspire
 
 **Status:** Accepted  
 **Branch:** `09-Aspire`  
@@ -23,11 +23,11 @@ Aspire is a first-class architectural capability — not an afterthought — for
 | Alternative | Outcome |
 |-------------|---------|
 | Docker Compose only (indefinitely) | **Rejected** — manual wiring does not scale for local multi-service DX. |
-| Kubernetes as the next stage immediately | **Rejected** — sagas (ADR-009) are a richer domain lesson before deployment tooling. |
+| Kubernetes as the next stage immediately | **Rejected** — sagas (ADR-010) are a richer domain lesson before deployment tooling. |
 | .NET Aspire as dedicated stage 09 | **Accepted** — AppHost + ServiceDefaults + dashboard. |
 
 ## Consequences
 
 - **Positive:** Unified local cloud-native DX; built-in observability hooks; cleaner onboarding for later stages (Kubernetes, Azure Container Apps).
 - **Negative:** Aspire version coupling; team must learn AppHost and resource model.
-- **Follow-up:** ADR-009 (Proposed) — event-driven sagas at stage `10-EventDrivenSagas`.
+- **Follow-up:** ADR-010 (Proposed) — event-driven sagas at stage `10-EventDrivenSagas`.

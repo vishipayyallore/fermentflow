@@ -1,4 +1,4 @@
-# ADR-006: Introduce Circuit Breaker
+# ADR-007: Introduce Circuit Breaker
 
 **Status:** Accepted  
 **Branch:** `07-CircuitBreaker`  
@@ -23,7 +23,7 @@ Apply pipelines to HTTP and other sync integration paths — not as a substitute
 
 | Alternative | Outcome |
 |-------------|---------|
-| Circuit breaker before outbox (stage 06/07 swapped) | **Rejected** — sync resilience does not fix lost async events (see ADR-005). |
+| Circuit breaker before outbox (stage 06/07 swapped) | **Rejected** — sync resilience does not fix lost async events (see ADR-006). |
 | Retry-only policies without circuit breaker | **Rejected** — incomplete resilience story for teaching. |
 | Polly v8 pipelines after outbox is in place | **Accepted** — stage 07. |
 

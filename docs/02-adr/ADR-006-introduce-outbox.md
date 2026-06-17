@@ -1,4 +1,4 @@
-# ADR-005: Introduce Outbox Pattern
+# ADR-006: Introduce Outbox Pattern
 
 **Status:** Accepted  
 **Branch:** `06-OutboxPattern`  
@@ -59,11 +59,11 @@ The goal is to teach:
 |-------------|---------|
 | **EventStore catch-up subscriptions only** (no outbox) | **Rejected for this lab** — valid in some systems, but skips the integration-event reliability lesson; domain events ≠ integration events. |
 | **Direct RabbitMQ publish** after `SaveChanges` | **Rejected** — crash between commit and publish loses events. |
-| **Circuit breaker** on publish calls (ADR-006) | **Rejected as substitute** — retries failed calls but does not fix the lost-event window; outbox must come first. |
+| **Circuit breaker** on publish calls (ADR-007) | **Rejected as substitute** — retries failed calls but does not fix the lost-event window; outbox must come first. |
 | **Transactional outbox** in the same DB transaction | **Accepted** — reliable integration events; teaches correct ordering before Polly. |
 
 ## Consequences
 
 - **Positive:** Reliable integration events; teaches the right ordering (outbox before circuit breaker).
 - **Negative:** Background processing, idempotent consumers, and duplicate handling required.
-- **Follow-up:** ADR-006 adds Polly for remaining synchronous cross-service calls.
+- **Follow-up:** ADR-007 adds Polly for remaining synchronous cross-service calls.
