@@ -2,14 +2,14 @@ name: Agent Docs Guard (.cursor/.github/CLAUDE)
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, "swamy/*"]
     paths:
       - '.cursor/**'
       - '.github/**'
       - 'CLAUDE.md'
       - '.github/workflows/ci-agent-docs-guard.yml'
   pull_request:
-    branches: [main, master]
+    branches: [main, master, "swamy/*"]
     paths:
       - '.cursor/**'
       - '.github/**'
