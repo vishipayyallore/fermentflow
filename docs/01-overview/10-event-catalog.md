@@ -2,7 +2,7 @@
 
 Cross-context catalog of **domain events**, **integration events**, and **saga events** in FermentFlow. Populated as branches 03–10 introduce event types.
 
-**Related:** [Business domain](02-business-domain.md) · [Domain invariants](11-domain-invariants.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [ADR-003](../adr/ADR-003-introduce-event-sourcing.md) · [ADR-005](../adr/ADR-005-introduce-outbox.md) · [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) · [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md)
+**Related:** [Business domain](02-business-domain.md) · [Domain invariants](11-domain-invariants.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [ADR-004](../02-adr/ADR-004-introduce-event-sourcing.md) · [ADR-006](../02-adr/ADR-006-introduce-outbox.md) · [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md) · [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md)
 
 ---
 
@@ -63,7 +63,7 @@ Integration Event (cross-context)
 
 ## Inventory context (target)
 
-Aggregate: **`InventoryItem`** ([ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md)).
+Aggregate: **`InventoryItem`** ([ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md)).
 
 | Type | Event | Introduced | Notes |
 |------|-------|------------|-------|
@@ -100,7 +100,7 @@ Not used on the greenfield nine-stage path. Preserved for [architecture evolutio
 
 ## Saga events (stage 10 — proposed)
 
-Orchestration via MassTransit state machine — see [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md).
+Orchestration via MassTransit state machine — see [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md).
 
 | Type | Event | Correlates |
 |------|-------|------------|

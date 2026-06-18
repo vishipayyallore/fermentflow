@@ -16,8 +16,8 @@ FermentFlow documentation describes both the **imported baseline** (legacy branc
 
 | Aspect | Current state (baseline import) | Target state (branch 02 onward) |
 |--------|--------------------------------|----------------------------------|
-| **Production** | Stage 01: DTO/endpoint only (smell) | **Full bounded context** from Stage 02 module — [ADR-011](../adr/ADR-011-promote-production-bounded-context.md) |
-| **Inventory** | Named `Warehouses` in baseline import | **Inventory** context with **`InventoryItem`** aggregate; **Availability** is derived (`OnHand - Reserved`) — [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
+| **Production** | Stage 01: DTO/endpoint only (smell) | **Full bounded context** from Stage 02 module — [ADR-012](../02-adr/ADR-012-promote-production-bounded-context.md) |
+| **Inventory** | Named `Warehouses` in baseline import | **Inventory** context with **`InventoryItem`** aggregate; **Availability** is derived (`OnHand - Reserved`) — [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md) |
 | **Sales** | Core context | Core context (unchanged role) |
 | **Integration** | Direct calls (branch 01) → events (branch 04+) | Production → Inventory → Sales via integration events and sagas (stage 10+) |
 
@@ -117,7 +117,7 @@ Physically separated services; legacy `Warehouses` service name:
 +----------------+                                    +----------------+
 ```
 
-See [Context Map Evolution](../diagrams/context-map-evolution.md) for the full baseline progression.
+See [Context Map Evolution](../03-diagrams/context-map-evolution.md) for the full baseline progression.
 
 ---
 
@@ -125,7 +125,7 @@ See [Context Map Evolution](../diagrams/context-map-evolution.md) for the full b
 
 ### Sales Order Creation
 
-From **Stage 03** onward (see [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)):
+From **Stage 03** onward (see [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md)):
 
 1. Customer submits an order with one or more beer line items
 2. Sales orchestrates **reservation** per line via application contract (`IInventoryReservationService`)
@@ -152,7 +152,7 @@ Stage 01 uses a simplified anemic `Availability` entity — see [Stage 01 bluepr
 | 02–04 | `FermentFlow.Production.*` module; `ProductionOrder` aggregate emerges |
 | 05+ | Separate deployable; `ProductionCompleted` integration event |
 
-Detail: [ADR-011](../adr/ADR-011-promote-production-bounded-context.md).
+Detail: [ADR-012](../02-adr/ADR-012-promote-production-bounded-context.md).
 
 ## Contracts (baseline import only)
 
@@ -165,7 +165,7 @@ On **external baseline imports**, Production is not a full bounded context — i
 | `SetAvailabilityJson` | `FermentFlow.Shared.Contracts` | Warehouse availability update |
 | `BeerAvailabilityJson` | `FermentFlow.Shared.Contracts` | Availability query result |
 
-**Target state:** replace contract-only integration with the **Production** bounded context and domain/integration events — see [ADR-001](../adr/ADR-001-introduce-modular-monolith.md) and [ADR-004](../adr/ADR-004-introduce-microservices.md).
+**Target state:** replace contract-only integration with the **Production** bounded context and domain/integration events — see [ADR-002](../02-adr/ADR-002-introduce-modular-monolith.md) and [ADR-005](../02-adr/ADR-005-introduce-microservices.md).
 
 ---
 

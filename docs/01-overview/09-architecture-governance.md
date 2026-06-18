@@ -2,7 +2,7 @@
 
 How FermentFlow enforces architectural decisions across the nine-stage evolution and beyond.
 
-**Related:** [Branch roadmap](08-branch-roadmap.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md) · [Branching, tags, releases](17-branching-tags-and-releases.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)
+**Related:** [Branch roadmap](08-branch-roadmap.md) · [ADRs](../02-adr/README.md) · [Repository structure](../01_repository-structure.md) · [Branching, tags, releases](17-branching-tags-and-releases.md) · [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch)
 
 ---
 
@@ -19,7 +19,7 @@ Rules:
 1. **Do not skip stages** when learning — each branch builds on the previous capability set.
 2. **Retain capabilities** — CQRS and vertical slices introduced at Stage 03 continue through Stage 09; event sourcing at Stage 04 does not replace them.
 3. **Outbox before circuit breaker** — reliable messaging (Stage 06) precedes sync resilience (Stage 07).
-4. **Document the decision** — [ADR-000](../adr/ADR-000-establish-fermentflow.md) establishes the laboratory; Stages 02–09 each have a matching ADR; [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) is reserved for Stage 10.
+4. **Document the decision** — [ADR-001](../02-adr/ADR-001-establish-fermentflow.md) establishes the laboratory; Stages 02–09 each have a matching ADR; [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md) is reserved for Stage 10.
 
 Optional future stages after Aspire:
 
@@ -47,7 +47,7 @@ Tag, branch, and GitHub release workflow: [17-branching-tags-and-releases.md](17
 
 ## ADR process
 
-Architecture Decision Records live under [`docs/adr/`](../adr/README.md).
+Architecture Decision Records live under [`docs/02-adr/`](../02-adr/README.md).
 
 | Step | Action |
 |------|--------|
@@ -60,20 +60,20 @@ Architecture Decision Records live under [`docs/adr/`](../adr/README.md).
 ### ADR chain
 
 ```text
-ADR-000  Establish FermentFlow       (foundation)
-ADR-001  Modular Monolith          (02)
-ADR-002  CQRS + Vertical Slices    (03)
-ADR-003  CQRS + Event Sourcing     (04)
-ADR-004  Microservices              (05)
-ADR-005  Outbox Pattern             (06)
-ADR-006  Circuit Breaker            (07)
-ADR-007  Observability              (08)
-ADR-008  .NET Aspire                (09)
-ADR-009  Event-Driven Sagas         (10 — Proposed)
-ADR-010  InventoryItem Aggregate    (domain — from 02)
-ADR-011  Production Bounded Context (from 02 module; deployable 05)
-ADR-012  Cross-Context Collaboration (Stage 03 application contracts)
-ADR-013  Compensating Actions (Stage 03; no cross-context TransactionScope)
+ADR-001  Establish FermentFlow       (foundation)
+ADR-002  Modular Monolith          (02)
+ADR-003  CQRS + Vertical Slices    (03)
+ADR-004  CQRS + Event Sourcing     (04)
+ADR-005  Microservices              (05)
+ADR-006  Outbox Pattern             (06)
+ADR-007  Circuit Breaker            (07)
+ADR-008  Observability              (08)
+ADR-009  .NET Aspire                (09)
+ADR-010  Event-Driven Sagas         (10 — Proposed)
+ADR-011  InventoryItem Aggregate    (domain — from 02)
+ADR-012  Production Bounded Context (from 02 module; deployable 05)
+ADR-013  Cross-Context Collaboration (Stage 03 application contracts)
+ADR-014  Compensating Actions (Stage 03; no cross-context TransactionScope)
 ```
 
 ---
@@ -104,7 +104,7 @@ Extend rules each stage — for example, Stage 06 forbids direct broker publish 
 
 ### Cross-context collaboration (Stage 03+)
 
-Inside the modular monolith, contexts collaborate through **application-layer contracts** owned by the consumer context. See [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md).
+Inside the modular monolith, contexts collaborate through **application-layer contracts** owned by the consumer context. See [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md).
 
 | Rule | Rationale |
 |------|-----------|
@@ -114,7 +114,7 @@ Inside the modular monolith, contexts collaborate through **application-layer co
 | Consumer context owns the interface; provider implements in **Application** | Clear dependency direction |
 | `InventoryItem.ReserveStock` is the stock invariant authority | Sales orchestrates; Inventory enforces |
 
-Preferred flow: **ReserveStock → SalesOrder.Create** — on failure, **ReleaseStockReservation** ([ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)).
+Preferred flow: **ReserveStock → SalesOrder.Create** — on failure, **ReleaseStockReservation** ([ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md)).
 
 **Forbidden at Stage 03+:** `TransactionScope` (or equivalent) spanning Sales and Inventory persistence — contexts must stay operationally autonomous.
 

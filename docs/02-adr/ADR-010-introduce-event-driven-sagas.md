@@ -1,4 +1,4 @@
-# ADR-009: Introduce Event-Driven Sagas (Future)
+# ADR-010: Introduce Event-Driven Sagas (Future)
 
 **Status:** Proposed  
 **Branch:** `10-EventDrivenSagas` *(future — after `09-Aspire`)*  
@@ -63,11 +63,11 @@ Use correlation identifiers, idempotent handlers, and persisted saga state. Exte
 | Skip sagas; rely on integration events only | **Rejected** — the Production → Inventory → Sales flow is the richest distributed-systems exercise in this domain. |
 | Two-phase commit across services | **Rejected** — impractical at microservice scale. |
 | Jump to Kubernetes before sagas | **Rejected** — saga design is more valuable than deployment tooling alone. |
-| MassTransit orchestration at stage 10 | **Proposed** — implement after ADR-008 (Aspire) is complete. |
+| MassTransit orchestration at stage 10 | **Proposed** — implement after ADR-009 (Aspire) is complete. |
 
 ## Consequences
 
 - **Positive:** Teaches long-running workflows, compensations, and correlation in a domain Swamy already models.
 - **Positive:** Natural capstone before infrastructure-focused stages (Kubernetes, GitHub Actions, Azure Container Apps).
 - **Negative:** Saga state persistence and failure recovery add significant complexity.
-- **Follow-up:** ADR-010+ may cover Kubernetes deployment once saga behaviour is stable.
+- **Follow-up:** Stages beyond 10 may cover Kubernetes deployment once saga behaviour is stable.

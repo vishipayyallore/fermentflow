@@ -42,8 +42,8 @@ This is an **architecture-learning** repository. Keeping stage branches permanen
 | Ubiquitous language defined | ✅ |
 | Aggregate decisions resolved (`InventoryItem`) | ✅ |
 | Invariants documented | ✅ |
-| Context collaboration defined (ADR-012) | ✅ |
-| Compensation strategy defined (ADR-013) | ✅ |
+| Context collaboration defined (ADR-013) | ✅ |
+| Compensation strategy defined (ADR-014) | ✅ |
 | Cross-context MediatR rule defined | ✅ |
 | Evolution roadmap defined | ✅ |
 | Architecture governance + fitness functions | ✅ |
@@ -174,16 +174,16 @@ This release freezes the FermentFlow architecture before implementation begins.
 
 - Nine-stage modernization roadmap finalized
 - `InventoryItem` confirmed as aggregate root; `Availability` derived
-- Production promoted to full bounded context (ADR-011)
-- Stage 03: consumer-owned application contracts (ADR-012)
-- Stage 03: compensation over TransactionScope; `InventoryReservation` (ADR-013)
+- Production promoted to full bounded context (ADR-012)
+- Stage 03: consumer-owned application contracts (ADR-013)
+- Stage 03: compensation over TransactionScope; `InventoryReservation` (ADR-014)
 - Cross-context MediatR forbidden
 - Architecture governance and fitness functions completed
 - Stage 01 implementation blueprint ready
 
 ## What is included
 
-- `docs/` — overview, ADRs 000–013, stage blueprints
+- `docs/` — overview, ADRs 001–014, stage blueprints
 - Governance, event catalog, domain invariants
 - No Stage 01 application code (by design)
 

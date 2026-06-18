@@ -6,7 +6,7 @@
 
 ## Context
 
-[ADR-012](ADR-012-cross-context-collaboration-modular-monolith.md) defines how Sales and Inventory collaborate through application contracts. A second pressure point remains: **what happens when reservation succeeds but order creation fails?**
+[ADR-013](ADR-013-cross-context-collaboration-modular-monolith.md) defines how Sales and Inventory collaborate through application contracts. A second pressure point remains: **what happens when reservation succeeds but order creation fails?**
 
 Two approaches compete:
 
@@ -99,7 +99,7 @@ public interface IInventoryReservationService
 | Hope single SaveChanges is enough (shared DbContext) | **Rejected** — still couples persistence; wrong lesson for Stage 05 split. |
 | Anonymous reserve/unreserve by quantity | **Rejected** — not idempotent; poor audit trail; hard to migrate to events. |
 | Compensation + `InventoryReservation` entity | **Accepted** — this record. |
-| Full saga orchestrator at Stage 03 | **Rejected** — premature; ADR-009 at Stage 10. |
+| Full saga orchestrator at Stage 03 | **Rejected** — premature; ADR-010 at Stage 10. |
 
 ## Consequences
 
@@ -109,4 +109,4 @@ public interface IInventoryReservationService
 - **Negative:** Sales handler gains orchestration + try/catch compensation logic.
 - **Follow-up:** Model `InventoryReservation` in [Domain invariants](../01-overview/11-domain-invariants.md); teach in [16-stage-03-cross-context-collaboration.md](../01-overview/16-stage-03-cross-context-collaboration.md).
 
-**Related:** [ADR-012](ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-010](ADR-010-inventory-item-aggregate-root.md) · [ADR-009](ADR-009-introduce-event-driven-sagas.md)
+**Related:** [ADR-013](ADR-013-cross-context-collaboration-modular-monolith.md) · [ADR-011](ADR-011-inventory-item-aggregate-root.md) · [ADR-010](ADR-010-introduce-event-driven-sagas.md)

@@ -13,7 +13,7 @@ description: Work on FermentFlow — Swamy's personal DDD architecture laborator
 |------|---------|
 | `docs/01_repository-structure.md` | Layout, branch strategy, naming (SSOT) |
 | `docs/01-overview/08-branch-roadmap.md` | Per-branch folder trees and characteristics |
-| `docs/adr/` | Architecture Decision Records (branch 02 onward) |
+| `docs/02-adr/` | Architecture Decision Records (branch 02 onward) |
 | `docker/` | Local infrastructure compose |
 | `src/` | Application source (branch-dependent) |
 | `tests/` | `FermentFlow.Architecture.Tests` from branch 02; integration tests from branch 06 |

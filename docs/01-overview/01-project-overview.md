@@ -42,13 +42,13 @@ Stage 01 starts with a flatter monolith layout — see [Stage 01 blueprint](13-s
 | `08-Observability` | OpenTelemetry, Prometheus, Grafana |
 | `09-Aspire` | Service discovery, orchestration, local developer experience |
 
-Full detail: [Branch roadmap](08-branch-roadmap.md) · [Stage 01 blueprint](13-stage-01-overview.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Architecture governance](09-architecture-governance.md) · [Event catalog](10-event-catalog.md) · [Domain invariants](11-domain-invariants.md) · [ADRs](../adr/README.md) · [Repository structure](../01_repository-structure.md)
+Full detail: [Branch roadmap](08-branch-roadmap.md) · [Stage 01 blueprint](13-stage-01-overview.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Architecture governance](09-architecture-governance.md) · [Event catalog](10-event-catalog.md) · [Domain invariants](11-domain-invariants.md) · [ADRs](../02-adr/README.md) · [Repository structure](../01_repository-structure.md)
 
 **Starting Stage 01?** Read [13-stage-01-overview.md](13-stage-01-overview.md) and [14-stage-01-smells.md](14-stage-01-smells.md) before writing code.
 
 ## Blueprint status
 
-**Implementation-ready** (blueprint frozen). Architectural unknowns for Stages 01–09 are documented in ADRs 000–013 and overview docs 01–16. Further design changes should follow the ADR process — validate assumptions through code on each stage branch, not additional pre-implementation redesign.
+**Implementation-ready** (blueprint frozen). Architectural unknowns for Stages 01–09 are documented in ADRs 001–014 and overview docs 01–16. Further design changes should follow the ADR process — validate assumptions through code on each stage branch, not additional pre-implementation redesign.
 
 **Current repository state:** Documentation, governance, and **`docker/`** (PostgreSQL only). No `src/FermentFlow.sln` until Stage 01 is implemented on **`01-LegacyMonolith`**.
 

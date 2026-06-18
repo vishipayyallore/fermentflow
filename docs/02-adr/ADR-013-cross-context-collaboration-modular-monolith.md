@@ -63,7 +63,7 @@ The rule *cannot reserve more than available* belongs to **Inventory**, not Sale
 inventoryItem.ReserveStock(quantity);  // throws or returns failure — final authority
 ```
 
-**Reservation** (`ReserveStock`) is the consistency gate before `SalesOrder` is created. On failure after reserve, **compensate** via `ReleaseStockReservationAsync` — see [ADR-013](ADR-013-compensating-actions-stage-03.md). Do **not** use `TransactionScope` across contexts.
+**Reservation** (`ReserveStock`) is the consistency gate before `SalesOrder` is created. On failure after reserve, **compensate** via `ReleaseStockReservationAsync` — see [ADR-014](ADR-014-compensating-actions-stage-03.md). Do **not** use `TransactionScope` across contexts.
 
 ### 3. Preferred Stage 03 use-case flow
 
@@ -92,7 +92,7 @@ Even inside one deployable, the mental model is **two contexts collaborating thr
 
 | Stage | Mechanism |
 |-------|-----------|
-| **03** | In-process `IInventoryReservationService`; compensation on failure ([ADR-013](ADR-013-compensating-actions-stage-03.md)) |
+| **03** | In-process `IInventoryReservationService`; compensation on failure ([ADR-014](ADR-014-compensating-actions-stage-03.md)) |
 | **05** | Replace with HTTP/gRPC client to Inventory service; same interface shape at Sales boundary |
 | **06** | `StockReserved` / `InventoryUpdated` integration events via outbox; async read-model sync where needed |
 
@@ -114,6 +114,6 @@ The use case stays stable; only transport changes.
 - **Positive:** Architecture tests can enforce “Sales never references Inventory.Infrastructure.”
 - **Positive:** Aligns with `ReserveStock` → `StockReserved` → future integration events.
 - **Negative:** Requires composition-root registration of cross-context services; more wiring than a direct repository call.
-- **Follow-up:** [ADR-013](ADR-013-compensating-actions-stage-03.md) (`InventoryReservation`, compensation). Document in [16-stage-03-cross-context-collaboration.md](../01-overview/16-stage-03-cross-context-collaboration.md).
+- **Follow-up:** [ADR-014](ADR-014-compensating-actions-stage-03.md) (`InventoryReservation`, compensation). Document in [16-stage-03-cross-context-collaboration.md](../01-overview/16-stage-03-cross-context-collaboration.md).
 
-**Related:** [ADR-002](ADR-002-introduce-cqrs.md) · [ADR-010](ADR-010-inventory-item-aggregate-root.md) · [ADR-013](ADR-013-compensating-actions-stage-03.md) · [Architecture governance](../01-overview/09-architecture-governance.md)
+**Related:** [ADR-003](ADR-003-introduce-cqrs.md) · [ADR-011](ADR-011-inventory-item-aggregate-root.md) · [ADR-014](ADR-014-compensating-actions-stage-03.md) · [Architecture governance](../01-overview/09-architecture-governance.md)

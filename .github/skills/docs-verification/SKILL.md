@@ -21,7 +21,7 @@ description: Verify FermentFlow markdown structure, architecture doc consistency
 | Doc | Validates |
 |-----|-----------|
 | `01_repository-structure.md` | Layout, roadmap, naming (SSOT) |
-| `adr/README.md` | ADR index; ADR-000 foundation; Alternatives Considered in each ADR |
+| `02-adr/README.md` | ADR index; ADR-001 foundation; Alternatives Considered in each ADR |
 | `08-branch-roadmap.md` | Per-branch trees; architecture tests from branch 02 |
 | `01-project-overview.md` | Stack, baseline mapping, endpoints |
 | `02-business-domain.md` | Domain flows |

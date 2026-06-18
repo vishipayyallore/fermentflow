@@ -2,7 +2,7 @@
 
 How Sales and Inventory cooperate inside the **modular monolith** without recreating Stage 01 coupling — and how to handle partial failure without `TransactionScope`.
 
-**Canonical decisions:** [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)
+**Canonical decisions:** [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md) · [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md)
 
 **Related:** [Domain invariants](11-domain-invariants.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) · [Event catalog](10-event-catalog.md) · [Architecture governance](09-architecture-governance.md)
 

@@ -5,7 +5,7 @@ Per-stage source layout and learning focus for the nine-stage FermentFlow evolut
 **Terminology:** [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch) — use **Stage NN** in prose; use git branch slugs for `git checkout`.
 
 **Canonical index:** [Repository structure](../01_repository-structure.md) — roadmap, naming, and documentation layout.  
-**Decisions:** [Architecture Decision Records](../adr/README.md) — one ADR per major branch from 02 onward.
+**Decisions:** [Architecture Decision Records](../02-adr/README.md) — one ADR per major branch from 02 onward.
 
 ---
 
@@ -72,8 +72,8 @@ Characteristics:
 - Modular monolith
 - Shared deployment
 - Explicit domain boundaries
-- **`InventoryItem` aggregate** replaces Stage 01 anemic `Availability` — [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md)
-- **Architecture tests** (NetArchTest.Rules or ArchUnitNET) — see [ADR-001](../adr/ADR-001-introduce-modular-monolith.md)
+- **`InventoryItem` aggregate** replaces Stage 01 anemic `Availability` — [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md)
+- **Architecture tests** (NetArchTest.Rules or ArchUnitNET) — see [ADR-002](../02-adr/ADR-002-introduce-modular-monolith.md)
 
 Example rules:
 
@@ -139,8 +139,8 @@ Characteristics:
 
 - MediatR **within** each context only (not cross-context)
 - CQRS + Vertical Slice Architecture (`Features/` per use case)
-- **Cross-context collaboration** via consumer-owned contracts — [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md)
-- **Compensation** on partial failure (`ReleaseStockReservation`); **no** `TransactionScope` across contexts — [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md)
+- **Cross-context collaboration** via consumer-owned contracts — [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md)
+- **Compensation** on partial failure (`ReleaseStockReservation`); **no** `TransactionScope` across contexts — [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md)
 - **`InventoryReservation`** as first-class entity; MediatR **intra-context only** (architecture tests)
 - Preferred flow: `ReserveStock` → `SalesOrder.Create` → compensate on failure
 - **Domain unit tests** per context (aggregate invariants, Given/When/Then)
@@ -154,13 +154,13 @@ When order requests 15
 Then order is rejected
 ```
 
-Decisions: [ADR-002](../adr/ADR-002-introduce-cqrs.md) · [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) · [16-stage-03-cross-context-collaboration.md](16-stage-03-cross-context-collaboration.md)
+Decisions: [ADR-003](../02-adr/ADR-003-introduce-cqrs.md) · [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md) · [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md) · [16-stage-03-cross-context-collaboration.md](16-stage-03-cross-context-collaboration.md)
 
 ---
 
 ## Branch 04 — CQRS + Event Sourcing
 
-Branch **04** retains CQRS and vertical slices from branch 03 and **adds** event sourcing — see [ADR-003](../adr/ADR-003-introduce-event-sourcing.md).
+Branch **04** retains CQRS and vertical slices from branch 03 and **adds** event sourcing — see [ADR-004](../02-adr/ADR-004-introduce-event-sourcing.md).
 
 ```text
 src/
@@ -229,7 +229,7 @@ Characteristics:
 - Separate databases per service
 - Separate deployments
 
-Decision: [ADR-004](../adr/ADR-004-introduce-microservices.md)
+Decision: [ADR-005](../02-adr/ADR-005-introduce-microservices.md)
 
 ---
 
@@ -251,7 +251,7 @@ tests/
 
 Characteristics:
 
-- Transactional outbox (before circuit breaker — see [ADR-005](../adr/ADR-005-introduce-outbox.md))
+- Transactional outbox (before circuit breaker — see [ADR-006](../02-adr/ADR-006-introduce-outbox.md))
 - Reliable publishing
 - Background processors
 - At-least-once delivery
@@ -277,7 +277,7 @@ Characteristics:
 
 - Polly v8
 - Retry, timeout, circuit breaker, fallback
-- Resilience pipelines for sync calls — [ADR-006](../adr/ADR-006-introduce-circuit-breaker.md)
+- Resilience pipelines for sync calls — [ADR-007](../02-adr/ADR-007-introduce-circuit-breaker.md)
 
 ---
 
@@ -302,7 +302,7 @@ tests/
 
 Characteristics:
 
-- OpenTelemetry, Prometheus, Grafana — [ADR-007](../adr/ADR-007-introduce-observability.md)
+- OpenTelemetry, Prometheus, Grafana — [ADR-008](../02-adr/ADR-008-introduce-observability.md)
 - Distributed tracing, metrics, structured logging
 
 ---
@@ -329,7 +329,7 @@ tests/
 
 Characteristics:
 
-- .NET Aspire — [ADR-008](../adr/ADR-008-introduce-aspire.md)
+- .NET Aspire — [ADR-009](../02-adr/ADR-009-introduce-aspire.md)
 - Service discovery, resource orchestration, Aspire dashboard
 - Local cloud-native development
 
@@ -352,7 +352,7 @@ BuildingBlocks/
 └── Sagas/               # MassTransit state machine, PostgreSQL saga persistence
 ```
 
-Saga persistence: **PostgreSQL** (see [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md)).
+Saga persistence: **PostgreSQL** (see [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md)).
 
 Example saga flow (stage 10):
 
@@ -360,4 +360,4 @@ Example saga flow (stage 10):
 ProductionCompleted → InventoryUpdated → StockAvailable → PendingSalesOrdersReleased
 ```
 
-Decision record: [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) *(Proposed)*.
+Decision record: [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md) *(Proposed)*.

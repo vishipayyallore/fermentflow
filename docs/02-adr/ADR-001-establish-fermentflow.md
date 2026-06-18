@@ -12,7 +12,7 @@ The workspace must teach **incremental refactoring** — not a single "final" ar
 
 ## Decision
 
-Establish **FermentFlow** as Swamy's personal **architecture modernization laboratory**. All later ADRs (002–010) descend from this root decision.
+Establish **FermentFlow** as Swamy's personal **architecture modernization laboratory**. All later ADRs (002–014) descend from this root decision.
 
 ### Why FermentFlow
 
@@ -39,7 +39,7 @@ Each branch introduces **one major leap** while retaining prior capabilities (CQ
 
 Patterns taught: DDD, CQRS + vertical slices, event sourcing, microservices, outbox, Polly, OpenTelemetry, Aspire, and (proposed) event-driven sagas.
 
-**Governance from day one:** [ADR-001](ADR-001-establish-fermentflow.md) (this record) → branch ADRs 002–009 → proposed ADR-010; architecture tests from branch 02; domain unit tests + Testcontainers from branch 03.
+**Governance from day one:** [ADR-001](ADR-001-establish-fermentflow.md) (this record) → stage ADRs 002–009 → proposed ADR-010 → domain ADRs 011–014; architecture tests from branch 02; domain unit tests + Testcontainers from branch 03.
 
 Do **not** frame the repository as third-party courseware or an official book sample in public documentation.
 

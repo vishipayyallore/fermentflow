@@ -236,7 +236,7 @@ This is an active learning project — expect refactoring and experimentation as
 | [Architecture governance](docs/01-overview/09-architecture-governance.md) | ADRs, architecture tests, fitness functions, Definition of Done |
 | [Event catalog](docs/01-overview/10-event-catalog.md) | Domain, integration, and saga events |
 | [Domain invariants](docs/01-overview/11-domain-invariants.md) | Aggregate rules → branch 03 unit tests |
-| [Architecture decisions](docs/adr/README.md) | ADR index (branch 02 onward) |
+| [Architecture decisions](docs/02-adr/README.md) | ADR index (branch 02 onward) |
 | [Repository structure](docs/01_repository-structure.md) | Layout, naming, branch strategy |
 | [Branching, tags, releases](docs/01-overview/17-branching-tags-and-releases.md) | Blueprint freeze, stage branches, GitHub releases |
 | [Ubiquitous language](docs/01-overview/04-ubiquitous-language.md) | Domain vocabulary |

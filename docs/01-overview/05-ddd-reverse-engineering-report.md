@@ -6,11 +6,11 @@ Complete inventory of domain concepts from **baseline import** analysis. **Green
 
 | Concept | Stage | Decision |
 |---------|-------|----------|
-| `InventoryItem` aggregate | 02+ | [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
-| `InventoryReservation` entity | 03+ | [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) |
-| Cross-context application contracts | 03+ | [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) |
-| Compensation (no cross-context `TransactionScope`) | 03+ | [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) |
-| Production bounded context module | 02+ | [ADR-011](../adr/ADR-011-promote-production-bounded-context.md) |
+| `InventoryItem` aggregate | 02+ | [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md) |
+| `InventoryReservation` entity | 03+ | [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md) |
+| Cross-context application contracts | 03+ | [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md) |
+| Compensation (no cross-context `TransactionScope`) | 03+ | [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md) |
+| Production bounded context module | 02+ | [ADR-012](../02-adr/ADR-012-promote-production-bounded-context.md) |
 
 ---
 
@@ -216,10 +216,10 @@ Integration: RabbitMQ integration events + Sales ACL.
 
 | Step | Key Change | ADR |
 |------|------------|-----|
-| 01 → 02 | Modular monolith + bounded contexts + architecture tests | [ADR-001](../adr/ADR-001-introduce-modular-monolith.md) |
-| 02 → 03 | CQRS + vertical slices | [ADR-002](../adr/ADR-002-introduce-cqrs.md) |
-| 03 → 04 | Event sourcing (CQRS retained) | [ADR-003](../adr/ADR-003-introduce-event-sourcing.md) |
-| 04 → 05 | Extract microservices | [ADR-004](../adr/ADR-004-introduce-microservices.md) |
+| 01 → 02 | Modular monolith + bounded contexts + architecture tests | [ADR-002](../02-adr/ADR-002-introduce-modular-monolith.md) |
+| 02 → 03 | CQRS + vertical slices | [ADR-003](../02-adr/ADR-003-introduce-cqrs.md) |
+| 03 → 04 | Event sourcing (CQRS retained) | [ADR-004](../02-adr/ADR-004-introduce-event-sourcing.md) |
+| 04 → 05 | Extract microservices | [ADR-005](../02-adr/ADR-005-introduce-microservices.md) |
 
 Full comparison: [Architecture Evolution](03-architecture-evolution.md).
 

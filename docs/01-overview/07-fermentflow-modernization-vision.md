@@ -59,7 +59,7 @@ This is the same process FermentFlow models today — FermentFlow makes it expli
 |------------------|------------------------|-------|
 | `FermentFlow` | `FermentFlow` | Rename solution, namespaces, Docker services |
 | `Warehouses` | `Inventory` | Better ubiquitous language; "warehouse" becomes implementation detail |
-| `Availability` (legacy entity) | `InventoryItem` aggregate | `Availability` becomes derived (`OnHand - Reserved`); see [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) |
+| `Availability` (legacy entity) | `InventoryItem` aggregate | `Availability` becomes derived (`OnHand - Reserved`); see [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md) |
 | `Production` (contracts only) | `FermentFlow.Production` | Promote to full bounded context |
 | `FermentFlow.Shared` | `FermentFlow.BuildingBlocks.*` | Replace duplicated shared libs with building blocks |
 | Muflone | MediatR + MassTransit | Modern .NET ecosystem; easier for learners |
@@ -140,7 +140,7 @@ FermentFlow.Production    — brewing batches, production orders, completion eve
 | **Warehouses** | Physical location / infrastructure | Implementation detail |
 | **Inventory** | Business concept everyone knows | Core domain language |
 
-**Aggregate decision (accepted):** `InventoryItem` is the aggregate root; `Availability` is a derived business concept, not a separate aggregate. Stage 01 intentionally keeps an anemic `Availability` entity for refactoring practice — see [Stage 01 blueprint](13-stage-01-overview.md) and [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md).
+**Aggregate decision (accepted):** `InventoryItem` is the aggregate root; `Availability` is a derived business concept, not a separate aggregate. Stage 01 intentionally keeps an anemic `Availability` entity for refactoring practice — see [Stage 01 blueprint](13-stage-01-overview.md) and [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md).
 
 ### Context map (target state)
 
@@ -191,7 +191,7 @@ InventoryAvailable
 ReleasePendingSalesOrders
 ```
 
-Decision record: [ADR-009](../adr/ADR-009-introduce-event-driven-sagas.md) *(Proposed)*. Detail: [Architecture governance](09-architecture-governance.md).
+Decision record: [ADR-010](../02-adr/ADR-010-introduce-event-driven-sagas.md) *(Proposed)*. Detail: [Architecture governance](09-architecture-governance.md).
 
 ---
 
@@ -433,20 +433,24 @@ Phase 4 — Extend stages 06–09
 
 ## Architecture Decision Records
 
-All major branch decisions are documented under [`docs/adr/`](../adr/README.md):
+All major branch decisions are documented under [`docs/02-adr/`](../02-adr/README.md):
 
 | ADR | Branch |
 |-----|--------|
-| ADR-000 | *(Establish FermentFlow — foundation)* |
-| ADR-001 | 02-ModularMonolith |
-| ADR-002 | 03-CQRS-VerticalSlices |
-| ADR-003 | 04-CQRS-EventSourcing |
-| ADR-004 | 05-Microservices |
-| ADR-005 | 06-OutboxPattern |
-| ADR-006 | 07-CircuitBreaker |
-| ADR-007 | 08-Observability |
-| ADR-008 | 09-Aspire |
-| ADR-009 | 10-EventDrivenSagas *(Proposed)* |
+| ADR-001 | *(Establish FermentFlow — foundation)* |
+| ADR-002 | 02-ModularMonolith |
+| ADR-003 | 03-CQRS-VerticalSlices |
+| ADR-004 | 04-CQRS-EventSourcing |
+| ADR-005 | 05-Microservices |
+| ADR-006 | 06-OutboxPattern |
+| ADR-007 | 07-CircuitBreaker |
+| ADR-008 | 08-Observability |
+| ADR-009 | 09-Aspire |
+| ADR-010 | 10-EventDrivenSagas *(Proposed)* |
+| ADR-011 | `02-ModularMonolith`+ *(InventoryItem aggregate)* |
+| ADR-012 | `02-ModularMonolith`+ *(Production bounded context)* |
+| ADR-013 | `03-CQRS-VerticalSlices` *(cross-context contracts)* |
+| ADR-014 | `03-CQRS-VerticalSlices` *(compensating actions)* |
 
 Process, architecture tests, and Definition of Done: [Architecture governance](09-architecture-governance.md).
 
@@ -458,7 +462,7 @@ FermentFlow is Swamy's personal architecture laboratory for brewery logistics:
 
 1. **Nine stages** — from legacy monolith to .NET Aspire
 2. **Inventory** — clearer ubiquitous language than Warehouses
-3. **Architecture tests + ADRs** — from branch 02; see `docs/adr/` and [Architecture governance](09-architecture-governance.md)
+3. **Architecture tests + ADRs** — from branch 02; see `docs/02-adr/` and [Architecture governance](09-architecture-governance.md)
 4. **Outbox** — reliable integration events
 5. **Polly + OpenTelemetry** — resilience and observability
 6. **Aspire at stage 09** — service discovery, orchestration, and local developer experience

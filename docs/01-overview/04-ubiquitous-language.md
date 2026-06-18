@@ -2,7 +2,7 @@
 
 The shared vocabulary used across all bounded contexts. Terms are derived from business capabilities and the nine-stage target architecture.
 
-**Inventory aggregate decision:** [ADR-010](../adr/ADR-010-inventory-item-aggregate-root.md) · [Inventory aggregate model](12-inventory-aggregate-model.md)
+**Inventory aggregate decision:** [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md) · [Inventory aggregate model](12-inventory-aggregate-model.md)
 
 ## Core Terms
 

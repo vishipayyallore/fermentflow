@@ -84,7 +84,7 @@ Optional link check: `.\tools\psscripts\Run-MarkdownLintAndLychee.ps1`
 | `docs/01_repository-structure.md` | Structural SSOT — layout, roadmap, naming |
 | `docs/01-overview/08-branch-roadmap.md` | Per-branch source trees (01–09) |
 | `docs/01-overview/09-architecture-governance.md` | Governance, DoD, dependency rules |
-| `docs/adr/README.md` | ADR index (branch 02 onward) |
+| `docs/02-adr/README.md` | ADR index (branch 02 onward) |
 | `.github/copilot-instructions.md` | Canonical Copilot / agent instructions |
 | `.cursor/rules/00_project_scope.mdc` | Swamy-only scope (always apply) |
 | `.github/skills/fermentflow-foundations/SKILL.md` | DDD workspace SOP |

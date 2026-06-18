@@ -126,7 +126,7 @@ How cross-context workflows evolve on the nine-stage path — **not** the baseli
 | 06 | Outbox + integration events | Reliable cross-service publish |
 | 10 | Saga process manager | Production → Inventory → Sales orchestration |
 
-**Explicit decisions:** [ADR-012](../adr/ADR-012-cross-context-collaboration-modular-monolith.md) (contracts, no cross-context MediatR) · [ADR-013](../adr/ADR-013-compensating-actions-stage-03.md) (no `TransactionScope` across contexts; `InventoryReservation`).
+**Explicit decisions:** [ADR-013](../02-adr/ADR-013-cross-context-collaboration-modular-monolith.md) (contracts, no cross-context MediatR) · [ADR-014](../02-adr/ADR-014-compensating-actions-stage-03.md) (no `TransactionScope` across contexts; `InventoryReservation`).
 
 ## Key Design Smells Fixed (baseline import reference)
 
@@ -140,11 +140,11 @@ How cross-context workflows evolve on the nine-stage path — **not** the baseli
 
 ## Related Documents
 
-- [Architecture Evolution Workbook](../diagrams/architecture-evolution-workbook.md) — step-by-step learning guide
+- [Architecture Evolution Workbook](../03-diagrams/architecture-evolution-workbook.md) — step-by-step learning guide
 - [Event catalog](10-event-catalog.md) — domain, integration, and saga events
 - [Domain invariants](11-domain-invariants.md) — aggregate rules for unit tests
-- [ADR-000: Establish FermentFlow](../adr/ADR-000-establish-fermentflow.md)
-- [ADR-001: Introduce Modular Monolith](../adr/ADR-001-introduce-modular-monolith.md)
-- [ADR-002: Introduce CQRS with Vertical Slices](../adr/ADR-002-introduce-cqrs.md)
-- [ADR-003: Introduce Event Sourcing (Retain CQRS)](../adr/ADR-003-introduce-event-sourcing.md)
-- [ADR-004: Introduce Microservices](../adr/ADR-004-introduce-microservices.md)
+- [ADR-001: Establish FermentFlow](../02-adr/ADR-001-establish-fermentflow.md)
+- [ADR-002: Introduce Modular Monolith](../02-adr/ADR-002-introduce-modular-monolith.md)
+- [ADR-003: Introduce CQRS with Vertical Slices](../02-adr/ADR-003-introduce-cqrs.md)
+- [ADR-004: Introduce Event Sourcing (Retain CQRS)](../02-adr/ADR-004-introduce-event-sourcing.md)
+- [ADR-005: Introduce Microservices](../02-adr/ADR-005-introduce-microservices.md)

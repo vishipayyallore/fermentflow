@@ -2,7 +2,7 @@ name: Documentation Quality (Markdown & Links)
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, "swamy/*"]
     paths:
       - '**.md'
       - 'lychee.toml'
@@ -10,7 +10,7 @@ on:
       - '.markdownlint*.yaml'
       - '.github/workflows/ci-documentation.yml'
   pull_request:
-    branches: [main, master]
+    branches: [main, master, "swamy/*"]
     paths:
       - '**.md'
       - 'lychee.toml'

@@ -98,11 +98,12 @@ Add new stage blueprints as `15-stage-02-…`, `16-stage-02-…`, and so on. Do 
 ```text
 docs/
 ├── 01_repository-structure.md    # This file — layout, roadmap, naming
-├── adr/                          # Architecture Decision Records
+├── 02-adr/                         # Architecture Decision Records (canonical)
 │   ├── README.md
-│   ├── ADR-000-establish-fermentflow.md
-│   ├── ADR-001-introduce-modular-monolith.md
-│   └── … (through ADR-013)
+│   ├── ADR-001-establish-fermentflow.md
+│   ├── ADR-002-introduce-modular-monolith.md
+│   └── … (through ADR-014)
+├── 03-diagrams/                    # Context maps and evolution workbooks
 ├── agent-skills.md
 ├── agent-subagents.md
 ├── agent-governance-recovery.md
@@ -202,7 +203,7 @@ BuildingBlocks/
 ├── Outbox               # branch 06+
 ├── Resilience           # branch 07+
 ├── Observability        # branch 08+
-├── Sagas                # branch 10+ (proposed — ADR-009)
+├── Sagas                # branch 10+ (proposed — ADR-010)
 └── Testing              # shared test fixtures and fakes
 ```
 
@@ -223,7 +224,7 @@ Introduced on **`02-ModularMonolith`** and extended each branch. Example rules:
 - Domain must not reference Application or Infrastructure
 - Application must not reference another context's Infrastructure
 
-See [ADR-001](adr/ADR-001-introduce-modular-monolith.md). Root context: [ADR-000](adr/ADR-000-establish-fermentflow.md).
+See [ADR-002](02-adr/ADR-002-introduce-modular-monolith.md). Root context: [ADR-001](02-adr/ADR-001-establish-fermentflow.md).
 
 ---
 
