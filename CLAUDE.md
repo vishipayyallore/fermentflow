@@ -45,9 +45,11 @@ Bundled on-demand procedures live under `.github/skills/` (mirrored at `.cursor/
 | **Playbooks** | **`.github/skills/`**, **`.cursor/agents/`**, **`.github/prompts/`** | How to run CI, audit architecture docs, write prompts |
 | **Optional Claude Code extras** | **`.claude/`** | Short CLI-only additions; see **`.claude/README.md`** |
 
+The workspace also contains local tool-specific folders such as **`.clinerules/`**, **`.opencode/`**, **`.copilot/`**, and **`.claude/`**. Treat those as auxiliary workspace configs unless a task explicitly says to work on them; they are not part of the canonical **`.github/` ↔ `.cursor/`** governance mirrors.
+
 ## Governance integrity
 
-Assistant behaviour is defined under `.github/copilot-instructions.md`, `.cursor/rules/` (including `.cursor/rules/00_project_scope.mdc` and `.cursor/rules/02_repository-structure.mdc`), mirrored skills and agents, and **`CLAUDE.md`**. Index: **`.cursor/skills.md`**. Change both mirror trees in the same commit; rely on **`ci-skills-parity.yml`** / **`ci-agent-docs-guard.yml`** to catch drift. Recovery: **`docs/agent-governance-recovery.md`**.
+Assistant behaviour is defined under `.github/copilot-instructions.md`, `.cursor/rules/` (mirrored in `.github/rules/`, including `.cursor/rules/00_project_scope.mdc` and `.cursor/rules/02_repository-structure.mdc`), mirrored skills and agents, and **`CLAUDE.md`**. Index: **`.cursor/skills.md`**. Change both mirror trees in the same commit; rely on **`ci-skills-parity.yml`** / **`ci-agent-docs-guard.yml`** to catch drift. Recovery: **`docs/agent-governance-recovery.md`**.
 
 ## Environment
 

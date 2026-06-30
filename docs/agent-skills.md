@@ -28,5 +28,5 @@ Changes to either skills tree must update both in the same commit. `ci-skills-pa
 ## Related
 
 - `.cursor/skills.md` — quick index
-- `docs/agent-subagents.md` — delegated subagents
+- `docs/agent-subagents.md` — delegated subagents (`fermentflow-ci-verify`, `fermentflow-architecture-review`, `docs-originality-review`)
 - `CLAUDE.md` — entry point table

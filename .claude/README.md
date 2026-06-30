@@ -1,23 +1,32 @@
-# `.claude/` — optional Claude Code extras
+# Claude Code — fermentflow
 
-This folder is for **Claude Code** (or similar) **runtime** add-ons beside the repo's main agent layout.
+This folder documents how Claude Code should use repository governance.
 
-## Canonical layout (do not duplicate here)
+## Canonical map
 
-| Need | Use this (single source) |
-|------|--------------------------|
-| Always-on assistant rules | `.github/copilot-instructions.md`, `.cursor/rules/` |
-| Repeatable procedures | `.github/skills/` ↔ `.cursor/skills/` (`SKILL.md` files) |
-| Delegated audits | `.cursor/agents/` ↔ `.github/agents/` |
-| Reusable prompt skeletons | `.github/prompts/` |
-| Entry + map | Root **`CLAUDE.md`** |
+| Resource | Path |
+|----------|------|
+| Entry point | `CLAUDE.md` (repo root) |
+| Copilot instructions | `.github/copilot-instructions.md` |
+| Cursor rules | `.cursor/rules/` (mirror: `.github/rules/`) |
+| Skills | `.github/skills/` (mirror: `.cursor/skills/`) |
+| Subagents | `.github/agents/` (mirror: `.cursor/agents/`) |
 
-## What you may put under `.claude/`
+## What this repo is
 
-Short, **task-local** files for Claude Code CLI use — **if** you use that tool and its conventions.
+**fermentflow** — Swamy PKV's personal .NET 10 architecture laboratory for DDD modernization in a brewery logistics domain. Nine permanent stage branches (`01-LegacyMonolith` … `09-Aspire`); not production software; not public courseware.
 
-This repo does **not** require a `.claude/agents/` tree; custom subagents live under **`.cursor/agents/`** (mirrored to **`.github/agents/`**). Copy from there rather than maintaining divergent definitions.
+## Before large edits
 
-## FermentFlow context
+1. Read `CLAUDE.md` and `.github/copilot-instructions.md`
+2. Confirm active git branch and stage scope with `README.md` and `docs/01-overview/08-branch-roadmap.md`
+3. Preserve Swamy-only framing — do not generalize docs for other audiences
 
-FermentFlow is a **.NET DDD reference application** — bounded contexts, branch evolution, and architecture docs under `docs/01-overview/`. See `.github/copilot-instructions.md` and `.cursor/rules/01_architecture-guidelines.mdc`.
+## CI
+
+- `ci-agent-docs-guard.yml` — governance file presence and mirrors
+- `ci-skills-parity.yml` — skills byte parity
+- `ci-dotnet.yml` — .NET build and test
+- `ci-documentation.yml` — markdown lint and link checks
+
+Local runner: `.github/skills/ci-checks/SKILL.md`.

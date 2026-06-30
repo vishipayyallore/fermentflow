@@ -1,0 +1,51 @@
+name: Smoke integration (dotnet)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master, "swamy/*"]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'tools/e2e-smoke.ps1'
+      - '.github/workflows/ci-smoke.yml'
+
+jobs:
+  smoke-dotnet:
+    name: dotnet build/test smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore and build
+        shell: bash
+        run: |
+          if [ ! -f src/FermentFlow.sln ]; then
+            echo "SKIP: src/FermentFlow.sln not present on this branch"
+            exit 0
+          fi
+          dotnet restore src/FermentFlow.sln
+          dotnet build src/FermentFlow.sln --configuration Release --no-restore
+
+      - name: Test
+        shell: bash
+        run: |
+          if [ ! -f src/FermentFlow.sln ]; then
+            exit 0
+          fi
+          dotnet test src/FermentFlow.sln --configuration Release --no-build
+
+      - name: PowerShell smoke script
+        shell: pwsh
+        run: |
+          if (-not (Test-Path 'src/FermentFlow.sln')) {
+            Write-Host 'SKIP: src/FermentFlow.sln not present on this branch'
+            exit 0
+          }
+          ./tools/e2e-smoke.ps1

@@ -6,7 +6,7 @@ This file is **local to `fermentflow`**. It complements `.cursor/rules/*.mdc` an
 
 **Bundled agent skills:** `.github/skills/` is canonical; `.cursor/skills/` is a **byte-identical mirror**. Bundles: **`fermentflow-foundations`**, **`ci-checks`**, **`docs-verification`**, **`workspace-review`**, **`e2e-testing`**.
 
-**Subagents:** **`fermentflow-ci-verify`**, **`fermentflow-architecture-review`**.
+**Subagents:** **`fermentflow-ci-verify`**, **`fermentflow-architecture-review`**, **`docs-originality-review`**.
 
 **Learning roadmap:** nine branches ending at `09-Aspire`; branch **03-CQRS-VerticalSlices** combines CQRS, MediatR, and vertical slice / feature folders — see `docs/01_repository-structure.md` and `docs/01-overview/08-branch-roadmap.md`.
 
