@@ -1,12 +1,12 @@
 # Architecture Evolution Workbook
 
-Step-by-step guide for working through FermentFlow's modernization stages. Use this as a checklist while switching git branches.
+Personal workbook for FermentFlow's modernization stages. Use this as Swamy's checklist while switching git branches.
 
 **Related:** [Architecture evolution](../01-overview/03-architecture-evolution.md) · [Modernization vision](../01-overview/07-fermentflow-modernization-vision.md) · [Branch roadmap](../01-overview/08-branch-roadmap.md)
 
 ---
 
-## Before you start
+## Before a stage starts
 
 1. Install **.NET 10 SDK** and **Docker Desktop**
 2. Read [Running locally](../01-overview/06-running-locally.md) for the active branch
@@ -16,7 +16,7 @@ Step-by-step guide for working through FermentFlow's modernization stages. Use t
 
 ## Stage checklist (01 → 09)
 
-| Stage | Branch | One thing to learn | ADR |
+| Stage | Branch | Personal focus | ADR |
 |-------|--------|-------------------|-----|
 | 01 | `01-LegacyMonolith` | Layered monolith pain points | — |
 | 02 | `02-ModularMonolith` | Bounded contexts + architecture tests | [ADR-002](../02-adr/ADR-002-introduce-modular-monolith.md) |

@@ -59,7 +59,7 @@ Use correlation identifiers, idempotent handlers, and persisted saga state. Exte
 
 | Alternative | Outcome |
 |-------------|---------|
-| Choreography-only sagas (no orchestrator) | **Rejected for stage 10** — harder to trace; orchestration is the clearer teaching path with MassTransit. |
+| Choreography-only sagas (no orchestrator) | **Rejected for stage 10** — harder to trace; orchestration is the clearer personal study path with MassTransit. |
 | Skip sagas; rely on integration events only | **Rejected** — the Production → Inventory → Sales flow is the richest distributed-systems exercise in this domain. |
 | Two-phase commit across services | **Rejected** — impractical at microservice scale. |
 | Jump to Kubernetes before sagas | **Rejected** — saga design is more valuable than deployment tooling alone. |
@@ -67,7 +67,7 @@ Use correlation identifiers, idempotent handlers, and persisted saga state. Exte
 
 ## Consequences
 
-- **Positive:** Teaches long-running workflows, compensations, and correlation in a domain Swamy already models.
+- **Positive:** Lets this lab explore long-running workflows, compensations, and correlation in a domain Swamy already models.
 - **Positive:** Natural capstone before infrastructure-focused stages (Kubernetes, GitHub Actions, Azure Container Apps).
 - **Negative:** Saga state persistence and failure recovery add significant complexity.
 - **Follow-up:** Stages beyond 10 may cover Kubernetes deployment once saga behaviour is stable.

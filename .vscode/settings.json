@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^Write-Output \"BRANCH=\\$\\(git branch --show-current\\)\"; Write-Output \"STATUS_START\"; git status --short; Write-Output \"STATUS_END\"; Write-Output \"SRC_START\"; Get-ChildItem -Force \\.\\\\src \\| ForEach-Object \\{ \\$_\\.Name \\}; Write-Output \"SRC_END\"; Write-Output \"SOURCE_MATERIAL_START\"; Get-ChildItem -Force \\.\\\\source-material \\| ForEach-Object \\{ \\$_\\.Name \\}; Write-Output \"SOURCE_MATERIAL_END\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

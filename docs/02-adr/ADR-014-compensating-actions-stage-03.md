@@ -12,7 +12,7 @@ Two approaches compete:
 
 | Approach | Appeal | Hidden cost |
 |----------|--------|-------------|
-| **Shared `TransactionScope`** across Sales + Inventory | Atomic commit feels safe | Teaches wrong autonomy; breaks when contexts split; must be ripped out at Stage 06 |
+| **Shared `TransactionScope`** across Sales + Inventory | Atomic commit feels safe | Models wrong autonomy; breaks when contexts split; must be ripped out at Stage 06 |
 | **Compensating action** (`ReleaseReservation`) | Matches future saga/outbox | Requires explicit failure handling now |
 
 The **ghost reservation** problem (stock reserved, order never created) is exactly the failure mode microservices expose. FermentFlow should confront it at Stage 03 while the system is still a modular monolith.
@@ -96,7 +96,7 @@ public interface IInventoryReservationService
 | Alternative | Outcome |
 |-------------|---------|
 | `TransactionScope` across Sales + Inventory (Stage 03) | **Rejected** — false autonomy; breaking change at Stage 06; hides ghost-reservation problem. |
-| Hope single SaveChanges is enough (shared DbContext) | **Rejected** — still couples persistence; wrong lesson for Stage 05 split. |
+| Hope single SaveChanges is enough (shared DbContext) | **Rejected** — still couples persistence; wrong constraint for Stage 05 split. |
 | Anonymous reserve/unreserve by quantity | **Rejected** — not idempotent; poor audit trail; hard to migrate to events. |
 | Compensation + `InventoryReservation` entity | **Accepted** — this record. |
 | Full saga orchestrator at Stage 03 | **Rejected** — premature; ADR-010 at Stage 10. |

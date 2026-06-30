@@ -1,18 +1,18 @@
 # Stage 01 — Legacy Monolith Blueprint
 
-Implementation guide for branch **`01-LegacyMonolith`**.
+Implementation blueprint for branch **`01-LegacyMonolith`**.
 
 **Purpose:** Build a realistic legacy system with intentional architectural smells — **before** DDD tactical patterns, CQRS, event sourcing, or microservices.
 
 **Related:** [Architectural smells](14-stage-01-smells.md) · [Branch roadmap](08-branch-roadmap.md) · [ADR-001](../02-adr/ADR-001-establish-fermentflow.md) · [Inventory aggregate model](12-inventory-aggregate-model.md) (target from Stage 02)
 
-> **Pre-implementation:** This document is the implementation guide. Application projects and `FermentFlow.sln` are added on branch **`01-LegacyMonolith`**. Until then, only [Docker Compose](#docker-compose) (PostgreSQL) is present in the repository.
+> **Pre-implementation:** This document is the implementation blueprint. Application projects and `FermentFlow.sln` are added on branch **`01-LegacyMonolith`**. Until then, only [Docker Compose](#docker-compose) (PostgreSQL) is present in the repository.
 
 ---
 
-## Learning outcomes
+## Stage 01 study outcomes
 
-By the end of Stage 01 you should recognize:
+By the end of Swamy's Stage 01 pass, the code should make these legacy traits visible:
 
 - Shared database coupling
 - Direct repository access across logical subdomains

@@ -27,12 +27,12 @@ Building blocks:  FermentFlow.BuildingBlocks.*
 
 ### Repository name alternatives
 
-| Name | Best for |
+| Name | Decision |
 |------|----------|
-| **fermentflow** | Primary repo (recommended) |
-| **FermentFlow.NET** | NuGet / package branding |
-| **FermentFlow-DDD** | DDD-focused course material |
-| **FermentFlow-ReferenceApp** | GitHub portfolio showcase |
+| **fermentflow** | Accepted primary repository name |
+| **FermentFlow.NET** | Rejected — suggests package branding rather than a personal lab |
+| **FermentFlow-DDD** | Rejected — sounds like courseware rather than Swamy's study workspace |
+| **FermentFlow-ReferenceApp** | Rejected — sounds like a public reference application |
 
 ---
 
@@ -62,7 +62,7 @@ This is the same process FermentFlow models today — FermentFlow makes it expli
 | `Availability` (legacy entity) | `InventoryItem` aggregate | `Availability` becomes derived (`OnHand - Reserved`); see [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md) |
 | `Production` (contracts only) | `FermentFlow.Production` | Promote to full bounded context |
 | `FermentFlow.Shared` | `FermentFlow.BuildingBlocks.*` | Replace duplicated shared libs with building blocks |
-| Muflone | MediatR + MassTransit | Modern .NET ecosystem; easier for learners |
+| Muflone | MediatR + MassTransit | Modern .NET ecosystem; easier for Swamy's .NET 10 experiments |
 | MongoDB (writes, branch 01) | PostgreSQL | Relational outbox, EF Core familiarity |
 | MongoDB (read models) | PostgreSQL or MongoDB | Either works; Postgres simplifies local dev |
 | No outbox | Outbox pattern | Biggest production gap in original |
@@ -337,7 +337,7 @@ RabbitMQ → consumer in target service
 | **No lost events** | Outbox row committed in same transaction as domain change |
 | **At-least-once delivery** | Publisher retries until broker acknowledges |
 | **Transactional consistency** | Domain write and event intent are atomic |
-| **Production-ready** | Industry standard for reliable messaging |
+| **Production-oriented reliability** | Industry reliability pattern worth studying in this lab |
 
 ### Implementation options
 
@@ -368,8 +368,8 @@ CREATE TABLE outbox_messages (
 |------|-------------------|------------------------|-----------|
 | Runtime | .NET 7/8 | **.NET 10** | Latest LTS trajectory |
 | API | Minimal APIs | ASP.NET Core Minimal APIs | Keep simplicity |
-| CQRS | Muflone / manual | **MediatR** | De-facto .NET standard, huge community |
-| Messaging | Muflone.Transport.RabbitMQ | **MassTransit** | Outbox built-in, sagas, test harness |
+| CQRS | Muflone / manual | **MediatR** | Fits the .NET 10 modernization path and branch-by-branch experiments |
+| Messaging | Muflone.Transport.RabbitMQ | **MassTransit** | Supports the outbox, saga, and test-harness exercises in later stages |
 | Broker | RabbitMQ | RabbitMQ | Keep — works well with MassTransit |
 | Write DB | MongoDB / EventStore | **PostgreSQL** + EventStoreDB | Outbox needs relational transactions |
 | Read model | MongoDB | PostgreSQL or MongoDB | Postgres reduces moving parts locally |
@@ -385,7 +385,7 @@ CREATE TABLE outbox_messages (
 
 | Aspect | Legacy baseline (Muflone) | Target stack (FermentFlow) |
 |--------|---------------------------|----------------------------|
-| Learning curve | Steeper, less docs | Gentle, massive community |
+| Fit for this lab | Older baseline framework | Better aligned with Swamy's .NET 10 modernization path |
 | Event sourcing | Built-in | EventStore client + custom aggregate base |
 | Messaging | Built-in RabbitMQ | MassTransit (outbox, sagas) |
 | Ecosystem | Older patterns | Modern .NET 10 defaults |

@@ -14,13 +14,13 @@ Git workflow for freezing the blueprint, implementing each stage, and returning 
 | Principle | Rule |
 |-----------|------|
 | **Nine stages, one domain** | Extend the same brewery logistics codebase incrementally — no parallel `stage01/`, `stage02/` app folders |
-| **Permanent stage branches** | `01-LegacyMonolith` … `09-Aspire` are teaching checkpoints — **do not delete** after completion |
+| **Permanent stage branches** | `01-LegacyMonolith` … `09-Aspire` are personal checkpoints — **do not delete** after completion |
 | **`main` is the living index** | Holds latest approved documentation; stage branches hold full code snapshots |
 | **Tags = milestones** | Annotated tags mark blueprint freeze and stage completion; optional `-start` tags mark stage baselines |
-| **Release per milestone** | Create a GitHub Release for blueprint and each completed stage so notes and diffs are shareable (Swamy-only context) |
+| **Release per milestone** | Create a GitHub Release for blueprint and each completed stage so notes and diffs stay easy for Swamy to revisit |
 | **Stage fidelity** | Implement only the patterns for the active stage — no skipping ahead |
 
-This is an **architecture-learning** repository. Permanent stage branches preserve educational value — you can always `git checkout 03-CQRS-VerticalSlices` and see exactly what Stage 03 looked like.
+This is an **architecture laboratory** repository. Permanent stage branches preserve Swamy's study checkpoints — `git checkout 03-CQRS-VerticalSlices` returns to exactly what Stage 03 looked like.
 
 ---
 
@@ -99,7 +99,7 @@ Create one branch per stage. **Do not delete** after completion.
 | **A — Permanent stage branches only (recommended)** | Default for FermentFlow | `main` gets doc fixes; stage branches hold stage-specific code |
 | **B — Merge each stage to `main`** | Production-style repos | `main` always has latest code; tags still mark stage completion |
 
-**Recommendation:** Approach **A** — keep `01-LegacyMonolith` … `09-Aspire` as permanent teaching checkpoints. Update `main` documentation as the living index; merge stage code to `main` only if you want a single "latest code" line (optional).
+**Recommendation:** Approach **A** — keep `01-LegacyMonolith` … `09-Aspire` as permanent personal checkpoints. Update `main` documentation as the living index; merge stage code to `main` only if Swamy decides to maintain a single "latest code" line.
 
 ---
 
@@ -326,7 +326,7 @@ git log v1.2-stage02-complete..v1.3-stage03-complete --oneline
 | Anti-pattern | Why it breaks the model |
 |--------------|------------------------|
 | Implement Stage 03 patterns on Stage 01 branch | Skips learning pressure; diff noise |
-| Delete stage branches after merge | Loses teaching checkpoints |
+| Delete stage branches after merge | Loses personal checkpoints |
 | Redesign architecture without ADR during implementation | Breaks freeze discipline |
 | Force-push or move milestone tags | Destroys reproducibility |
 | Skip the optional `-start` tag when you need a clean baseline | No stable pre-implementation checkpoint |
