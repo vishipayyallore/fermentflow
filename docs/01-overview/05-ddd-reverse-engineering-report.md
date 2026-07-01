@@ -1,6 +1,8 @@
 # DDD Reverse Engineering Report
 
-Complete inventory of domain concepts from **baseline import** analysis. **Greenfield target** decisions (Stages 01–09) may differ — see ADRs and stage blueprints.
+Complete inventory of domain concepts from **external baseline import** analysis. **Greenfield target** decisions (Stages 01–09) may differ — see ADRs and stage blueprints.
+
+> **Current workspace note:** On the docs-only blueprint branch, the baseline source is not present under `src/` or `source-material/`. This report captures analysis of the external baseline branches, not implemented FermentFlow code in the current workspace.
 
 ### Greenfield target additions (not in baseline import)
 
@@ -26,7 +28,7 @@ See [Business Domain](02-business-domain.md).
 
 ## 2. Ubiquitous Language
 
-22 domain terms identified from code. See [Ubiquitous Language](04-ubiquitous-language.md).
+22 domain terms identified from external baseline code analysis. See [Ubiquitous Language](04-ubiquitous-language.md).
 
 ---
 
@@ -94,7 +96,7 @@ Sales maintains its own `Availability` entity for read-side synchronization from
 
 ## 6. Value Objects
 
-All implemented as `record` types in `FermentFlow.Shared.CustomTypes`:
+The external baseline implements these as `record` types in `FermentFlow.Shared.CustomTypes`:
 
 | Value Object | Used By |
 |--------------|---------|

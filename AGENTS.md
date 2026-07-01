@@ -40,4 +40,11 @@ Treat `.github/skills/` as the source of truth for reading and editing skill fil
 
 ## Prompts
 
-- `.github/prompts/` contains repo-specific task and audit prompts.
+- `.github/prompts/` contains repo-specific task and audit prompts (mirrored at `.cursor/prompts/`).
+
+## Auxiliary tool configs
+
+- `.clinerules/` — Cline-facing mirror of rules, skills, and agents
+- `.opencode/` — OpenCode plugin config
+- `.copilot/README.md` — Copilot workflow index
+- `.claude/README.md` — Claude Code entry notes

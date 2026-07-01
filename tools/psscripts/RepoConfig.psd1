@@ -5,6 +5,8 @@
     '.copilot'
     '.cursor'
     '.claude'
+    '.clinerules'
+    '.opencode'
     'docs'
     'docs\01-overview'
     'docker'
@@ -12,6 +14,7 @@
     'tools'
     'tools\psscripts'
     '.github'
+    '.github\rules'
     '.cursor\rules'
   )
 

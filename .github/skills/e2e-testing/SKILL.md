@@ -43,6 +43,14 @@ description: Smoke verification for FermentFlow (Docker infrastructure, dotnet b
    npx --yes markdownlint-cli2 "README.md" "docs/**/*.md"
    ```
 
+5. **Optional — scripted smoke**
+
+   ```powershell
+   .\tools\e2e-smoke.ps1
+   ```
+
+   Runs dotnet build/test and optionally probes Swagger when `FermentFlow.Rest` is already running.
+
 ## Branch notes
 
 - Branch 03+: domain unit tests and Testcontainers integration tests under `tests/`

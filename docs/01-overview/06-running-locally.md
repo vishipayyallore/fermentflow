@@ -1,8 +1,8 @@
 # Running Locally (Greenfield Path)
 
-Step-by-step guide for the **nine-stage greenfield** implementation. This is the target path — PostgreSQL, stage-named git branches, and `FermentFlow.Api` at Stage 01.
+Runbook for Swamy's **nine-stage greenfield** implementation. This is the target path — PostgreSQL, stage-named git branches, and `FermentFlow.Api` at Stage 01.
 
-**Not on this path?** External baseline import (MongoDB, legacy branch names) is documented separately in [15-baseline-import-running.md](15-baseline-import-running.md).
+**External baseline comparison:** MongoDB and legacy branch names are documented separately in [15-baseline-import-running.md](15-baseline-import-running.md).
 
 **Terminology:** [Stage vs git branch](../01_repository-structure.md#stage-vs-git-branch) in repository structure.
 

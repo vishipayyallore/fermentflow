@@ -59,8 +59,8 @@ When production completes, code updates a row. The system cannot answer “what 
 
 ---
 
-## What you should feel at the end of Stage 01
+## What Stage 01 should demonstrate
 
 Stage 01 should feel **easy to write** and **hard to evolve**. That discomfort is the motivation for Stage 02 onward.
 
-When refactoring, use this document as a checklist: if a smell is gone before its stage, you may have skipped a learning step.
+When refactoring, use this document as a checklist: if a smell is gone before its stage, Swamy probably skipped a planned refactoring constraint.

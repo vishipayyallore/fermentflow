@@ -24,10 +24,10 @@ Apply pipelines to HTTP and other sync integration paths — not as a substitute
 | Alternative | Outcome |
 |-------------|---------|
 | Circuit breaker before outbox (stage 06/07 swapped) | **Rejected** — sync resilience does not fix lost async events (see ADR-006). |
-| Retry-only policies without circuit breaker | **Rejected** — incomplete resilience story for teaching. |
+| Retry-only policies without circuit breaker | **Rejected** — incomplete resilience model for this lab. |
 | Polly v8 pipelines after outbox is in place | **Accepted** — stage 07. |
 
 ## Consequences
 
-- **Positive:** Graceful degradation; teaches resilience after reliable messaging.
+- **Positive:** Graceful degradation; lets Swamy study resilience after reliable messaging.
 - **Negative:** Fallback logic must preserve domain invariants; tuning thresholds is non-trivial.

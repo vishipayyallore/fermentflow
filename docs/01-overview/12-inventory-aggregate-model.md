@@ -1,6 +1,6 @@
 # Inventory Aggregate Model
 
-Teaching reference for the Inventory bounded context aggregate decision. **Canonical decision:** [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md).
+Personal decision reference for the Inventory bounded context aggregate decision. **Canonical decision:** [ADR-011](../02-adr/ADR-011-inventory-item-aggregate-root.md).
 
 **Related:** [Ubiquitous language](04-ubiquitous-language.md) · [Domain invariants](11-domain-invariants.md) · [Event catalog](10-event-catalog.md) · [Business domain](02-business-domain.md)
 

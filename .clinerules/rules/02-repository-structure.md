@@ -1,0 +1,25 @@
+# Repository Structure
+
+**Project**: FermentFlow (.NET 10 architecture laboratory)
+
+> **Single Source of Truth**: [docs/01_repository-structure.md](../../docs/01_repository-structure.md) — layout, branch strategy, naming. Per-branch trees: [docs/01-overview/08-branch-roadmap.md](../../docs/01-overview/08-branch-roadmap.md).
+
+## Quick Summary
+
+- **`docs/01_repository-structure.md`**: Roadmap, naming, documentation layout
+- **`docs/01-overview/08-branch-roadmap.md`**: Per-branch source trees (01–09)
+- **`docker/`**: Docker Compose infrastructure
+- **`src/`**: Application source — structure varies by branch
+- **`tests/`**: Cross-service and architecture tests (from stage 06+)
+- **`tools/psscripts/`**: Maintenance scripts
+
+## Nine-branch roadmap
+
+```text
+01-LegacyMonolith → 02-ModularMonolith → 03-CQRS-VerticalSlices → 04-CQRS-EventSourcing
+→ 05-Microservices → 06-OutboxPattern → 07-CircuitBreaker → 08-Observability → 09-Aspire
+```
+
+Branch **03** teaches CQRS and Vertical Slice Architecture together (MediatR + `Features/` folders).
+
+Always confirm the active branch before editing project paths or solution references.

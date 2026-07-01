@@ -8,7 +8,7 @@
 
 Swamy PKV needs a personal workspace to explore how a business domain evolves from a legacy monolith into a modern, resilient, cloud-native distributed system. An imported brewery logistics baseline provides realistic domain complexity (orders, inventory, production-driven stock) without inventing a toy CRUD example.
 
-The workspace must teach **incremental refactoring** — not a single "final" architecture snapshot.
+The workspace must support Swamy's **incremental refactoring study** — not a single "final" architecture snapshot.
 
 ## Decision
 
@@ -33,11 +33,11 @@ Each branch introduces **one major leap** while retaining prior capabilities (CQ
 ### Why .NET 10
 
 - Single SDK target for all branches — imported baseline code is **ported to .NET 10 on import**, not maintained on .NET 7/8 long term
-- Aligns with Aspire, modern MediatR/MassTransit, and portfolio presentation
+- Aligns with Aspire and modern MediatR/MassTransit experiments
 
 ### Why a modernization laboratory (not a snapshot)
 
-Patterns taught: DDD, CQRS + vertical slices, event sourcing, microservices, outbox, Polly, OpenTelemetry, Aspire, and (proposed) event-driven sagas.
+Patterns explored: DDD, CQRS + vertical slices, event sourcing, microservices, outbox, Polly, OpenTelemetry, Aspire, and (proposed) event-driven sagas.
 
 **Governance from day one:** [ADR-001](ADR-001-establish-fermentflow.md) (this record) → stage ADRs 002–009 → proposed ADR-010 → domain ADRs 011–014; architecture tests from branch 02; domain unit tests + Testcontainers from branch 03.
 

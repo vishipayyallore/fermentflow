@@ -63,6 +63,7 @@ $heavy = @(
 $defaultRun = @(
   'Quick-HealthCheck.ps1',
   'Validate-FileReferences.ps1',
+  'Test-ContentCompliance.ps1',
   'Get-RepoStats.ps1',
   'Get-FileStats.ps1',
   'Get-MarkdownSummary.ps1',

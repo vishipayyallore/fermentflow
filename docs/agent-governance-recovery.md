@@ -35,7 +35,7 @@ If files are damaged beyond manual repair:
 
 ```powershell
 git checkout HEAD -- CLAUDE.md AGENTS.md .github/copilot-instructions.md
-git checkout HEAD -- .cursor/rules/ .github/skills/ .cursor/skills/ .github/agents/ .cursor/agents/
+git checkout HEAD -- .cursor/rules/ .github/rules/ .github/skills/ .cursor/skills/ .github/agents/ .cursor/agents/
 git checkout HEAD -- .cursor/skills.md
 ```
 

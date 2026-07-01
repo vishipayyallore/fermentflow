@@ -18,7 +18,7 @@ CQRS, vertical slices, and event sourcing patterns carry forward inside each ser
 
 | Alternative | Outcome |
 |-------------|---------|
-| Stay modular monolith forever | **Rejected** — deployment and failure-isolation lessons require separate services. |
+| Stay modular monolith forever | **Rejected** — deployment and failure-isolation exercises require separate services. |
 | Microservices without gateway or per-service databases | **Rejected** — hides real operational trade-offs. |
 | Three services + gateway + MassTransit + DB per context | **Accepted** — stage 05. |
 

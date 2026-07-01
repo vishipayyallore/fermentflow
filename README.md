@@ -128,6 +128,8 @@ Target stack by stage — Stage 01 uses .NET 10, PostgreSQL, EF Core, and xUnit 
 
 ## Repository Layout
 
+Target/staged layout. On the current docs-only blueprint branch, `src/` is intentionally empty until Stage 01 implementation begins.
+
 ```text
 src/
 ├── BuildingBlocks/

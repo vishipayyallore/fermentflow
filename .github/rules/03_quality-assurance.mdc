@@ -1,0 +1,35 @@
+---
+description: Quality assurance standards for C# and tests
+globs: *.cs, *.csproj, *.sln
+---
+
+# Quality Assurance
+
+## Code Quality Checklist
+
+### C# Projects (`src/`)
+
+- [ ] Follows standard C# naming conventions (PascalCase types, camelCase locals)
+- [ ] Nullable reference types respected where enabled
+- [ ] Domain logic lives in domain layer — not in controllers or infrastructure
+- [ ] No secrets or connection strings committed (use configuration / user secrets)
+
+### Integration and Domain Tests
+
+- [ ] xUnit tests pass: `dotnet test`
+- [ ] Domain tests exercise aggregate invariants and domain services
+- [ ] Integration tests use realistic fixtures (Docker infrastructure when required)
+- [ ] Test names describe behaviour (`Should_RejectOrder_When_InsufficientStock`)
+
+## Architecture Checklist
+
+- [ ] Changes respect bounded context boundaries
+- [ ] Commands and queries separated (CQRS branches)
+- [ ] Cross-context communication uses events or ACL — not direct DB coupling
+- [ ] Ubiquitous language matches `docs/01-overview/04-ubiquitous-language.md`
+
+## Documentation Quality
+
+- README and `docs/01-overview/` match actual branch behaviour
+- API endpoint changes reflected in overview docs
+- Architecture diagrams updated when context boundaries change

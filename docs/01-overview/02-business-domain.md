@@ -149,8 +149,8 @@ Stage 01 uses a simplified anemic `Availability` entity — see [Stage 01 bluepr
 | Stage | Production shape |
 |-------|------------------|
 | 01 | `ProductionOrderDto`; `POST /api/production/completed` updates Inventory directly |
-| 02–04 | `FermentFlow.Production.*` module; `ProductionOrder` aggregate emerges |
-| 05+ | Separate deployable; `ProductionCompleted` integration event |
+| 02–04 | `FermentFlow.Production.*` module with thinner production models and boundary tests |
+| 05+ | Separate deployable; full `ProductionOrder` aggregate lifecycle and `ProductionCompleted` integration event |
 
 Detail: [ADR-012](../02-adr/ADR-012-promote-production-bounded-context.md).
 

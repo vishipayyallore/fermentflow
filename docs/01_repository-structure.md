@@ -7,6 +7,8 @@
 
 ## Top-level Layout
 
+Target/staged layout. On the current docs-only blueprint branch, `src/` is intentionally empty until Stage 01 implementation begins.
+
 ```text
 fermentflow/
 ├── docs/                  # Documentation
@@ -136,7 +138,7 @@ docs/
 
 ### Stage vs git branch
 
-Use **Stage** in prose (learning step). Use the **git branch** slug for `git checkout` and folder strategy.
+Use **Stage** in prose (personal study step). Use the **git branch** slug for `git checkout` and folder strategy.
 
 | Stage (prose) | Git branch |
 |---------------|------------|

@@ -49,7 +49,7 @@ These tests become essential when event sourcing arrives on branch 04.
 | Alternative | Outcome |
 |-------------|---------|
 | CQRS with horizontal layers only (`Commands/`, `Queries/` folders) | **Rejected** — use-case changes touch many folders; common in older .NET samples. |
-| Vertical slices without CQRS | **Rejected** — misses explicit read/write separation teaching goal. |
+| Vertical slices without CQRS | **Rejected** — misses the explicit read/write separation study goal. |
 | CQRS + vertical slices together (MediatR, `Features/`) | **Accepted** — one branch, one coherent modern .NET story. |
 
 ## Consequences

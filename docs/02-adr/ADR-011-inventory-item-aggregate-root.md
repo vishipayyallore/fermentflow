@@ -109,7 +109,7 @@ Baseline import code may still use legacy names (`Availability`, `AvailabilityCh
 
 - **Positive:** Commands, domain events, integration events, invariants, and sagas share one vocabulary.
 - **Positive:** Stage 01 legacy `Availability` entity becomes an explicit refactoring target for Stage 02.
-- **Negative:** Stage 02 introduces a schema/entity rename from `Availabilities` to `InventoryItems` (intentional learning step).
+- **Negative:** Stage 02 introduces a schema/entity rename from `Availabilities` to `InventoryItems` (intentional study step).
 - **Follow-up:** Update [Ubiquitous language](../01-overview/04-ubiquitous-language.md), [Domain invariants](../01-overview/11-domain-invariants.md), [Event catalog](../01-overview/10-event-catalog.md), and [Branch roadmap](../01-overview/08-branch-roadmap.md) Inventory feature slices.
 
-**Teaching reference:** [Inventory aggregate model](../01-overview/12-inventory-aggregate-model.md)
+**Decision reference:** [Inventory aggregate model](../01-overview/12-inventory-aggregate-model.md)

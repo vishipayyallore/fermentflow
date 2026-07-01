@@ -1,0 +1,62 @@
+---
+description: Condensed Copilot guardrails for FermentFlow
+globs: *
+---
+
+# Copilot Instructions Extract
+
+**Source**: `.github/copilot-instructions.md`  
+**Purpose**: Key guidelines for AI assistants working on this repository
+
+---
+
+## Repository Context
+
+**FermentFlow** is Swamy PKV's personal .NET 10 architecture laboratory for DDD modernization in a brewery logistics domain.
+
+### Scope
+
+- **Swamy only** — not public courseware
+- Do **not** reference Packt, BrewUp, or source book names in public docs unless Swamy explicitly asks
+- Preserve `README.md` **Scope (read this first)**
+
+### Learning roadmap
+
+```text
+01-LegacyMonolith → … → 03-CQRS-VerticalSlices → 04-CQRS-EventSourcing → … → 09-Aspire
+```
+
+---
+
+## Development Guidelines
+
+### DDD Rules
+
+- Bounded contexts: Sales, Inventory, Production
+- Ubiquitous language from `docs/01-overview/04-ubiquitous-language.md`
+- Commands mutate; queries read; domain events record facts
+
+### Code Style (.NET 10)
+
+- MediatR, MassTransit, PostgreSQL, Polly, OpenTelemetry, Aspire (by stage)
+- xUnit + Testcontainers for integration tests
+
+---
+
+## Environment
+
+```powershell
+cd docker; docker compose up -d
+cd ..\src
+dotnet build FermentFlow.sln --configuration Release
+dotnet test FermentFlow.sln --configuration Release --no-build
+```
+
+---
+
+## Quality Checklist
+
+- [ ] `dotnet build` and `dotnet test` pass
+- [ ] Swamy-only framing preserved in public docs
+- [ ] No Packt/BrewUp references unless explicitly requested
+- [ ] Bounded context boundaries respected

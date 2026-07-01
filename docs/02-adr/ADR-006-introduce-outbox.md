@@ -25,7 +25,7 @@ Adopt the **transactional outbox** for **integration events**:
 
 Add `BuildingBlocks/Outbox/` and extend architecture tests to forbid direct broker publish from domain handlers.
 
-> **Teaching note:** This repository **intentionally demonstrates the Outbox pattern** even when EventStore subscriptions could relay some changes, because Outbox remains one of the most common reliability patterns in event-driven microservice systems — and because **domain events ≠ integration events**.
+> **Lab note:** This repository **intentionally demonstrates the Outbox pattern** even when EventStore subscriptions could relay some changes, because Outbox remains one of the most common reliability patterns in event-driven microservice systems — and because **domain events ≠ integration events**.
 
 **Storage split (branch 04+):** EventStoreDB holds **domain events** (aggregate history). PostgreSQL holds **projections**, **relational state where needed**, and the **outbox table** for integration events. There is no two-phase commit across EventStore and PostgreSQL — the application writes to EventStore first, then records pending integration events in the outbox (same PostgreSQL transaction as projection/outbox row updates, or via a dedicated integration-event step with idempotent outbox inserts).
 
@@ -45,7 +45,7 @@ There is **no two-phase commit** across EventStore and PostgreSQL. The write pat
 4. Background publisher relays outbox rows to RabbitMQ
 ```
 
-The goal is to teach:
+The goal is to study:
 
 - **Domain events** — aggregate history inside a bounded context
 - **Integration events** — cross-context messaging contracts
@@ -57,13 +57,13 @@ The goal is to teach:
 
 | Alternative | Outcome |
 |-------------|---------|
-| **EventStore catch-up subscriptions only** (no outbox) | **Rejected for this lab** — valid in some systems, but skips the integration-event reliability lesson; domain events ≠ integration events. |
+| **EventStore catch-up subscriptions only** (no outbox) | **Rejected for this lab** — valid in some systems, but skips the integration-event reliability exercise; domain events ≠ integration events. |
 | **Direct RabbitMQ publish** after `SaveChanges` | **Rejected** — crash between commit and publish loses events. |
 | **Circuit breaker** on publish calls (ADR-007) | **Rejected as substitute** — retries failed calls but does not fix the lost-event window; outbox must come first. |
-| **Transactional outbox** in the same DB transaction | **Accepted** — reliable integration events; teaches correct ordering before Polly. |
+| **Transactional outbox** in the same DB transaction | **Accepted** — reliable integration events; establishes the correct ordering before Polly. |
 
 ## Consequences
 
-- **Positive:** Reliable integration events; teaches the right ordering (outbox before circuit breaker).
+- **Positive:** Reliable integration events; preserves the right ordering (outbox before circuit breaker).
 - **Negative:** Background processing, idempotent consumers, and duplicate handling required.
 - **Follow-up:** ADR-007 adds Polly for remaining synchronous cross-service calls.
